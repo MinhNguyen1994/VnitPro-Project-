@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('loginAdmin');
 });
 
 Auth::routes();
@@ -20,3 +20,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/test', 'AdminController@index')->name('test');
+
+
+
+

@@ -1,0 +1,42 @@
+.login{
+	left: 50%;
+    margin: -150px 0 0 -150px;
+    position: absolute;
+    top: 45%;
+	height: 400px;
+	width: 300px;
+	
+}
+#loginTitle{
+	color:#fff;
+	margin-bottom: 20px;
+	font-family: cursive;
+	font-style: italic; 
+	text-align: center;
+} 
+.inputLogin{
+	width: 100%;
+	height: 40px;
+	background: #2C2E3F;
+	border: 2px solid #1A1F2E;
+	border-radius: 8px;
+	margin: 5px 0px;
+	color: #fff;
+	padding: 10px;
+	font-size: 16px;
+	box-sizing: border-box;
+
+}
+.inputLogin:hover{
+	border: 2px solid #fff;
+}
+.btLogin{
+	width: 100%;
+	margin-top: 10px;
+	border: 1px solid #3762bc !important;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.5);
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+    color: #ffffff !important;
+    line-height: 200% !important;
+}
+
