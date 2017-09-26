@@ -12,5 +12,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call(UsersTableSeeder::class);
+        DB::table('locations')->insert([            
+            'name_location' => str_random(30),
+            'adress' => str_random(30),
+            'description' => str_random(30),            
+        ]);
     }
 }

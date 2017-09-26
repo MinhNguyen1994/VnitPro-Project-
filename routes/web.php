@@ -21,6 +21,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/test', 'AdminController@index')->name('test');
 
+Route::get('/locations', 'LocationsController@index');
+
 
 
 
