@@ -15,6 +15,6 @@ class LocationsController extends Controller
     }    
     public function index(){
     	$data = $this->model->getData();    	  	
-    	return view('home',['data' => $data]);    	
+    	return view('locations',['data' => $data]);    	
     }
 }

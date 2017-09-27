@@ -32,6 +32,7 @@
   <link rel="stylesheet" href="{{ asset('bower_components/bootstrap-daterangepicker/daterangepicker.css') }}">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="{{ asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
+  @yield('css')
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -776,9 +777,9 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('dist/js/demo.js') }}"></script>
 <script type="text/javascript">        
-  $('.titleMenu').last().addClass('active').children('a').replacewith('<p>@yield('tilteMenu')</p>');
-
+  $('.titleMenu').last().addClass('active').children('a').replaceWith('<p>@yield('tilteMenu')</p>');
 </script>
+@yield('javascript')
 
 </body>
 </html>
