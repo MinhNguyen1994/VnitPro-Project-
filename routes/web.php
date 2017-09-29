@@ -19,9 +19,12 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/test', 'AdminController@index')->name('test');
+Route::get('/importCity', ['as' => 'importCity','uses' => 'ExcelController@getImport']);
+Route::post('/importCity', ['as' =>'importCity','uses' => 'ExcelController@postImportCity']);
 
-Route::get('/locations', 'LocationsController@index');
+Route::get('/importDistrict',['as' => 'importDistrict', 'uses' =>'ExcelController@getImport']);
+Route::post('/importDistrict',['as' => 'importDistrict','uses' => 'ExcelController@postImportDistrict']);
+
 
 
 

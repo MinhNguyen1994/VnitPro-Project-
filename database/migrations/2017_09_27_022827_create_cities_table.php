@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCategoryGroupsTable extends Migration
+class CreateCitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateCategoryGroupsTable extends Migration
      */
     public function up()
     {
-        // 
-        Schema::create('category_groups', function (Blueprint $table) {
-            $table->increments('id',11);
-            $table->string('name_category_group',255);  
-            $table->text('description');
+        //
+        Schema::create('cities', function( $table) {
+            $table->increments('id');
+            $table->string('name_city',255);
+            $table->text('description')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
@@ -31,6 +31,6 @@ class CreateCategoryGroupsTable extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('category_groups');
+         Schema::dropIfExists('cities');
     }
 }

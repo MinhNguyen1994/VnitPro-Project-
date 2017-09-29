@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLocationsTable extends Migration
+class CreateProductGroupsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,14 +14,16 @@ class CreateLocationsTable extends Migration
     public function up()
     {
         //
-        Schema::create('locations', function (Blueprint $table) {
-            $table->increments('id',11);
-            $table->string('name_location',255);            
-            $table->string('adress',255);
-            $table->text('description');
+        Schema::dropIfExists('product_groups');
+        Schema::create('product_groups', function(Blueprint $table) {
+            $table->increments('id');
+            $table->string('name_product_group',255);            
+            $table->string('code_product_group',10);            
+            $table->text('description');                                
             $table->rememberToken();
             $table->timestamps();
         });
+       
     }
 
     /**
@@ -32,6 +34,6 @@ class CreateLocationsTable extends Migration
     public function down()
     {
         //
-         Schema::dropIfExists('locations');
+        Schema::drop('product_groups');
     }
 }
