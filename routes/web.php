@@ -18,6 +18,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::post('/getDataFromID','ExcelController@getDataFromID');
+
 Route::get('/importCity', ['as' => 'import','uses' => 'ExcelController@getImport']);
 Route::post('/importCity',['as' => 'importCity', 'uses' =>'ExcelController@postImportCity']);
 
@@ -26,6 +28,7 @@ Route::post('/importDistrict',['as' => 'importDistrict','uses' => 'ExcelControll
 
 Route::get('/importWard',['as' => 'importWard','uses' => 'ExcelController@getImport']);
 Route::post('/importWard',['as' => 'importWard','uses' => 'ExcelController@postImportWard']);
+
 
 
 

@@ -15,10 +15,20 @@ class ExcelController extends Controller
 {
     //
     public function getImport(){
-    	return view('importExcel',['alert' => '']);
+        $city = DB::table('cities')->get();
+      /*  $district = DB::table('districts')->get();
+        $ward = DB::table('wards')->get();*/
+    	return view('importExcel',['alert' => '','city' => $city/*,'district' => $district,'ward' =>$ward*/]);
+    }
+
+    public function getDataFromID(Request $request){
+        $data = $request->all();
+        $district = DB::table('districts')->where('id_city',$data['id'])->get();
+        return response()->json($district);
     }
 
     public function postImport(Request $request,$validateImport){
+
     	if($request->hasfile('file')){    		
     		$path =$request->file('file')->getRealPath();
     		$data = Excel::load($path, function($reader){})->get();    		   		     			  		

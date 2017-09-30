@@ -2,7 +2,6 @@
 
 
 @section('content')
-
 <div class="box-body">
 	<form role="form" method="POST" enctype="multipart/form-data" action="">
 		{{ csrf_field() }}
@@ -35,18 +34,40 @@
     <div class="row">
       <div class="col-xs-5">
         <label>City: </label>
-        <select name="cars">
-          <option value="volvo">Volvo</option>
-          <option value="saab">Saab</option>
-          <option value="fiat">Fiat</option>
-          <option value="audi">Audi</option>
-        </select>
+        <select name="cities" id="selectCity">        
+          @foreach($city as $c )
+            <option value="{{ $c->id}}">{{ $c->name_city }}</option>
+          @endforeach
+        </select>       
       </div>
-      <div class="col-xs-5"></div>
+      <div class="col-xs-5">
+        <label>District: </label>
+        <select name="cars">                     
+            <option>aloooo</option>                     
+        </select>
+
+      </div>
     </div>
   </section>
 </div>
 
+@endsection
+
+@section('javascript')
+<script type="text/javascript">
+$(document).ready(function(){
+  var idCity = $('#selectCity').val();
+    $.ajax({
+      url:"/getDataFromID",
+      type:"POST",
+      data:{'id': idCity},
+      dataType: 'json',
+      scucess: function(){
+        alert('ok');
+      }
+    });
+});     
+</script>
 @endsection
 
 
