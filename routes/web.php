@@ -11,20 +11,21 @@
 |
 */
 
-Route::get('/', function () {
-    return view('loginAdmin');
-});
+Route::get('/', 'HomeController@index');
+    
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/importCity', ['as' => 'importCity','uses' => 'ExcelController@getImport']);
-Route::post('/importCity', ['as' =>'importCity','uses' => 'ExcelController@postImportCity']);
+Route::get('/importCity', ['as' => 'import','uses' => 'ExcelController@getImport']);
+Route::post('/importCity',['as' => 'importCity', 'uses' =>'ExcelController@postImportCity']);
 
-Route::get('/importDistrict',['as' => 'importDistrict', 'uses' =>'ExcelController@getImport']);
+Route::get('/importDistrict',['as' => 'importDistrict','uses' => 'ExcelController@getImport']);
 Route::post('/importDistrict',['as' => 'importDistrict','uses' => 'ExcelController@postImportDistrict']);
 
+Route::get('/importWard',['as' => 'importWard','uses' => 'ExcelController@getImport']);
+Route::post('/importWard',['as' => 'importWard','uses' => 'ExcelController@postImportWard']);
 
 
 

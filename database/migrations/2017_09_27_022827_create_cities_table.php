@@ -18,6 +18,7 @@ class CreateCitiesTable extends Migration
             $table->increments('id');
             $table->string('name_city',255);
             $table->text('description')->nullable();
+            $table->string('code_city',100);
             $table->rememberToken();
             $table->timestamps();
         });
