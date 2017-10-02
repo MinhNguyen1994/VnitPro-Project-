@@ -15,4 +15,8 @@ class District extends Model
     protected $hidden = [
         'remember_token'
     ];
+
+    public function getDistrict(){
+    	return self::select('id','code_district')->get();
+    }
 }
