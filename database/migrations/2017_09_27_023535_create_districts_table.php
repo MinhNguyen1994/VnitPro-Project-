@@ -18,14 +18,14 @@ class CreateDistrictsTable extends Migration
             $table->increments('id');
             $table->string('name_district',255);
             $table->text('description')->nullable();
-            $table->string('code_district',100);
-            $table->integer('id_city')->unsigned();            
+            $table->integer('code_city')->unsigned();
+            $table->integer('code_district')->unsigned();                        
             $table->rememberToken();
             $table->timestamps();
         });
-        Schema::table('districts', function(Blueprint $table) {
-            $table->foreign('id_city')->references('id')->on('cities')->onDelete('cascade');
-        });
+        /*Schema::table('districts', function(Blueprint $table) {
+            $table->foreign('code_city')->references('id_city')->on('cities')->onDelete('cascade');
+        });*/
     }
 
     /**
@@ -36,10 +36,11 @@ class CreateDistrictsTable extends Migration
     public function down()
     {
         //
-        Schema::table('districts', function($table) {
-            $table->dropForeign('districts_id_city_foreign');
-        });
         Schema::dropIfExists('districts');
+        /*Schema::table('districts', function($table) {
+            $table->dropForeign('districts_code_city_foreign');
+        });*/
+        
         
     }
 }

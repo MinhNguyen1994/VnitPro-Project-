@@ -21,8 +21,15 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/import', ['as' => 'import','uses' => 'ExcelController@getImport']);
 Route::post('/import', 'ExcelController@postImport');
 
-Route::get('/location',['as' => 'location','uses'=> 'LocationController@index']);
+Route::group(array('prefix' => 'location'), function()
+{
+    Route::get('/', 'LocationController@index');
 
+    Route::get('/create','LocationController@createGet');
+    Route::post('/create','LocationController@createPost');
+    
+});
+Route:: get('/ajax-district','LocationController@getCodeCity');
 
 
 

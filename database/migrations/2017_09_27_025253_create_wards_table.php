@@ -17,15 +17,15 @@ class CreateWardsTable extends Migration
         Schema::create('wards', function(Blueprint $table) {
             $table->increments('id');
             $table->string('name_ward',255);
-            $table->text('description')->nullable();
-            $table->string('code_ward',100);
-            $table->integer('id_district')->unsigned();            
+            $table->text('description')->nullable();            
+            $table->integer('code_district')->unsigned();                      
+            $table->integer('code_ward')->unsigned();                      
             $table->rememberToken();
             $table->timestamps();
         });
-        Schema::table('wards', function($table) {
-            $table->foreign('id_district')->references('id')->on('districts')->onDelete('cascade');
-        });
+        /*Schema::table('wards', function($table) {
+            $table->foreign('code_district')->references('code_district')->on('districts')->onDelete('cascade');
+        });*/
     }
 
     /**
@@ -36,9 +36,9 @@ class CreateWardsTable extends Migration
     public function down()
     {
         //
-        Schema::table('wards', function($table) {
-            $table->dropForeign('wards_id_district_foreign');
-        });
+        /*Schema::table('wards', function($table) {
+            $table->dropForeign('wards_code_district_foreign');
+        });*/
         Schema::dropIfExists('wards');
         
     }

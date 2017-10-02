@@ -15,4 +15,7 @@ class Ward extends Model
     protected $hidden = [
         'remember_token'
     ];
+    
+
+
 }
