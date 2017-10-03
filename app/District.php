@@ -16,7 +16,7 @@ class District extends Model
         'remember_token'
     ];
 
-    public function getDistrict(){
+    public static function getDistrict(){
     	return self::select('id','code_district')->get();
     }
 }
