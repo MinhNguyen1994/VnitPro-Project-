@@ -21,6 +21,11 @@
       <!-- /.box-header -->
       <div>
         <a href="/location/create"><button class="btn btn-primary">Create New Location</button></a>
+        <label>
+          @if(Session::has('success'))
+            <p style="color: red;font-weight: bold">{{ Session::get('success') }}</p>
+          @endif
+        </label>
       </div>
       <div class="box-body">
         <table id="example1" class="table table-bordered table-striped">

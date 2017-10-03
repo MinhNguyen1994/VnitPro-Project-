@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             'name_warehouse' => str_random(30),
             'description' => str_random(30),
             'address' => str_random(10),
-            'id_ward' => '1'            
+                        
         ]);
     }
 }

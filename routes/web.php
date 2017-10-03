@@ -25,11 +25,17 @@ Route::group(array('prefix' => 'location'), function()
 {
     Route::get('/', 'LocationController@index');
 
-    Route::get('/create','LocationController@createGet');
-    Route::post('/create','LocationController@createPost');
+    Route::get('/create', ['as' => 'createGet','uses' => 'LocationController@createGet']);
+    Route::post('/create',['as' => 'createPost','uses' => 'LocationController@createPost']);
+
+    Route::get('/edit/{id}',['as' =>'editGet','uses' => 'LocationController@editGet']);
+    Route::post('/edit/{id}',['as' => 'editPost','uses'=>'LocationController@editPost']);
+
+    Route::get('/delete/{id}',['as' => 'delete','uses' =>'LocationController@delete']);
     
 });
 Route:: get('/ajax-district','LocationController@getCodeCity');
+Route:: get('/ajax-ward','LocationController@getCodeDistrict');
 
 
 
