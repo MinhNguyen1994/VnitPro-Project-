@@ -137,13 +137,20 @@ class LocationController extends Controller
         $dataCity = City::getName($request->city);
         $dataWard = Ward::getName($request->ward);
         $dataDistrict = District::getName($request->district);
+<<<<<<< HEAD
         print_r($dataCity);
+=======
+>>>>>>> InWork
 
         $address = $request->address." - ".$dataWard[0]['name_ward']." - ".$dataDistrict[0]['name_district']." - ".$dataCity[0]['name_city'];
         $warehouse = WareHouse::find($id);
         $warehouse->name_warehouse = $request->name;
         $warehouse->address = $address;
+<<<<<<< HEAD
         $warehouse->description = $request->description;
+=======
+        $warehouse->description = $description;
+>>>>>>> InWork
         $warehouse->save();
         Session::flash('success','Successfull Edited');
         return redirect('location'); 

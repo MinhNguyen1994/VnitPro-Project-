@@ -16,5 +16,16 @@ class WareHouse extends Model
         'remember_token'
     ];
 
-    
+    public function insert_wh($name,$address,$description){
+    	self::insert(['name_warehouse'=> $name,'address'=>$address,'description' =>$description]);
+    }
+
+    public function deleteById($id){
+    	self::where('id',$id)->delete();
+    }
+
+    public function getDataById($id){
+    	 self::where('id',$id)->get();
+
+    }    
 }

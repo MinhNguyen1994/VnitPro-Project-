@@ -329,6 +329,7 @@ class ComposerStaticInit60ef7b68f2355d800d6142170c805c9a
         'CreatePositionsTable' => __DIR__ . '/../..' . '/database/migrations/2017_09_27_035500_create_positions_table.php',
         'CreateProductGroupsTable' => __DIR__ . '/../..' . '/database/migrations/2017_09_27_061713_create_product_groups_table.php',
         'CreateProductsTable' => __DIR__ . '/../..' . '/database/migrations/2017_09_27_062212_create_products_table.php',
+        'CreateSessionsTable' => __DIR__ . '/../..' . '/database/migrations/2017_10_03_035225_create_sessions_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',
         'CreateWardsTable' => __DIR__ . '/../..' . '/database/migrations/2017_09_27_025253_create_wards_table.php',
         'CreateWarehouseTable' => __DIR__ . '/../..' . '/database/migrations/2017_09_27_045135_create_warehouse_table.php',

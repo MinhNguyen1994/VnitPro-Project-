@@ -19,14 +19,10 @@ class CreateWarehouseTable extends Migration
             $table->increments('id');
             $table->string('name_warehouse',255);
             $table->string('address',255);
-            $table->text('description');
-            $table->integer('id_ward')->unsigned();                     
+            $table->text('description');                                 
             $table->rememberToken();
             $table->timestamps();
-        });
-        Schema::table('warehouse', function(Blueprint $table){
-            $table->foreign('id_ward')->references('id')->on('wards');
-        }); 
+        });         
     }
 
     /**
