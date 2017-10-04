@@ -176,9 +176,13 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
+        //Service 
+        App\Providers\LocationService::class,
         // Excel Service Provider
         Maatwebsite\Excel\ExcelServiceProvider::class,
+
+        
+        
 
     ],
 

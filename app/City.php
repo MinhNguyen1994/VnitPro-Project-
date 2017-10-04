@@ -17,6 +17,6 @@ class City extends Model
     ];
 
     public static function getName($code_city){
-    	return self::select('name_city')->where('code_city',$code_city)->get();
+    	return self::select('name_city')->where('code_city',$code_city)->first();
     }
 }
