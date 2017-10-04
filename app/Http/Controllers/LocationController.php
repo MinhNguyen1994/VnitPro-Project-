@@ -37,11 +37,10 @@ class LocationController extends Controller
     }    
 
     public function createPost(Request $request)
-    {
-        $data = LocationService::listCreateGet();   
+    {           
         $validator = LocationService::validateFormLocation();            
         if($validator == 0){
-            return redirect('location/create',['data' => $data]);
+            return redirect('/location/create');
         }else{
             LocationService::createPost($request->city,$request->district,$request->ward,$request->name,$request->address,$request->description);
             return redirect('location'); 

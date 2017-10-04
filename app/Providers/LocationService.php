@@ -142,7 +142,9 @@ class LocationService extends ServiceProvider
 
         $validation = Validator::make($inputs,$rules);
         if($validation->fails()){
-            $validate = 0;
+            $data['validate'] = 0;
+        }else{
+            $data['validate'] = 1;
         }
         return $validate;   
     }   
