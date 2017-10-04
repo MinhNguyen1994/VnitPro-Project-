@@ -20,10 +20,10 @@ class District extends Model
     	return self::select('id','code_district')->get();
     }
 
-    public function getNameByCode($code_city){
-        return self::select('name_district','code_district')->where('code_city',$code_city)->get();
+    public static function getNameByCode($code_city){
+        return self::select('name_district','code_district')->where('code_city',$code_city)->get()->toArray();
     }
     public static function getName($code_district){
-        return self::select('name_district')->where('code_district',$code_district)->get();
+        return self::select('name_district')->where('code_district',$code_district)->first();
     }
 }

@@ -16,14 +16,14 @@
 
 <div class="box box-primary">
 	<div class="box-header with-border">
-        <h3 class="box-title">{{ $titlePage }}</h3>
+        <h3 class="box-title">{{ $data['titlePage'] }}</h3>
     </div>
     <div class="box box-body">
     	<form role="form" method="POST">
             {{ csrf_field() }}
     		<div class="form-group">
     			<label>Name Location</label>
-    			<input type="text" class="form-control" placeholder="Enter ..." name="name" value="{{ $name_warehouse }}">
+    			<input type="text" class="form-control" placeholder="Enter ..." name="name" value="{{ $data['name_warehouse'] }}">
     			<div>
     				<label class="control-label" for="inputError" style="color:red">
     					<i class="fa fa-times-circle-o"></i> Input with	error
@@ -37,18 +37,18 @@
     			</div>
     			<div class="row">
     				<div class="col-xs-6">    					    				
-    					<input type="text" class="form-control" placeholder="Enter Address" name="address" value="{{ $address }}">
+    					<input type="text" class="form-control" placeholder="Enter Address" name="address" value="{{ $data['address'] }}">
     				</div>
     				<div class="col-xs-2">    				
     					<select class="form-control select2" style="width: 100%;" id="city" name="city">                  
-                            @if($val_city == '')                            
+                            @if($data['val_city'] == '')                            
     						    <option selected disabled>Choose a City</option>
-                                @foreach($city as $c)
+                                @foreach($data['city'] as $c)
                                     <option value="{{$c->code_city}}">{{$c->name_city}}</option> 
                                 @endforeach
                             @else
-                                @foreach($city as $c) 
-                                    @if ($c->name_city == $val_city) 
+                                @foreach($data['city'] as $c) 
+                                    @if ($c->name_city == $data['val_city']) 
                                         <option value="{{$c->code_city}}" selected>{{ $c->name_city}}</option>
                                     @else
                                         <option value="{{$c->code_city}}">{{$c->name_city}}</option>
@@ -62,11 +62,11 @@
     				</div>
     				<div class="col-xs-2">
     					<select class="form-control select2" style="width: 100%;" id="district" name="district" >
-                            @if($val_district == '')
+                            @if($data['val_district'] == '')
     					  	    <option value="0">Must Choose City </option>
                             @else
-                                @foreach($district_info as $d)
-                                    @if($d->name_district == $val_district)
+                                @foreach($data['district_info'] as $d)
+                                    @if($d->name_district == $data['val_district'])
                                         <option value="{{$d->code_district }}" selected>{{ $d->name_district}}</option>
                                     @else
                                         <option value="{{$d->code_district }}">{{ $d->name_district}}</option>
@@ -77,11 +77,11 @@
     				</div>
     				<div class="col-xs-2">
     					<select class="form-control select2" style="width: 100%;" id="ward" name="ward">
-                            @if($val_ward == '')
-                                <option value="0">Must Choose City </option>
+                            @if($data['val_ward'] == '')
+                                <option value="0">Must Choose District </option>
                             @else 
-        					  	@foreach($ward_info as $w)
-                                    @if($w->name_ward == $val_ward)
+        					  	@foreach($data['ward_info'] as $w)
+                                    @if($w->name_ward == $data['val_ward'])
                                         <option value="{{ $w->code_ward }}" selected>{{ $w->name_ward }}</option>
                                     @else
                                         <option value="{{ $w->code_ward }}">{{ $w->name_ward }}</option>
@@ -101,7 +101,7 @@
     			<div>
     				<label>Description</label>
     			</div>
-    			<textarea class="form-control" placeholder="Say something..." rows="4" name="description" >{{ $description }}</textarea>
+    			<textarea class="form-control" placeholder="Say something..." rows="4" name="description" >{{ $data['description'] }}</textarea>
     		</div>
 
     		<div class="form-group">
@@ -116,14 +116,14 @@
 
 @section('javascript')
 <script type="text/javascript">
-	$('#city').change(function(){		
+	$('#city').change(function(){        		
 		var code_city = $('#city').val();
 		$.ajax({
 			url: '/ajax-district',
 			type: 'GET',
 			data: {'code_city': code_city},
 			dataType:'json',
-			success: function(district){													
+			success: function(district){                               		  										
 				$('#district').empty();
                 $('#district').append('<option value="0" selected disabled>Choose a District</option>');
 				$.each(district, function(create,districtObj){
