@@ -5,7 +5,6 @@ namespace App\Providers;
 use LocationService\Connection;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Validator;
 
 use App\Ward;
 use App\City;
@@ -58,6 +57,7 @@ class LocationService extends ServiceProvider
     {
         $city= City::all();
         $data = array([
+            'titleSmall'        => 'Create',
             'titlePage'         => 'Create A New Location',             
             'city'              => $city,
             'name_warehouse'    => '',
@@ -70,13 +70,13 @@ class LocationService extends ServiceProvider
         return $data[0];        
     }
 
-    public static function createPost($code_city,$code_district,$code_ward,$name,$addressHome,$description)
-    {
-        $dataCity = City::getName($code_city);
-        $dataDistrict = District::getName($code_district);
-        $dataWard =Ward::getName($code_ward);     
-        $address = $addressHome." - ".$dataWard['name_ward']." - ".$dataDistrict['name_district']." - ".$dataCity['name_city'];        
-        WareHouse::insert_wh($name,$address,$description);
+    public static function createPost($data)
+    {                  
+        $dataCity = City::getName($data['city']);
+        $dataDistrict = District::getName($data['district']);
+        $dataWard =Ward::getName($data['ward']);     
+        $address = $data['address']." - ".$dataWard['name_ward']." - ".$dataDistrict['name_district']." - ".$dataCity['name_city'];        
+        WareHouse::insert_wh($data['name'],$address,$data['description']);
         Session::flash('success','Successfull Created');
     }
 
@@ -101,6 +101,7 @@ class LocationService extends ServiceProvider
         $ward_info = Ward::select('name_ward','code_ward')->where('code_district',$ward_codeDistrict)->get();        
 
         $data = array([
+            'titleSmall'        => 'Edit',
             'titlePage'         => 'Edit The Location: ' .$WareHouse->name_warehouse,               
             'city'              => $city,
             'name_warehouse'    => $WareHouse->name_warehouse,
@@ -115,37 +116,19 @@ class LocationService extends ServiceProvider
         return $data[0];
     }
 
-    public static function editPost($code_city,$code_district,$code_ward,$name,$addressHome,$description,$id){
-        $dataCity = City::getName($code_city);
-        $dataWard = Ward::getName($code_ward);
-        $dataDistrict = District::getName($code_district);
-
-        $address = $addressHome." - ".$dataWard['name_ward']." - ".$dataDistrict['name_district']." - ".$dataCity['name_city'];
+    public static function editPost($data,$id){
+        $dataCity = City::getName($data['city']);
+        $dataDistrict = District::getName($data['district']);
+        $dataWard =Ward::getName($data['ward']);     
+        $address = $data['address']." - ".$dataWard['name_ward']." - ".$dataDistrict['name_district']." - ".$dataCity['name_city'];
         $warehouse = WareHouse::find($id);
-        $warehouse->name_warehouse = $name;
+        $warehouse->name_warehouse = $data['name'];
         $warehouse->address = $address;
-        $warehouse->description = $description;
+        $warehouse->description = $data['description'];
         $warehouse->save();
         Session::flash('success','Successfull Edited');
-    }
-
-    public static function validateFormLocation(){
-        $inputs = Input::all();
-
-        $rules = array([
-            'name' => 'required|min:5|max:20|alpha_dash',
-            'address' => 'required',
-            'city' => 'required',
-            'district' =>'required',
-            'ward' => 'required'
-        ]);
-
-        $validation = Validator::make($inputs,$rules);
-        if($validation->fails()){
-            $validate = 0;
-        }
-        return $validate;   
     }   
+
 }
 ?>
 

@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LocationFormRequest;
 use App\Providers\LocationService;
 use Response;
+use Validator;
+
 
 class LocationController extends Controller
 {
@@ -36,19 +39,15 @@ class LocationController extends Controller
         return view('locations/create',['data' => $data]);           
     }    
 
-    public function createPost(Request $request)
-    {
-        $data = LocationService::listCreateGet();   
-        $validator = LocationService::validateFormLocation();            
-        if($validator == 0){
-            return redirect('location/create',['data' => $data]);
-        }else{
-            LocationService::createPost($request->city,$request->district,$request->ward,$request->name,$request->address,$request->description);
+    public function createPost(LocationFormRequest $request)
+    {                         
+        $validator = Validator::make($request->all());
+        if($validator->fails()){                    
+            return redirect()->back()->withErrors($validator);
+        }else{            
+            LocationService::createPost($request->all());
             return redirect('location'); 
-        }
-        
-
-        
+        }        
     }
 
     public function delete($id)
@@ -63,6 +62,7 @@ class LocationController extends Controller
         return view('locations/create',['data' => $data]);         
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     public function editPost(Request $request,$id){        
         $dataCity = City::getName($request->city);
@@ -90,6 +90,18 @@ class LocationController extends Controller
         LocationService::editPost($request->city,$request->district,$request->ward,$request->name,$request->address,$request->description,$id); 
 >>>>>>> InWork
         return redirect('location'); 
+=======
+    public function editPost(LocationFormRequest $request,$id)
+    {                           
+        $validator = Validator::make($request->all());
+        if($validator->fails()){                    
+            return redirect()->back()->withErrors($validator);
+        }else{            
+            LocationService::editPost($request->all(),$id);
+            return redirect('location'); 
+        }     
+         
+>>>>>>> Inwork
     }
     
 }

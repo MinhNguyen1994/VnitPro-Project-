@@ -15,9 +15,8 @@ class ExcelController extends Controller
     //
 
     public function getImport(){
-        $city = City::all();
-        $districts = District::all();
-    	return view('importExcel',['alert' => '','city' => $city,'districts' =>$districts]);
+        $city = City::all();        
+    	return view('importExcel',['alert' => '','city' => $city]);
     }    
 
     public function postImport(Request $request){

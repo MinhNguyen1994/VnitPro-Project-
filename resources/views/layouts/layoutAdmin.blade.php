@@ -343,16 +343,17 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-        <li class="active treeview">
+        <li class="treeview">
           <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+            <i class="fa fa-dashboard"></i> <span>Full Menu Manage</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="active"><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-            <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+            <li><a href="{{ url('location')}}"><i class="fa fa-circle-o"></i> Locations</a></li>
+            <li><a href="{{ url('product')}}"><i class="fa fa-circle-o"></i>Products</a></li>
+            <li><a href="{{ url('import')}}"><i class="fa fa-circle-o"></i>Import Database</a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -519,17 +520,8 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <section class="content-header">
-      <h1>
-        @yield('titlePage')
-        <small>@yield('titlePageSmall')</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li class="titleMenu"><a href="active"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="titleMenu"><a href="active" class="tagA"><i class="fa fa-dashboard"></i>@yield('titleMenu')</a></li>
-        <li class="titleMenu"><a href="active" class="tagA"><i class="fa fa-dashboard"></i>@yield('titleMenu')</a></li>
-        <li class="titleMenu"><a href="active" class="tagA"><i class="fa fa-dashboard"></i>@yield('titleMenu')</a></li>
-      </ol>            
-    </section>  
+      @yield('contend-header')
+    </section>
     <section class="content">
       @yield('content')
     </section>
@@ -776,9 +768,6 @@
 <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('dist/js/demo.js') }}"></script>
-<script type="text/javascript">        
-  $('.titleMenu').last().addClass('active').children('a').replaceWith('<p>@yield('tilteMenu')</p>');
-</script>
 @yield('javascript')
 
 </body>
