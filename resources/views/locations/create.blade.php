@@ -1,14 +1,22 @@
+
 @extends('layouts.layoutAdmin')
 
-@section('titlePage','Locations')
-
-@section('titlePageSmall','Create')
-
-@section('titleMenu','Locations')
+@section('contend-header')
+<h1>
+    Locations
+    <small>{{ $data['titleSmall']}}</small>
+</h1>
+<ol class="breadcrumb">
+    <li><a href="{{ url('home') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a href="{{ url('location') }}"><i class="fa fa-dashboard"></i> Locations</a></li>    
+    <li><i class="fa fa-dashboard"></i> Create</li>    
+</ol>            
+</section>  
+@endsection
 
 @section('css')
 <!-- Select2 -->
-  <link rel="stylesheet" href="{{ asset('bower_components/select2/dist/css/select2.min.css') }}">
+<link rel="stylesheet" href="{{ asset('bower_components/select2/dist/css/select2.min.css') }}">
 
 @endsection
 
@@ -17,7 +25,9 @@
 <div class="box box-primary">
 	<div class="box-header with-border">
         <h3 class="box-title">{{ $data['titlePage'] }}</h3>
-    </div>
+    </div> 
+        
+    
     <div class="box box-body">
     	<form role="form" method="POST">
             {{ csrf_field() }}
@@ -26,7 +36,10 @@
     			<input type="text" class="form-control" placeholder="Enter ..." name="name" value="{{ $data['name_warehouse'] }}">
     			<div>
     				<label class="control-label" for="inputError" style="color:red">
-    					<i class="fa fa-times-circle-o"></i> Input with	error
+    					@if($errors->has('name'))
+                            <i class="fa fa-times-circle-o"></i>
+                            {{ $errors->first('name') }}
+                        @endif
     				</label>
     			</div>                
     		</div>
@@ -38,11 +51,19 @@
     			<div class="row">
     				<div class="col-xs-6">    					    				
     					<input type="text" class="form-control" placeholder="Enter Address" name="address" value="{{ $data['address'] }}">
+                        <div>
+                            <label class="control-label" for="inputError" style="color:red">
+                                @if($errors->has('address'))
+                                    <i class="fa fa-times-circle-o"></i>
+                                    {{ $errors->first('address') }}
+                                @endif
+                            </label>
+                        </div>
     				</div>
     				<div class="col-xs-2">    				
     					<select class="form-control select2" style="width: 100%;" id="city" name="city">                  
                             @if($data['val_city'] == '')                            
-    						    <option selected disabled>Choose a City</option>
+    						    <option value="0" selected disabled>Choose a City</option>
                                 @foreach($data['city'] as $c)
                                     <option value="{{$c->code_city}}">{{$c->name_city}}</option> 
                                 @endforeach
@@ -54,16 +75,21 @@
                                         <option value="{{$c->code_city}}">{{$c->name_city}}</option>
                                     @endif
                                 @endforeach
-                            @endif  
-			
-    					  	  				 
+                            @endif   					  	  				 
     					</select>
-    						
+                        <div>
+                            <label class="control-label" for="inputError" style="color:red">
+                                @if($errors->has('city'))
+                                    <i class="fa fa-times-circle-o"></i>
+                                    {{ $errors->first('city') }}
+                                @endif
+                            </label>
+                        </div>  						
     				</div>
     				<div class="col-xs-2">
     					<select class="form-control select2" style="width: 100%;" id="district" name="district" >
                             @if($data['val_district'] == '')
-    					  	    <option value="0">Must Choose City </option>
+    					  	    <option value="0" selected>Must Choose City </option>
                             @else
                                 @foreach($data['district_info'] as $d)
                                     @if($d->name_district == $data['val_district'])
@@ -74,11 +100,19 @@
                                 @endforeach
                             @endif   				  
     					</select>
+                        <div>                            
+                            <label class="control-label" for="inputError" style="color:red">
+                                @if($errors->has('district'))
+                                    <i class="fa fa-times-circle-o"></i>
+                                    {{ $errors->first('district') }}
+                                @endif
+                            </label>                        
+                        </div>
     				</div>
     				<div class="col-xs-2">
     					<select class="form-control select2" style="width: 100%;" id="ward" name="ward">
                             @if($data['val_ward'] == '')
-                                <option value="0">Must Choose District </option>
+                                <option value="0" selected>Must Choose District </option>
                             @else 
         					  	@foreach($data['ward_info'] as $w)
                                     @if($w->name_ward == $data['val_ward'])
@@ -89,24 +123,34 @@
                                 @endforeach 
                             @endif  					  
     					</select>
+                        <div>
+                            <label class="control-label" for="inputError" style="color:red">
+                                @if($errors->has('ward'))
+                                    <i class="fa fa-times-circle-o"></i>
+                                    {{ $errors->first('ward') }}
+                                @endif
+                            </label>
+                        </div>
     				</div>                 
-    			</div>
-    			<div>
-    				<label class="control-label" for="inputError" style="color:red">
-    					<i class="fa fa-times-circle-o"></i> Input with	error
-    				</label>
-    			</div>  			   
+    			</div>    						   
     		</div>
     		<div class="form-group">
     			<div>
     				<label>Description</label>
     			</div>
     			<textarea class="form-control" placeholder="Say something..." rows="4" name="description" >{{ $data['description'] }}</textarea>
+                <div>
+                    <label class="control-label" for="inputError" style="color:red">
+                        @if($errors->has('description'))
+                            <i class="fa fa-times-circle-o"></i>
+                            {{ $errors->first('description') }}
+                        @endif
+                    </label>
+                </div>
     		</div>
 
     		<div class="form-group">
-    			<button class="btn btn-success" name="submit">Done, Do it !</button>
-                
+    			<button class="btn btn-success" name="submit">Done, Do it !</button>                
     		</div>    		
     	</form>
     </div>
@@ -148,10 +192,6 @@
 				});
 			}
 		});
-	});    
-	
-	
+	});
 </script>
-
-
 @endsection

@@ -1,10 +1,17 @@
 @extends('layouts.layoutAdmin')
 
-@section('titlePage','Locations')
-
-@section('titlePageSmall','List')
-
-@section('titleMenu','Locations')
+@section('contend-header')
+<h1>
+    Locations
+    <small>View</small>
+</h1>
+<ol class="breadcrumb">
+    <li><a href="{{ url('home') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><i class="fa fa-dashboard"></i> Locations</li>    
+      
+</ol>            
+</section>  
+@endsection
 
 @section('css')
 <!-- DataTables -->
@@ -41,9 +48,9 @@
           <tbody>
           @foreach($data as $value)
           <tr>
-            <td>{{ $value->name_warehouse }}</td>
-            <td>{{ $value->description }}</td>
+            <td>{{ $value->name_warehouse }}</td>            
             <td>{{ $value->address }}</td>
+            <td>{{ $value->description }}</td>
             <td>{{ $value->create_at }}</td>
             <td>
                 <a href="location/edit/{{ $value->id}}">Edit </a> | 

@@ -17,7 +17,7 @@ class Ward extends Model
     ];
 
     public static function getNameByCode($code_district){
-        return self::select('name_ward','code_ward')->where('code_district',$code_district)->get()->toArray();
+        return self::select('name_ward','code_ward','description')->where('code_district',$code_district)->get()->toArray();
     }
     public static function getName($code_ward){
     	return self::select('name_ward')->where('code_ward',$code_ward)->first();

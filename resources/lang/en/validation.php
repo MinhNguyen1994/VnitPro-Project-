@@ -103,6 +103,13 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'email' => [
+            'required'      => ' We must to know your email.',
+            'email'         => ' Please check your email, it \'s not a true form.' 
+        ],
+        'name' =>[
+            'required'      => 'You must to choose a name.'
+        ]
     ],
 
     /*

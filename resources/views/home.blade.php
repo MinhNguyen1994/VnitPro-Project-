@@ -1,10 +1,11 @@
 @extends('layouts.layoutAdmin')
 
-@section('titlePage','Home')
-
-@section('titlePageSmall','Welcome')
-
-@section('titleMenu','Dashboard')
+@section('contend-header')
+<h1>
+    Home
+    <small>Welcome</small>
+</h1>
+@endsection
 
 @section('content')
 	
