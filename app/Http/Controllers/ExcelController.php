@@ -20,6 +20,8 @@ class ExcelController extends Controller
     }    
 
     public function postImport(Request $request){
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $time = date('Y-m-d H:i:s');
         $validateImport = $request->location;
         $cityObj = new City();
         $districtObj = new District();
@@ -55,7 +57,7 @@ class ExcelController extends Controller
                     }
                     $wardObj->insert($insert);
                 }
-                return view('importExcel',['alert' => 'ok']);  			
+                return view('importExcel',['alert' => 'Successfull','updatedTime'=> $time]);  			
     		}
     	} else{     		
     		return view('importExcel',['alert' => 'You must choose 1 file or pick 1 tag']);

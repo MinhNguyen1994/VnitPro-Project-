@@ -40,14 +40,9 @@ class LocationController extends Controller
     }    
 
     public function createPost(LocationFormRequest $request)
-    {                         
-        $validator = Validator::make($request->all());
-        if($validator->fails()){                    
-            return redirect()->back()->withErrors($validator);
-        }else{            
-            LocationService::createPost($request->all());
-            return redirect('location'); 
-        }        
+    {   
+        LocationService::createPost($request->all());
+        return redirect('location');            
     }
 
     public function delete($id)
@@ -63,15 +58,10 @@ class LocationController extends Controller
     }
 
     public function editPost(LocationFormRequest $request,$id)
-    {                           
-        $validator = Validator::make($request->all());
-        if($validator->fails()){                    
-            return redirect()->back()->withErrors($validator);
-        }else{            
-            LocationService::editPost($request->all(),$id);
-            return redirect('location'); 
-        }     
-         
+    {                  
+        LocationService::editPost($request->all(),$id);
+        return redirect('location');        
     }
     
 }
+?>

@@ -56,27 +56,35 @@ class LocationService extends ServiceProvider
     public static function listCreateGet()
     {
         $city= City::all();
-        $data = array([
+        $data = [
             'titleSmall'        => 'Create',
             'titlePage'         => 'Create A New Location',             
             'city'              => $city,
+            'titleMini'         => ' Create',
             'name_warehouse'    => '',
             'address'           => '',
             'description'       => '',
             'val_city'          => '',
             'val_district'      => '',
             'val_ward'          => '',
-        ]);
-        return $data[0];        
+        ];
+        return $data;        
     }
 
     public static function createPost($data)
-    {                  
+    {    
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $time = date('Y-m-d H:i:s');                    
         $dataCity = City::getName($data['city']);
         $dataDistrict = District::getName($data['district']);
         $dataWard =Ward::getName($data['ward']);     
-        $address = $data['address']." - ".$dataWard['name_ward']." - ".$dataDistrict['name_district']." - ".$dataCity['name_city'];        
-        WareHouse::insert_wh($data['name'],$address,$data['description']);
+        $address = $data['address']." - ".$dataWard['name_ward']." - ".$dataDistrict['name_district']." - ".$dataCity['name_city'];       
+        $warehouse = new WareHouse();
+        $warehouse->name_warehouse = $data['name'];
+        $warehouse->address = $address;
+        $warehouse->description = $data['description'];
+        $warehouse->created_at = $time;
+        $warehouse->save();
         Session::flash('success','Successfull Created');
     }
 
@@ -100,10 +108,11 @@ class LocationService extends ServiceProvider
         $ward_codeDistrict = Ward::select('code_district')->where('name_ward',$val_ward)->get()->toArray();
         $ward_info = Ward::select('name_ward','code_ward')->where('code_district',$ward_codeDistrict)->get();        
 
-        $data = array([
+        $data = [
             'titleSmall'        => 'Edit',
             'titlePage'         => 'Edit The Location: ' .$WareHouse->name_warehouse,               
             'city'              => $city,
+            'titleMini'         => ' Edit',
             'name_warehouse'    => $WareHouse->name_warehouse,
             'address'           => $addressArray[0],
             'description'       => $WareHouse->description,
@@ -112,11 +121,13 @@ class LocationService extends ServiceProvider
             'val_ward'          => $val_ward,
             'district_info'     => $district_info,
             'ward_info'         => $ward_info,
-        ]);
-        return $data[0];
+        ];
+        return $data;
     }
 
     public static function editPost($data,$id){
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $time = date('Y-m-d H:i:s');
         $dataCity = City::getName($data['city']);
         $dataDistrict = District::getName($data['district']);
         $dataWard =Ward::getName($data['ward']);     
@@ -125,6 +136,7 @@ class LocationService extends ServiceProvider
         $warehouse->name_warehouse = $data['name'];
         $warehouse->address = $address;
         $warehouse->description = $data['description'];
+        $warehouse->updated_at = $time;
         $warehouse->save();
         Session::flash('success','Successfull Edited');
     }   

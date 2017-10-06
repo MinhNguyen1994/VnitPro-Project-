@@ -71,7 +71,8 @@
 </div>
 <div class="box box-danger">
   <div class="box-header with-border">
-      <h3 class="box-title">Show Information Database</h3>
+      <div class="col-xs-6"><h3 class="box-title">Show Information Database</h3></div>
+      <!-- <div class="col-xs-6"><strong style="color: ">Last Time Updated : </strong> {{ $updatedTime }}</div> -->
   </div>
   <div class="box-body">
       <div class="col-xs-4">
