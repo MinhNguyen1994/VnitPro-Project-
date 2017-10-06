@@ -15,6 +15,6 @@
 
 @section('content')
 	<div class="box box-warning">
-		
+		<?php echo "Today is".date('h:i:sa')." ".date('d/m/Y'); ?>
 	</div>
 @endsection

@@ -147,7 +147,7 @@
                         @endif
                     </label>
                 </div>
-    		</div>
+    		</div>          
 
     		<div class="form-group">
     			<button class="btn btn-success" name="submit">Done, Do it !</button>                
