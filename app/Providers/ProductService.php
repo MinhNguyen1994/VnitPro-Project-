@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Product\Product;
 use App\Product\ProductGroup;
+use App\Product\Unit;
 
 class ProductService extends ServiceProvider
 {
@@ -40,16 +41,21 @@ class ProductService extends ServiceProvider
     }
 
     public static function createGet()
-    {
-        $data = [
+    {   
+        $dataUnit = Unit::all();
+        $dataProduct = [
             'titleSmall'        => 'Create',
             'titlePage'         => 'Create A New Product',
             'titleMini'         => ' Create',
             'name_product'      => '',
             'description'       => '',
             'code_product'      => '',
-            'quanlity'          => '0',
+            'quanlity'          => '',
         ];
+        $data = [           
+            'dataUnit'      =>  $dataUnit,
+            'dataProduct'   =>  $dataProduct
+        ];        
         return $data;
     }
 }
