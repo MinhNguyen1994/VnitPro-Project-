@@ -17,11 +17,12 @@ class DatabaseSeeder extends Seeder
             'description' => str_random(30),
             'code_position' => str_random(4),            
         ]);
-        DB::table('warehouse')->insert([            
-            'name_warehouse' => str_random(30),
-            'description' => str_random(30),
-            'address' => str_random(10),
-                        
+
+        DB::table('products_unit')->insert([
+            'name'  => str_random(7);
+            'code'  => str_random(5);
+            'description' => str_random(10);
         ]);
+        
     }
 }

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Input;
 use App\City;
 use App\District;
 use App\Ward;
+use Session;
 
 class ExcelController extends Controller
 {
@@ -16,7 +17,7 @@ class ExcelController extends Controller
 
     public function getImport(){
         $city = City::all();        
-    	return view('importExcel',['alert' => '','city' => $city]);
+    	return view('importExcel',['city' => $city]);
     }    
 
     public function postImport(Request $request){
@@ -57,10 +58,12 @@ class ExcelController extends Controller
                     }
                     $wardObj->insert($insert);
                 }
-                return view('importExcel',['alert' => 'Successfull','updatedTime'=> $time]);  			
+                Session::flash('status','Successfull import ');
+                return redirect('import');  			
     		}
-    	} else{     		
-    		return view('importExcel',['alert' => 'You must choose 1 file or pick 1 tag']);
+    	} else{
+            Session::flash('status','Error !! ');    		
+    		return redirect('import');
     	}
     	
     }
