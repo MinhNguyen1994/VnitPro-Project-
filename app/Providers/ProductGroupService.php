@@ -63,7 +63,7 @@ class ProductGroupService extends ServiceProvider
 
     public static function listEditGet($id)
     {   
-        $ProductGroup = ProductGroup::find($id)->first();
+        $ProductGroup = ProductGroup::where('id',$id)->first()->toArray();
         $data = [
             'titleSmall'            => 'Edit',
             'titlePage'             => 'Edit The Location : ' .$ProductGroup['name_product_group'],

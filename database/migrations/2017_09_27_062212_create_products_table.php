@@ -17,8 +17,9 @@ class CreateProductsTable extends Migration
         Schema::dropIfExists('products');
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name_products',255);
-            $table->integer('quanlity')->nullable();
+            $table->string('name_product',255);
+            $table->string('code_product',50);
+            $table->string('quanlity',255);
             $table->text('description');            
             $table->integer('id_product_group')->unsigned();
             $table->rememberToken();

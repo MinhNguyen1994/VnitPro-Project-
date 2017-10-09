@@ -39,7 +39,7 @@ Route::group(array('prefix' => 'product'),function()
 	Route::get('/'	,['as' =>'index'	,'uses' => 'Product\ProductController@index']);
 
 	Route::get('/create',	['as' => 'createGet'	,'uses' => 'Product\ProductController@createGet']);
-	Route::post('/create',	['as' => 'createPost'	,'uses' => 'Product\ProductController@createPost']);
+	Route::post('/create',	['as' => 'createPost'	,'uses' => 'Product\ProductController@createPost']);	
 
 	Route::get('/edit/{id}'	,['as' =>'editGet'	,'uses' => 'Product\ProductController@editGet']);
 	Route::post('/edit/{id}',['as' => 'editPost','uses'	=> 'Product\ProductController@editPost']);
@@ -63,6 +63,13 @@ Route::group(array('prefix' => 'product'),function()
 
 Route:: get('/ajax-district','LocationController@getCodeCity');
 Route:: get('/ajax-ward','LocationController@getCodeDistrict');
+
+Route::group(array('prefix' => 'history'),function()
+{
+	Route::get('/',			['as' => 'index' ,'uses' => 'History/HistoryController@index']);
+	Route::get('/input',	['as' => 'input' ,'uses' => 'History/HistoryController@index']);
+	Route::get('/output',	['as' => 'output','uses' => 'History/HistoryController@index']);
+});
 
 
 

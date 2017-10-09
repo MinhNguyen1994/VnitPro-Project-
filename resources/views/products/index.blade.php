@@ -32,9 +32,10 @@
         <table id="example1" class="table table-bordered table-striped">
           <thead>          
           <tr>
-            <th>Name</th>            
-            <th>Description</th>            
+            <th>Name</th>          
             <th>Code Group</th>
+            <th>Quanlity</th>
+            <th>Description</th>    
             <th>Group</th>
             <th>Created Time</th>
             <th>Updated Time</th>
@@ -44,10 +45,18 @@
           <tbody>
           @foreach($data['dataProduct'] as $value)
           <tr>
-            <td>{{ $value->name_product_group }}</td>            
+            <td>{{ $value->name_product }}</td>            
+            <td>{{ $value->code_product }}</td>            
+            <td>{{ $value->quanlity }}</td>            
             <td>{{ $value->description }}</td>
-            <td>{{ $value->code_product_group }}</td>
-            <td></td>
+            <td>
+                @foreach($data['dataGroup'] as $v)
+                  @if($value['id_product_group'] == $v['id'])
+                    {{ $v['name_product_group']}}
+                    @break                    
+                  @endif
+                @endforeach
+            </td>            
             <td>{{ $value->created_at }}</td>
             <td>{{ $value->updated_at }}</td>
             <td>

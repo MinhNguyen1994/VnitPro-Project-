@@ -19,7 +19,9 @@ class CreateProductUnitsTable extends Migration
             $table->increments('id');
             $table->string('name',20);
             $table->string('code',10);
-            $table->text('description');            
+            $table->text('description');
+            $table->rememberToken();
+            $table->timestamps();            
         });
     }
 

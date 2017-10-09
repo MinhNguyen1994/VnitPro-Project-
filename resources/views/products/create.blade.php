@@ -16,6 +16,19 @@
 @section('css')
 <!-- Select2 -->
 <link rel="stylesheet" href="{{ asset('bower_components/select2/dist/css/select2.min.css') }}">
+<style type="text/css">
+    #popupForm{
+        position: fixed;        
+        top: 20%;
+        left: 40%;        
+        width: 350px;
+        height: auto;              
+        border: 3px solid gray;
+        border-radius:10px;
+        background: #e6f2ae;
+        display: none;                
+    }    
+</style>
 
 @endsection
 
@@ -72,15 +85,18 @@
                         </div>
                         <div class="row">
                             <div class="col-xs-8 col-md-8">
-                                <select class="form-control select2" style="width: 100%;">
-                                    <option selected disabled>Choose a Unit</option>        
+                                <select class="form-control select2" style="width: 100%;" name="unit">                                   
                                     @foreach($data['dataUnit'] as $d)
-                                        <option>{{ $d->name }}</option>
+                                        @if($d->name == $data['dataProduct']['unit'])
+                                        <option value="{{ $d->id }}" selected>{{ $d->code }}</option>
+                                        @else
+                                        <option value="{{ $d->id }}">{{ $d->code }}</option>
+                                        @endif
                                     @endforeach
                                 </select> 
                             </div>
                             <div class="col-xs-4 col-md-4">
-                                <a href="" class="btn btn-warning" id="newUnit">New</a>
+                                <a class="btn btn-warning" id="newUnit">New</a>
                             </div>   
                         </div>                                   
                     </div>
@@ -100,12 +116,61 @@
                         @endif
                     </label>
                 </div>
-            </div>  
-
-            <div class="form-group">
-                <button class="btn btn-warning" name="submit">Done, Do it !</button>                
             </div>
-                    
+            <div class="form-group">
+                <div>
+                    <label>Group Product</label>
+                </div>
+                <div class="row">
+                    <div class="col-xs-5 col-md-3">
+                        <select class="form-control select2" name="productGroup">                    
+                            @foreach($data['dataGroup'] as $d)
+                                @if($d->id == $data['dataProduct']['id_product_group'])
+                                    <option value="{{ $d->id }}" selected>{{ $d->name_product_group }}</option>
+                                @else
+                                    <option value="{{ $d->id }}">{{ $d->name_product_group }}</option>
+                                @endif
+                            @endforeach                    
+                        </select>
+                    </div>
+                </div>                
+            </div>  
+            <div class="form-group">
+                <button type="submit" class="btn btn-warning" name="formProduct" value="Save">Done, Do it !</button>                
+            </div>                   
+        </form>
+    </div>
+</div>
+<div id="popupForm" class="box box-warning">    
+    <div class="box-header" style="text-align: center;">
+        <h3 class="box-title" style="font-weight: bold;font-size: 20px">NEW UNIT</h3>
+    </div>
+    <div class="box box-body box-primary" style="background: #e6f2ae">
+        <form role="form" method="POST">
+            {{ csrf_field() }}
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" name="name_unit" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Code</label>
+                <input type="text" name="code_unit" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <input type="text" name="description_unit" class="form-control">
+            </div>
+            <div class="form-group">                
+                <div class="row">
+                    <div class="col-xs-6">
+                        <button type="submit" class="btn btn-success" name="formUnit" style="width: 100%;" id="UnitSubmit" value="Save">Save</button>
+                    </div>
+                    <div class="col-xs-6">
+                        <a class="btn btn- btn-danger" style="width: 100%;" id="cancel">Cancel</a>
+                    </div>
+                </div>                
+            </div>            
+
         </form>
     </div>
 </div>
@@ -113,14 +178,16 @@
 @endsection('content')
 
 @section('javascript')
-<!-- <script type="text/javascript">
-    $('#newUnit').on('click',function(){
-       $.ajax({
-            url: '/group/unit',
-            type: 'GET',
-       });
-    });
-</script> -->
+<script type="text/javascript">
+        $('#newUnit').on('click',function(){
+            $('#popupForm').css('display','block');            
+        });
+        $('#cancel').on('click',function(){
+            $('#popupForm').css('display','none');
+        });        
+    
+</script>
+
 
 @endsection
 

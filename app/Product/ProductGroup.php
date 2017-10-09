@@ -15,5 +15,5 @@ class ProductGroup extends Model
     protected $hidden = [
         'remember_token'
     ];
-
+   
 }
