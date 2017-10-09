@@ -67,8 +67,8 @@ Route:: get('/ajax-ward','LocationController@getCodeDistrict');
 Route::group(array('prefix' => 'history'),function()
 {
 	Route::get('/',			['as' => 'index' ,'uses' => 'History/HistoryController@index']);
-	Route::get('/input',	['as' => 'input' ,'uses' => 'History/HistoryController@index']);
-	Route::get('/output',	['as' => 'output','uses' => 'History/HistoryController@index']);
+	Route::get('/input',	['as' => 'input' ,'uses' => 'History/HistoryController@input']);
+	Route::get('/output',	['as' => 'output','uses' => 'History/HistoryController@output']);
 });
 
 

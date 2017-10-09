@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use App\Product\Product;
 use App\Product\ProductGroup;
 use App\Product\Unit;
+use Session;
 
 class ProductService extends ServiceProvider
 {
@@ -75,7 +76,8 @@ class ProductService extends ServiceProvider
         $Product->description       = $data['description'];
         $Product->id_product_group  = $data['productGroup'];
         $Product->created_at        = $time;           
-        $Product->save();   
+        $Product->save();
+        Session::flash('success','Successfull Created');   
     }
 
     public static function createUnit($data)
@@ -89,7 +91,8 @@ class ProductService extends ServiceProvider
 
     public static function delete($id)
     {
-        $data = Product::find($id)->delete();
+        Product::find($id)->delete();
+        Session::flash('success','Successfull Deleted');
     }
 
     public static function editGet($id)
@@ -131,5 +134,6 @@ class ProductService extends ServiceProvider
         $Product->id_product_group  = $data['productGroup'];
         $Product->updated_at        = $time;           
         $Product->save();
+        Session::flash('success','Successfull Edited');
     }
 }
