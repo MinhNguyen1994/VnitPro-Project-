@@ -68,41 +68,7 @@
                         @endif
                     </label>
                 </div>                  
-            </div>
-            <div class="form-group">                
-                <div class="row">                    
-                    <div class="col-xs-4 col-md-2">
-                        <div>
-                            <label>Quanlity</label>
-                        </div>
-                        <input type="number" name="quanlity" class="form-control" value="{{ $data['dataProduct']['quanlity'] }}">
-                    </div>
-                    <div class="col-xs-5 col-md-3">
-                        <div class="row">
-                            <div class="container">
-                                <label>Unit</label>
-                            </div>                            
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-8 col-md-8">
-                                <select class="form-control select2" style="width: 100%;" name="unit">                                   
-                                    @foreach($data['dataUnit'] as $d)
-                                        @if($d->name == $data['dataProduct']['unit'])
-                                        <option value="{{ $d->id }}" selected>{{ $d->code }}</option>
-                                        @else
-                                        <option value="{{ $d->id }}">{{ $d->code }}</option>
-                                        @endif
-                                    @endforeach
-                                </select> 
-                            </div>
-                            <div class="col-xs-4 col-md-4">
-                                <a class="btn btn-warning" id="newUnit">New</a>
-                            </div>   
-                        </div>                                   
-                    </div>
-                                                             
-                </div>
-            </div>
+            </div>           
             <div class="form-group">
                 <div>
                     <label>Description</label>
@@ -141,53 +107,7 @@
         </form>
     </div>
 </div>
-<div id="popupForm" class="box box-warning">    
-    <div class="box-header" style="text-align: center;">
-        <h3 class="box-title" style="font-weight: bold;font-size: 20px">NEW UNIT</h3>
-    </div>
-    <div class="box box-body box-primary" style="background: #e6f2ae">
-        <form role="form" method="POST">
-            {{ csrf_field() }}
-            <div class="form-group">
-                <label>Name</label>
-                <input type="text" name="name_unit" class="form-control">
-            </div>
-            <div class="form-group">
-                <label>Code</label>
-                <input type="text" name="code_unit" class="form-control">
-            </div>
-            <div class="form-group">
-                <label>Description</label>
-                <input type="text" name="description_unit" class="form-control">
-            </div>
-            <div class="form-group">                
-                <div class="row">
-                    <div class="col-xs-6">
-                        <button type="submit" class="btn btn-success" name="formUnit" style="width: 100%;" id="UnitSubmit" value="Save">Save</button>
-                    </div>
-                    <div class="col-xs-6">
-                        <a class="btn btn- btn-danger" style="width: 100%;" id="cancel">Cancel</a>
-                    </div>
-                </div>                
-            </div>            
-
-        </form>
-    </div>
-</div>
 
 @endsection('content')
 
-@section('javascript')
-<script type="text/javascript">
-        $('#newUnit').on('click',function(){
-            $('#popupForm').css('display','block');            
-        });
-        $('#cancel').on('click',function(){
-            $('#popupForm').css('display','none');
-        });        
-    
-</script>
-
-
-@endsection
 

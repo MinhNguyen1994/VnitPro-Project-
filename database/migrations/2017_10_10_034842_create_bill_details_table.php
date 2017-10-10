@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProductUnitsTable extends Migration
+class CreateBillDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,11 +14,12 @@ class CreateProductUnitsTable extends Migration
     public function up()
     {
         //
-        Schema::create('product_units', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name',20);
-            $table->string('code',10);
-            $table->text('description');
+        Schema::create('bill_details', function (Blueprint $table) {
+            $table->increments('id');            
+            $table->integer('id_user')->unsigned();
+            $table->integer('id_product')->unsigned();
+            $table->integer('quanlity_change')->unsigned();
+            $table->integer('id_bills');
             $table->rememberToken();
             $table->timestamps();            
         });
@@ -32,6 +33,6 @@ class CreateProductUnitsTable extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('product_units');
+        Schema::dropIfExists('bill_details');
     }
 }

@@ -43,7 +43,6 @@ class ProductService extends ServiceProvider
 
     public static function createGet()
     {   
-        $dataUnit = Unit::all();
         $dataGroup = ProductGroup::all();
         $dataProduct = [
             'titleSmall'        => 'Create',
@@ -51,27 +50,23 @@ class ProductService extends ServiceProvider
             'titleMini'         => ' Create',
             'name_product'      => '',
             'description'       => '',
-            'code_product'      => '',
-            'quanlity'          => 2,
-            'unit'              => '',
+            'code_product'      => '',            
+            'id_product_group'  => '',
         ];
-        $data = [           
-            'dataUnit'      =>  $dataUnit,
+        $data = [             
             'dataProduct'   =>  $dataProduct,
             'dataGroup'     =>  $dataGroup
-        ];        
+        ];              
         return $data;
     }
 
     public static function createProduct($data)
     {   
         date_default_timezone_set('Asia/Ho_Chi_Minh');
-        $time = date('Y-m-d H:i:s');
-        $unit = Unit::where('id',$data['unit'])->first()->toArray();                              
-        $quanlity = $data['quanlity']." ".$unit['name'];
+        $time = date('Y-m-d H:i:s');         
+        
         $Product =  new Product();
-        $Product->name_product      = $data['name'];
-        $Product->quanlity          = $quanlity;
+        $Product->name_product      = $data['name'];               
         $Product->code_product      = $data['code'];
         $Product->description       = $data['description'];
         $Product->id_product_group  = $data['productGroup'];
@@ -97,10 +92,9 @@ class ProductService extends ServiceProvider
 
     public static function editGet($id)
     {
-        $dataUnit = Unit::all();
+        
         $dataGroup = ProductGroup::all();
-        $getProduct = Product::where('id',$id)->first()->toArray();        
-        $quanlityArr = explode(' ', $getProduct['quanlity']);                
+        $getProduct = Product::where('id',$id)->first()->toArray();                
         $dataProduct = [
             'titleSmall'        => 'Edit',
             'titlePage'         => 'Edit The Product: ' .$getProduct['name_product'],
@@ -108,12 +102,9 @@ class ProductService extends ServiceProvider
             'name_product'      => $getProduct['name_product'],
             'description'       => $getProduct['description'],
             'code_product'      => $getProduct['code_product'],
-            'id_product_group'  => $getProduct['id_product_group'],
-            'quanlity'          => $quanlityArr[0],
-            'unit'              => $quanlityArr[1],
+            'id_product_group'  => $getProduct['id_product_group'],            
         ];
         $data = [           
-            'dataUnit'      =>  $dataUnit,
             'dataProduct'   =>  $dataProduct,
             'dataGroup'     =>  $dataGroup
         ];        
@@ -123,12 +114,10 @@ class ProductService extends ServiceProvider
     public static function editProduct($data,$id)
     {
         date_default_timezone_set('Asia/Ho_Chi_Minh');
-        $time = date('Y-m-d H:i:s');
-        $unit = Unit::where('id',$data['unit'])->first()->toArray();                              
-        $quanlity = $data['quanlity']." ".$unit['name'];
+        $time = date('Y-m-d H:i:s');                               
+        
         $Product =  Product::find($id);
-        $Product->name_product      = $data['name'];
-        $Product->quanlity          = $quanlity;
+        $Product->name_product      = $data['name'];        
         $Product->code_product      = $data['code'];
         $Product->description       = $data['description'];
         $Product->id_product_group  = $data['productGroup'];

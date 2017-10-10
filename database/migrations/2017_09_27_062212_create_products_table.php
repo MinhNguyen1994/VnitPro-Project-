@@ -13,21 +13,16 @@ class CreateProductsTable extends Migration
      */
     public function up()
     {
-        //
-        Schema::dropIfExists('products');
+        //        
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name_product',255);
-            $table->string('code_product',50);
-            $table->string('quanlity',255);
+            $table->string('code_product',50);            
             $table->text('description');            
             $table->integer('id_product_group')->unsigned();
             $table->rememberToken();
             $table->timestamps();
-        });
-         Schema::table('products', function(Blueprint $table){
-            $table->foreign('id_product_group')->references('id')->on('product_groups');
-        });             
+        });                   
     }
 
     /**

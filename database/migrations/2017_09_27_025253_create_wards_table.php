@@ -23,9 +23,7 @@ class CreateWardsTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
-        /*Schema::table('wards', function($table) {
-            $table->foreign('code_district')->references('code_district')->on('districts')->onDelete('cascade');
-        });*/
+        
     }
 
     /**
@@ -36,9 +34,7 @@ class CreateWardsTable extends Migration
     public function down()
     {
         //
-        /*Schema::table('wards', function($table) {
-            $table->dropForeign('wards_code_district_foreign');
-        });*/
+        
         Schema::dropIfExists('wards');
         
     }

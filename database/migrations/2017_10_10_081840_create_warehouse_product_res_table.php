@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePositionsTable extends Migration
+class CreateWarehouseProductResTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,14 +14,15 @@ class CreatePositionsTable extends Migration
     public function up()
     {
         //
-        Schema::create('positions', function(Blueprint $table) {
+        Schema::create('warehouse_product_res', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name_position',255);
-            $table->text('description');
-            $table->string('code_position',10);                       
+            $table->integer('id_product')->unsigned();
+            $table->integer('id_warehouse')->unsigned();            
+            $table->integer('quanlity')->unsigned();       
+            $table->integer('id_unit')->unsigned();
             $table->rememberToken();
             $table->timestamps();
-        });
+        });     
     }
 
     /**
@@ -31,7 +32,7 @@ class CreatePositionsTable extends Migration
      */
     public function down()
     {
-        //       
-        Schema::drop('positions');              
+        //
+        Schema::dropIfExists('warehouse_product_res');
     }
 }

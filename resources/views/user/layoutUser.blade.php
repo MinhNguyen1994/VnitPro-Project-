@@ -130,76 +130,26 @@
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
-      <!-- search form -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-          <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
-      <!-- /.search form -->
+      
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header"><strong>MENU MANAGER</strong></li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Full Menu Manage</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
+        <li class="header"><strong>MENU</strong></li>
+        <li>
+          <a href="">
+            <i class="fa fa-cloud-download"></i> Import and Export
+              <span class="pull-right-container">
+                  <span class="label label-primary pull-right">Action</span>
+              </span>
           </a>
-          <ul class="treeview-menu">
-            <li><a href="{{ url('location')}}"><i class="fa fa-circle-o"></i> Locations</a></li>
-            <li><a href="{{ url('product')}}"><i class="fa fa-circle-o"></i>Products</a></li>
-            <li><a href="{{ url('import')}}"><i class="fa fa-circle-o"></i>Import Database</a></li>
-          </ul>
         </li>
         <li>
-          <a href="{{ url('location') }}">
-            <i class="fa fa-th"></i> <span>Locations</span>
-            <span class="pull-right-container">
-              <small class="label pull-right bg-light-blue">Manage</small>
-            </span>
+          <a href="">
+            <i class="fa fa-cloud-upload"></i> History
+              <span class="pull-right-container">
+                  <span class="label label-success pull-right">View</span>
+              </span>
           </a>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-files-o"></i>
-            <span>Menu Product</span>
-            <span class="pull-right-container">
-              <span class="label label-warning pull-right">3</span>
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="{{ url('product/group') }}"><i class="fa fa-circle-o"></i>Product Groups</a></li>
-            <li><a href="{{ url('product') }}"><i class="fa fa-circle-o"></i>Products</a></li>           
-            <li><a href="{{ url('product/quanlity') }}"><i class="fa fa-circle-o"></i>Quanlity Per WareHouse</a></li>           
-          </ul>
-        </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-history"></i>
-            <span>History</span>
-            <span class="pull-right-container">
-              <span class="label label-danger pull-right">1</span>
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="{{ url('history/bills') }}"><i class="fa fa-star-half-o"></i>History Bills</a></li>                     
-          </ul>
-        </li>
-        <li>
-          <a href="{{ url('import') }}">
-            <i class="fa fa-th"></i> <span>Import DataBase</span>
-            <span class="pull-right-container">
-              <small class="label pull-right bg-green">Import</small>
-            </span>
-          </a>
-        </li>                
+        </li>             
       </ul>
     </section>
     <!-- /.sidebar -->

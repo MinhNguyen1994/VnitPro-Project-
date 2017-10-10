@@ -1,5 +1,5 @@
 <?php
-
+name_bill
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -11,7 +11,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
         DB::table('positions')->insert([            
             'name_position' => str_random(30),
             'description' => str_random(30),
@@ -19,10 +18,12 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('products_unit')->insert([
-            'name'  => str_random(7);
-            'code'  => str_random(5);
-            'description' => str_random(10);
+            'name'  => str_random(7),
+            'code'  => str_random(5),
+            'description' => str_random(10),
         ]);
+        
+
         
     }
 }

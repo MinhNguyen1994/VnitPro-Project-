@@ -27,13 +27,8 @@ class ProductRequest extends FormRequest
             //
             'name'              => 'required|min:3|string',
             'description'       => 'required',
-            'code'              => 'required|string|max:4|min:2'
-            'quanlity'          => 'required',
-            'unit'              => 'required',
-            'productGroup'      => 'required',
-            'name_unit'         => 'required|min:3',
-            'code_unit'         => 'required|string|max:4|min:2',
-            'description_unit'  => 'required'
+            'code'              => 'required|string|max:4|min:2',             
+            'productGroup'      => 'required',            
         ];
     }
 }

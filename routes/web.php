@@ -46,6 +46,10 @@ Route::group(array('prefix' => 'product'),function()
 
 	Route::get('/delete/{id}'	,['as' => 'delete'	,'uses' => 'Product\ProductController@delete']);
 
+	Route::group(array('prefix' => 'quanlity'),function(){
+		Route::get('/', ['as' => 'index' ,'uses' => 'Product\QuanlityController@index']);
+	});
+
 	Route::group(array('prefix' => 'group'),function(){
 		Route::get('/',	['as' => 'indexGroup','uses' => 'Product\ProductGroupController@index']);
 
@@ -61,15 +65,15 @@ Route::group(array('prefix' => 'product'),function()
 
 
 
-Route:: get('/ajax-district','LocationController@getCodeCity');
-Route:: get('/ajax-ward','LocationController@getCodeDistrict');
+Route::get('/ajax-district','LocationController@getCodeCity');
+Route::get('/ajax-ward','LocationController@getCodeDistrict');
 
 Route::group(array('prefix' => 'history'),function()
 {
-	Route::get('/',			['as' => 'index' ,'uses' => 'History/HistoryController@index']);
-	Route::get('/input',	['as' => 'input' ,'uses' => 'History/HistoryController@input']);
-	Route::get('/output',	['as' => 'output','uses' => 'History/HistoryController@output']);
+	Route::get('/bills',	['as' => 'bills' ,'uses' => 'History\HistoryBillController@listBills']);	
 });
+
+Route::get('/user',['as' => 'user','uses' => 'UserController@index']);
 
 
 

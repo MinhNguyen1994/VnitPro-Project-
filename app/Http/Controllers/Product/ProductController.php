@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Providers\ProductService;
+use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
 {
@@ -24,11 +25,11 @@ class ProductController extends Controller
 
     public function createPost(Request $request)
     {   
-        if($request->has('formProduct')){                         
+        if($request->has('formProduct')){                                    
             ProductService::createProduct($request->all());
             return redirect('product');            
         }
-        if($request->has('formUnit')){            
+        if($request->has('formUnit')){                        
             ProductService::createUnit($request->all());
             return redirect('product/create');           
         }        
@@ -46,16 +47,10 @@ class ProductController extends Controller
         return view('products/create',['data' => $data]);
     }
 
-    public function editPost(Request $request,$id)
+    public function editPost(ProductRequest $request,$id)
     {   
-        if($request->has('formProduct')){                         
-            ProductService::editProduct($request->all(),$id);
-            return redirect('product');            
-        }
-        if($request->has('formUnit')){            
-            ProductService::createUnit($request->all());
-            return redirect('product/create');           
-        }        
+        ProductService::editProduct($request->all(),$id);
+        return redirect('product');     
     }   
 
 
