@@ -14,8 +14,12 @@ use Session;
 class ExcelController extends Controller
 {
     //
+    public function __construct(){
+        $this->middleware('auth:admin');
+    } 
 
-    public function getImport(){
+    public function getImport()
+    {
         $city = City::all();        
     	return view('importExcel',['city' => $city]);
     }    

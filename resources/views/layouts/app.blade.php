@@ -11,7 +11,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">    
 </head>
 <body>
     <div id="app">
@@ -52,7 +52,7 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
-                                    <li>
+                                    <li>                                        
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -69,7 +69,7 @@
                     </ul>
                 </div>
             </div>
-        </nav>
+        </nav>       
 
         @yield('content')
     </div>

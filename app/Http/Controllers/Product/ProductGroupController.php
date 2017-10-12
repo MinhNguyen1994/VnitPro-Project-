@@ -10,6 +10,9 @@ use App\Http\Requests\ProductGroupRequest;
 class ProductGroupController extends Controller
 {
     //
+    public function __construct(){
+        $this->middleware('auth:admin');
+    } 
 
     public function index(){
     	$data = ProductGroupService::index();

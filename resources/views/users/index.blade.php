@@ -1,4 +1,4 @@
-@extends('user.layoutUser')
+@extends('users.layoutUser')
 
 @section('contend-header')
 <h1>
