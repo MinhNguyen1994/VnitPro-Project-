@@ -13,9 +13,11 @@
 Auth::routes();
 // -----------------------------------------USER-----------------------------------------\\
 
-Route::get('/' ,'User\UserController@index')->name('user.index'); 
+Route::get('/' ,'User\UserController@index')->name('user.index');
+Route::get('/home' ,'User\UserController@index')->name('user.index');
+  
 Route::get('/logout', 'Auth\LoginController@userLogout')->name('logout');
-Route::get('/home' ,'User\UserController@index')->name('user.index'); 
+
 
 
 
