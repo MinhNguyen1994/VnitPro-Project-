@@ -14,7 +14,6 @@ class CreateWarehouseTable extends Migration
     public function up()
     {
         //
-        Schema::dropIfExists('warehouse');
         Schema::create('warehouse', function(Blueprint $table) {
             $table->increments('id');
             $table->string('name_warehouse',255);

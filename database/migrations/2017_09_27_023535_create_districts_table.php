@@ -23,9 +23,7 @@ class CreateDistrictsTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
-        /*Schema::table('districts', function(Blueprint $table) {
-            $table->foreign('code_city')->references('id_city')->on('cities')->onDelete('cascade');
-        });*/
+        
     }
 
     /**
@@ -36,11 +34,7 @@ class CreateDistrictsTable extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('districts');
-        /*Schema::table('districts', function($table) {
-            $table->dropForeign('districts_code_city_foreign');
-        });*/
-        
+        Schema::dropIfExists('districts');  
         
     }
 }

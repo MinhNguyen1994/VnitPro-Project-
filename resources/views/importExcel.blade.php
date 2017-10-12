@@ -34,7 +34,7 @@
           	<div class="form-group">
             		<label for="exampleInputFile">File input</label>
             		<input type="file" id="exampleInputFile" name="file">
-            		<p class="help-block" style="color:red;font-weight:bold">{{ $alert }}</p>
+            		<p class="help-block" style="color:red;font-weight:bold">{{ Session::get('status') }}</p>
           	</div>
           	<div class="checkbox">              
               <div class="form-group">
@@ -71,7 +71,7 @@
 </div>
 <div class="box box-danger">
   <div class="box-header with-border">
-      <h3 class="box-title">Show Information Database</h3>
+      <div class="col-xs-6"><h3 class="box-title">Show Information Database</h3></div>     
   </div>
   <div class="box-body">
       <div class="col-xs-4">

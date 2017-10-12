@@ -22,17 +22,16 @@ class LocationFormRequest extends FormRequest
      *
      * @return array
      */
-    public static function rules()
+    public function rules()
     {
         return [
             //
             'name'          =>  'required|min:3',
             'address'       =>  'required|min:5',
-            'city'          =>  'required|',
-            'district'      =>  'required|',
-            'ward'          =>  'required|',
-            'description'   =>  'required'
-            
+            'city'          =>  'required',
+            'district'      =>  'required',
+            'ward'          =>  'required',
+            'description'   =>  'required'                       
         ];
     }
     

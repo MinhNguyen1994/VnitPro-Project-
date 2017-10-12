@@ -1,4 +1,3 @@
-
 @extends('layouts.layoutAdmin')
 
 @section('contend-header')
@@ -9,7 +8,7 @@
 <ol class="breadcrumb">
     <li><a href="{{ url('home') }}"><i class="fa fa-dashboard"></i> Home</a></li>
     <li><a href="{{ url('location') }}"><i class="fa fa-dashboard"></i> Locations</a></li>    
-    <li><i class="fa fa-dashboard"></i> Create</li>    
+    <li><i class="fa fa-dashboard"></i> {{ $data['titleMini'] }}</li>    
 </ol>            
 </section>  
 @endsection
@@ -147,11 +146,12 @@
                         @endif
                     </label>
                 </div>
-    		</div>
+    		</div>  
 
     		<div class="form-group">
-    			<button class="btn btn-success" name="submit">Done, Do it !</button>                
-    		</div>    		
+    			<button class="btn btn-primary" name="submit">Done, Do it !</button>                
+    		</div>
+               		
     	</form>
     </div>
 </div>

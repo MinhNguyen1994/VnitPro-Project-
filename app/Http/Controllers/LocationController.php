@@ -12,7 +12,11 @@ use Validator;
 
 class LocationController extends Controller
 {
-    //  
+    //
+
+    public function __construct(){
+        $this->middleware('auth:admin');
+    }    
 
     public function index()
     {
@@ -40,14 +44,9 @@ class LocationController extends Controller
     }    
 
     public function createPost(LocationFormRequest $request)
-    {                         
-        $validator = Validator::make($request->all());
-        if($validator->fails()){                    
-            return redirect()->back()->withErrors($validator);
-        }else{            
-            LocationService::createPost($request->all());
-            return redirect('location'); 
-        }        
+    {   
+        LocationService::createPost($request->all());
+        return redirect('location');            
     }
 
     public function delete($id)
@@ -92,6 +91,7 @@ class LocationController extends Controller
         return redirect('location'); 
 =======
     public function editPost(LocationFormRequest $request,$id)
+<<<<<<< HEAD
     {                           
         $validator = Validator::make($request->all());
         if($validator->fails()){                    
@@ -102,6 +102,12 @@ class LocationController extends Controller
         }     
          
 >>>>>>> Inwork
+=======
+    {                  
+        LocationService::editPost($request->all(),$id);
+        return redirect('location');        
+>>>>>>> Inwork
     }
     
 }
+?>

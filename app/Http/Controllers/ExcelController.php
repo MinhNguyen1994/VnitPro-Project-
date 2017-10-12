@@ -9,17 +9,24 @@ use Illuminate\Support\Facades\Input;
 use App\City;
 use App\District;
 use App\Ward;
+use Session;
 
 class ExcelController extends Controller
 {
     //
+    public function __construct(){
+        $this->middleware('auth:admin');
+    } 
 
-    public function getImport(){
+    public function getImport()
+    {
         $city = City::all();        
-    	return view('importExcel',['alert' => '','city' => $city]);
+    	return view('importExcel',['city' => $city]);
     }    
 
     public function postImport(Request $request){
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $time = date('Y-m-d H:i:s');
         $validateImport = $request->location;
         $cityObj = new City();
         $districtObj = new District();
@@ -55,10 +62,12 @@ class ExcelController extends Controller
                     }
                     $wardObj->insert($insert);
                 }
-                return view('importExcel',['alert' => 'ok']);  			
+                Session::flash('status','Successfull import ');
+                return redirect('import');  			
     		}
-    	} else{     		
-    		return view('importExcel',['alert' => 'You must choose 1 file or pick 1 tag']);
+    	} else{
+            Session::flash('status','Error !! ');    		
+    		return redirect('import');
     	}
     	
     }

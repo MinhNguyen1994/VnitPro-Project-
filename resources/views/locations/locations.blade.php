@@ -26,8 +26,8 @@
         <h2 class="box-title">List of Locations</h2>
       </div>
       <!-- /.box-header -->
-      <div>
-        <a href="/location/create"><button class="btn btn-primary">Create New Location</button></a>
+      <div class="box-body">
+        <a href="{{ url('location/create') }}"><button class="btn btn-primary">Create New Location</button></a>
         <label>
           @if(Session::has('success'))
             <p style="color: red;font-weight: bold">{{ Session::get('success') }}</p>
@@ -41,7 +41,8 @@
             <th>Name</th>            
             <th>Address</th>            
             <th>Description</th>
-            <th>Time Create</th>
+            <th>Created Time</th>
+            <th>Updated Time</th>
             <th>Action</th>            
           </tr>
           </thead>
@@ -51,10 +52,11 @@
             <td>{{ $value->name_warehouse }}</td>            
             <td>{{ $value->address }}</td>
             <td>{{ $value->description }}</td>
-            <td>{{ $value->create_at }}</td>
+            <td>{{ $value->created_at }}</td>
+            <td>{{ $value->updated_at }}</td>
             <td>
-                <a href="location/edit/{{ $value->id}}">Edit </a> | 
-                <a href="location/delete/{{$value->id}}"> Delete</a>
+                <a href="{{ url('location/edit') }}/{{ $value->id }}">Edit </a> | 
+                <a href="{{ url('location/delete') }}/{{$value->id}}"> Delete</a>
             </td>
           </tr>
           @endforeach

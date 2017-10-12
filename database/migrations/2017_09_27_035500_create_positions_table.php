@@ -14,7 +14,6 @@ class CreatePositionsTable extends Migration
     public function up()
     {
         //
-        Schema::dropIfExists('positions');
         Schema::create('positions', function(Blueprint $table) {
             $table->increments('id');
             $table->string('name_position',255);
@@ -23,11 +22,6 @@ class CreatePositionsTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
-         Schema::table('users', function(Blueprint $table){
-            $table->foreign('id_position')->references('id')->on('positions');
-        });
-        
-
     }
 
     /**
@@ -37,11 +31,7 @@ class CreatePositionsTable extends Migration
      */
     public function down()
     {
-        //
-        Schema::table('users', function(Blueprint $table){
-            $table->dropForeign('users_id_position_foreign');
-        }); 
-        Schema::drop('positions');
-               
+        //       
+        Schema::drop('positions');              
     }
 }
