@@ -6,8 +6,8 @@
     <small>{{ $data['dataProduct']['titleSmall']}}</small>
 </h1>
 <ol class="breadcrumb">
-    <li><a href="{{ url('home') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li><a href="{{ url('product') }}"><i class="fa fa-dashboard"></i> Product</a></li>       
+    <li><a href="{{ route('admin.index') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a href="{{ route('product') }}"><i class="fa fa-dashboard"></i> Product</a></li>       
     <li><i class="fa fa-dashboard"></i>{{ $data['dataProduct']['titleMini'] }}</li>    
 </ol>            
 </section>  

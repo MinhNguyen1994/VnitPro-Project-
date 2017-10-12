@@ -6,8 +6,8 @@
     <small>List</small>
 </h1>
 <ol class="breadcrumb">
-    <li><a href="{{ url('home') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li><a href="{{ url('product') }}"><i class="fa fa-dashboard"></i> Product</a></li>   
+    <li><a href="{{ route('admin.index') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a href="{{ route('product') }}"><i class="fa fa-dashboard"></i> Product</a></li>   
     <li><i class="fa fa-dashboard"></i> Product Group</li>   
 </ol>            
 </section>  
@@ -27,7 +27,7 @@
       </div>
       <!-- /.box-header -->
       <div class="box-body">
-        <a href="{{ url('product/group/create') }}"><button class="btn btn-warning">Create New Group</button></a>
+        <a href="{{ route('product.group.create') }}"><button class="btn btn-warning">Create New Group</button></a>
         <label>
           @if(Session::has('success'))
             <p style="color: red;font-weight: bold">{{ Session::get('success') }}</p>
@@ -55,8 +55,8 @@
             <td>{{ $value->created_at }}</td>
             <td>{{ $value->updated_at }}</td>
             <td>
-                <a href="{{ url('product/group/edit') }}/{{ $value->id }}">Edit </a> | 
-                <a href="{{ url('product/group/delete') }}/{{$value->id}}"> Delete</a>
+                <a href="{{ route('product.group.edit',['id' => $value->id]) }}">Edit </a> | 
+                <a href="{{ route('product.group.delete',['id' => $value->id]) }}"> Delete</a>
             </td>
           </tr>
           @endforeach

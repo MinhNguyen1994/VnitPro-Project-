@@ -18,8 +18,7 @@ class CreateWarehouseProductResTable extends Migration
             $table->increments('id');
             $table->integer('id_product')->unsigned();
             $table->integer('id_warehouse')->unsigned();            
-            $table->integer('quanlity')->unsigned();       
-            $table->integer('id_unit')->unsigned();
+            $table->integer('quanlity')->unsigned();             
             $table->rememberToken();
             $table->timestamps();
         });     

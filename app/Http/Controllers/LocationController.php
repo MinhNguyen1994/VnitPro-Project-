@@ -46,25 +46,25 @@ class LocationController extends Controller
     public function createPost(LocationFormRequest $request)
     {   
         LocationService::createPost($request->all());
-        return redirect('location');            
+        return redirect()->route('location');            
     }
 
     public function delete($id)
     {        
         LocationService::delete($id);
-        return redirect('location');    
+        return redirect()->route('location');    
     }
 
     public function editGet($id)
     {     
-        $data = LocationService::listEditGet($id);        
+        $data = LocationService::listEditGet($id);                
         return view('locations/create',['data' => $data]);         
     }
 
     public function editPost(LocationFormRequest $request,$id)
     {                  
         LocationService::editPost($request->all(),$id);
-        return redirect('location');        
+        return redirect()->route('location');        
     }
     
 }

@@ -48,7 +48,7 @@
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="{{url('home')}}" class="logo">
+    <a href="{{ route('admin.index') }}" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>W</b>H</span>
       <!-- logo for regular state and mobile devices -->
@@ -99,9 +99,9 @@
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="admin/logout" onclick="event.preventDefault();document.getElementById('logout-form').submit();"" 
+                  <a href="{{ route('admin.logout')}}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"" 
                       class="btn btn-default btn-flat">Sign out</a>
-                  <form id="logout-form" action="admin/logout" method="POST" style="display: none;">
+                  <form id="logout-form" action="{{ route('admin.logout')}}" method="POST" style="display: none;">
                       {{ csrf_field() }}
                   </form>
                 </div>
@@ -152,13 +152,13 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{ url('location')}}"><i class="fa fa-circle-o"></i> Locations</a></li>
-            <li><a href="{{ url('product')}}"><i class="fa fa-circle-o"></i>Products</a></li>
-            <li><a href="{{ url('import')}}"><i class="fa fa-circle-o"></i>Import Database</a></li>
+            <li><a href="{{ route('location') }}"><i class="fa fa-circle-o"></i> Locations</a></li>
+            <li><a href="{{ route('product') }}"><i class="fa fa-circle-o"></i>Products</a></li>
+            <li><a href="{{ route('import.excel') }}"><i class="fa fa-circle-o"></i>Import Database</a></li>
           </ul>
         </li>
         <li>
-          <a href="{{ url('location') }}">
+          <a href="{{ route('location') }}">
             <i class="fa fa-th"></i> <span>Locations</span>
             <span class="pull-right-container">
               <small class="label pull-right bg-light-blue">Manage</small>
@@ -174,9 +174,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{ url('product/group') }}"><i class="fa fa-circle-o"></i>Product Groups</a></li>
-            <li><a href="{{ url('product') }}"><i class="fa fa-circle-o"></i>Products</a></li>           
-            <li><a href="{{ url('product/quanlity') }}"><i class="fa fa-circle-o"></i>Quanlity Per WareHouse</a></li>           
+            <li><a href="{{ route('product.group') }}"><i class="fa fa-circle-o"></i>Product Groups</a></li>
+            <li><a href="{{ route('product') }}"><i class="fa fa-circle-o"></i>Product Details</a></li>           
+            <li><a href="{{ route('product.quanlity') }}"><i class="fa fa-circle-o"></i>Quanlity Per WareHouse</a></li>           
           </ul>
         </li>
         <li class="treeview">
@@ -189,11 +189,11 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{ url('history/bills') }}"><i class="fa fa-star-half-o"></i>History Bills</a></li>                     
+            <li><a href="{{ route('history.bills') }}"><i class="fa fa-star-half-o"></i>History Bills</a></li>                     
           </ul>
         </li>
         <li>
-          <a href="{{ url('import') }}">
+          <a href="{{ route('import.excel') }}">
             <i class="fa fa-th"></i> <span>Import DataBase</span>
             <span class="pull-right-container">
               <small class="label pull-right bg-green">Import</small>

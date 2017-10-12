@@ -13,8 +13,11 @@
 Auth::routes();
 // -----------------------------------------USER-----------------------------------------\\
 
-Route::get('/' , 'User\UserController@index')->name('user.index'); 
-Route::get('/logout', 'Auth\LoginController@userLogout')->name('logout');  
+Route::get('/' ,'User\UserController@index')->name('user.index'); 
+Route::get('/logout', 'Auth\LoginController@userLogout')->name('logout');
+Route::get('/home' ,'User\UserController@index')->name('user.index'); 
+
+
 
 // -----------------------------------------END USER-----------------------------------------\\
 
@@ -37,52 +40,52 @@ Route::group(['prefix' => 'admin'],function(){
 
 	Route::group(['prefix' => 'location'], function()
 	{
-	    Route::get('/',['as' => 'index', 'uses' =>'LocationController@index']);
+	    Route::get('/','LocationController@index')->name('location');
 
 	    Route::get('/create' ,'LocationController@createGet')->name('location.create');
 	    Route::post('/create','LocationController@createPost')->name('location.create.post');
 
-	    Route::get('/edit/{id}'	,['as' =>'editGet'	,'uses' => 'LocationController@editGet']);
-	    Route::post('/edit/{id}',['as' => 'editPost','uses'	=> 'LocationController@editPost']);
+	    Route::get('/edit/{id}'	,'LocationController@editGet')->name('location.edit');
+	    Route::post('/edit/{id}','LocationController@editPost')->name('location.edit.post');
 
-	    Route::get('/delete/{id}'	,['as' => 'delete'	,'uses' => 'LocationController@delete']);    
+	    Route::get('/delete/{id}','LocationController@delete')->name('location.delete');    
 	});
 
 	Route::group(['prefix' => 'product'],function()
 	{
-		Route::get('/'	,['as' =>'index'	,'uses' => 'Product\ProductController@index']);
+		Route::get('/','Product\ProductController@index')->name('product');
 
-		Route::get('/create',	['as' => 'createGet'	,'uses' => 'Product\ProductController@createGet']);
-		Route::post('/create',	['as' => 'createPost'	,'uses' => 'Product\ProductController@createPost']);	
+		Route::get('/create','Product\ProductController@createGet')->name('product.create');
+		Route::post('/create','Product\ProductController@createPost')->name('product.create.post');	
 
-		Route::get('/edit/{id}'	,['as' =>'editGet'	,'uses' => 'Product\ProductController@editGet']);
-		Route::post('/edit/{id}',['as' => 'editPost','uses'	=> 'Product\ProductController@editPost']);
+		Route::get('/edit/{id}'	,'Product\ProductController@editGet')->name('product.edit');
+		Route::post('/edit/{id}','Product\ProductController@editPost')->name('product.edit.post');
 
-		Route::get('/delete/{id}'	,['as' => 'delete'	,'uses' => 'Product\ProductController@delete']);
+		Route::get('/delete/{id}','Product\ProductController@delete')->name('product.delete');
 
-		Route::group(array('prefix' => 'quanlity'),function(){
-			Route::get('/', ['as' => 'index' ,'uses' => 'Product\QuanlityController@index']);
+		Route::group(['prefix' => 'quanlity'],function(){
+			Route::get('/','Product\QuanlityController@index')->name('product.quanlity');
 		});
 
 		Route::group(array('prefix' => 'group'),function(){
-			Route::get('/',	['as' => 'indexGroup','uses' => 'Product\ProductGroupController@index']);
+			Route::get('/','Product\ProductGroupController@index')->name('product.group');
 
-			Route::get('/create',	['as' => 'createGet'	,'uses' => 'Product\ProductGroupController@createGet']);
-			Route::post('/create',	['as' => 'createPost'	,'uses' => 'Product\ProductGroupController@createPost']);
+			Route::get('/create','Product\ProductGroupController@createGet')->name('product.group.create');
+			Route::post('/create','Product\ProductGroupController@createPost')->name('product.group.create.post');
 
-			Route::get('/edit/{id}'	,['as' =>'editGet'	,'uses' => 'Product\ProductGroupController@editGet']);
-	    	Route::post('/edit/{id}',['as' => 'editPost','uses'	=> 'Product\ProductGroupController@editPost']);
+			Route::get('/edit/{id}','Product\ProductGroupController@editGet')->name('product.group.edit');
+	    	Route::post('/edit/{id}','Product\ProductGroupController@editPost')->name('product.group.edit.post');
 
-			Route::get('/delete/{id}'	,['as' => 'delete'	,'uses' => 'Product\ProductGroupController@delete']);
+			Route::get('/delete/{id}','Product\ProductGroupController@delete')->name('product.group.delete');
 		});
 	});
 
-	Route::get('/ajax-district','LocationController@getCodeCity');
-	Route::get('/ajax-ward','LocationController@getCodeDistrict');
+	Route::get('/ajax-district','LocationController@getCodeCity')->name('ajax.get.city');
+	Route::get('/ajax-ward','LocationController@getCodeDistrict')->name('ajax.get.district');
 
-	Route::group(array('prefix' => 'history'),function()
+	Route::group(['prefix' => 'history'],function()
 	{
-		Route::get('/bills',['as' => 'bills' ,'uses' => 'History\HistoryBillController@listBills']);	
+		Route::get('/bills','History\HistoryBillController@listBills')->name('history.bills');	
 	});
 });
 

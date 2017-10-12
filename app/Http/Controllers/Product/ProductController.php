@@ -30,18 +30,18 @@ class ProductController extends Controller
     {   
         if($request->has('formProduct')){                                    
             ProductService::createProduct($request->all());
-            return redirect('product');            
+            return redirect()->route('product');            
         }
         if($request->has('formUnit')){                        
             ProductService::createUnit($request->all());
-            return redirect('product/create');           
+            return redirect()->route('product.create');           
         }        
     }
 
     public function delete($id)
     {
         ProductService::delete($id);
-        return redirect('product');
+        return redirect()->route('product');
     }
 
     public function editGet($id)
@@ -53,7 +53,7 @@ class ProductController extends Controller
     public function editPost(ProductRequest $request,$id)
     {   
         ProductService::editProduct($request->all(),$id);
-        return redirect('product');     
+        return redirect()->route('product');     
     }   
 
 

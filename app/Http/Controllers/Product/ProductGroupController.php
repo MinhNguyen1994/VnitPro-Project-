@@ -28,7 +28,7 @@ class ProductGroupController extends Controller
     public function createPost(ProductGroupRequest $request)
     {   
         ProductGroupService::createPost($request->all());
-        return redirect('product/group');
+        return redirect()->route('product.group');
     }
 
     public function editGet($id)
@@ -40,11 +40,11 @@ class ProductGroupController extends Controller
     public function editPost(ProductGroupRequest $request,$id)
     {          
         ProductGroupService::editPost($request->all(),$id);
-        return redirect('product/group');
+        return redirect()->route('product.group');
     }
     public function delete($id)
     {
         ProductGroupService::delete($id);
-        return redirect('product/group');
+        return redirect()->route('product.group');
     }    
 }

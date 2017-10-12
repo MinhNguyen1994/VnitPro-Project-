@@ -6,7 +6,7 @@
     <small>List</small>
 </h1>
 <ol class="breadcrumb">
-    <li><a href="{{ url('home') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a href="{{ route('admin.index') }}"><i class="fa fa-dashboard"></i> Home</a></li>
     <li><i class="fa fa-dashboard"></i> Product</li>      
 </ol>            
 </section>  
@@ -26,7 +26,7 @@
       </div>
       <!-- /.box-header -->
       <div class="box-body">
-        <a href="{{ url('product/create') }}"><button class="btn btn-warning">Create New Product</button></a>
+        <a href="{{ route('product.create') }}"><button class="btn btn-warning">Create New Product</button></a>
         <label>
           @if(Session::has('success'))
             <p style="color: red;font-weight: bold">{{ Session::get('success') }}</p>
@@ -64,8 +64,8 @@
             <td>{{ $value->created_at }}</td>
             <td>{{ $value->updated_at }}</td>
             <td>
-                <a href="{{ url('product/edit') }}/{{ $value->id }}">Edit </a> | 
-                <a href="{{ url('product/delete') }}/{{$value->id}}"> Delete</a>
+                <a href="{{ route('product.edit',['id' => $value->id]) }}">Edit </a> | 
+                <a href="{{ route('product.delete',['id' => $value->id]) }}"> Delete</a>
             </td>
           </tr>
           @endforeach

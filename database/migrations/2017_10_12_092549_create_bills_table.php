@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePositionsTable extends Migration
+class CreateBillsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreatePositionsTable extends Migration
      */
     public function up()
     {
-        //
-        Schema::create('positions', function(Blueprint $table) {
+        Schema::create('bills', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name_position',255);
-            $table->text('description');
-            $table->string('code_position',10);                       
-            $table->rememberToken();
+            $table->string('name');
+            $table->string('code');
+            $table->integer('id_user')->unsigned();            
+            $table->integer('id_warehouse')->unsigned();
+            $table->boolean('action');
             $table->timestamps();
         });
     }
@@ -31,7 +31,6 @@ class CreatePositionsTable extends Migration
      */
     public function down()
     {
-        //       
-        Schema::drop('positions');              
+        Schema::dropIfExists('bills');
     }
 }
