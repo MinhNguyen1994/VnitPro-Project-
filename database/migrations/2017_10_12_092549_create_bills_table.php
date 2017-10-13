@@ -19,7 +19,7 @@ class CreateBillsTable extends Migration
             $table->string('code');
             $table->integer('id_user')->unsigned();            
             $table->integer('id_warehouse')->unsigned();
-            $table->boolean('action');
+            $table->integer('action')->unsigned();
             $table->timestamps();
         });
     }

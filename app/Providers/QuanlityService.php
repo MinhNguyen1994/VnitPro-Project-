@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\WareHouse;
 
 class QuanlityService extends ServiceProvider
 {
@@ -32,8 +33,10 @@ class QuanlityService extends ServiceProvider
             'titleMini' =>' List',
 
         ];
+        $dataWareHouse = WareHouse::all();
         $data =[
             'dataQuanlity' => $dataQuanlity,
+            'dataWareHouse' => $dataWareHouse
         ];
         return $data;
     }

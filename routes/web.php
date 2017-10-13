@@ -13,8 +13,12 @@
 Auth::routes();
 // -----------------------------------------USER-----------------------------------------\\
 
-Route::get('/' ,'User\UserController@index')->name('user.index');
+Route::get('/' ,'User\UserController@actionImport')->name('user.index');
 Route::get('/home' ,'User\UserController@index')->name('user.index');
+
+Route::get('/import','User\UserController@actionImport')->name('user.import.product');
+
+Route::get('/export','User\UserController@actionExport')->name('user.export.product');
   
 Route::get('/logout', 'Auth\LoginController@userLogout')->name('logout');
 
@@ -80,6 +84,8 @@ Route::group(['prefix' => 'admin'],function(){
 
 			Route::get('/delete/{id}','Product\ProductGroupController@delete')->name('product.group.delete');
 		});
+
+		Route::get('/unit','Product\ProductController@createUnit')->name('product.unit.create');
 	});
 
 	Route::get('/ajax-district','LocationController@getCodeCity')->name('ajax.get.city');
@@ -87,7 +93,8 @@ Route::group(['prefix' => 'admin'],function(){
 
 	Route::group(['prefix' => 'history'],function()
 	{
-		Route::get('/bills','History\HistoryBillController@listBills')->name('history.bills');	
+		Route::get('/bills','History\HistoryBillController@listBills')->name('history.bills');
+
 	});
 });
 

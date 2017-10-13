@@ -39,7 +39,7 @@
           <tr>
             <th>Name</th>          
             <th>Code Group</th>
-            
+            <th>Unit</th>
             <th>Description</th>    
             <th>Group</th>
             <th>Created Time</th>
@@ -51,7 +51,14 @@
           @foreach($data['dataProduct'] as $value)
           <tr>
             <td>{{ $value->name_product }}</td>            
-            <td>{{ $value->code_product }}</td>                      
+            <td>{{ $value->code_product }}</td>
+            <td>
+              @foreach($data['dataUnit'] as $v)
+                @if($v->id  == $value->id_unit)
+                  <option value="{{ $v->id}}">{{ $v->name }}</option>
+                @endif
+              @endforeach
+            </td>                      
             <td>{{ $value->description }}</td>
             <td>
                 @foreach($data['dataGroup'] as $v)

@@ -39,7 +39,7 @@ class LocationController extends Controller
 
     public function createGet()
     {
-        $data = LocationService::listCreateGet();
+        $data = LocationService::listCreateGet();       
         return view('locations/create',['data' => $data]);           
     }    
 

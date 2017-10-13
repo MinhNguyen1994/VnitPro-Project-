@@ -34,9 +34,11 @@ class ProductService extends ServiceProvider
     {
         $dataProduct = Product::all();
         $dataGroup = ProductGroup::all();
+        $dataUnit = Unit::all();
         $data = [
             'dataProduct'   => $dataProduct,
-            'dataGroup'    => $dataGroup
+            'dataGroup'     => $dataGroup,
+            'dataUnit'      => $dataUnit
         ];       
         return $data; 
     }
@@ -44,6 +46,7 @@ class ProductService extends ServiceProvider
     public static function createGet()
     {   
         $dataGroup = ProductGroup::all();
+        $dataUnit = Unit::all();
         $dataProduct = [
             'titleSmall'        => 'Create',
             'titlePage'         => 'Create A New Product',
@@ -55,7 +58,8 @@ class ProductService extends ServiceProvider
         ];
         $data = [             
             'dataProduct'   =>  $dataProduct,
-            'dataGroup'     =>  $dataGroup
+            'dataGroup'     =>  $dataGroup,
+            'dataUnit'      =>  $dataUnit
         ];              
         return $data;
     }
@@ -70,6 +74,7 @@ class ProductService extends ServiceProvider
         $Product->code_product      = $data['code'];
         $Product->description       = $data['description'];
         $Product->id_product_group  = $data['productGroup'];
+        $Product->id_unit           = $data['unit'];
         $Product->created_at        = $time;           
         $Product->save();
         Session::flash('success','Successfull Created');   
@@ -125,4 +130,5 @@ class ProductService extends ServiceProvider
         $Product->save();
         Session::flash('success','Successfull Edited');
     }
+
 }

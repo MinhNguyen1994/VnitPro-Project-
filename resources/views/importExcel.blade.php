@@ -28,7 +28,7 @@
         <h3 class="box-title">Choose File Import</h3>
   </div> 
   <div class="box-body">
-  	<form role="form" method="POST" enctype="multipart/form-data" >
+  	<form role="form" method="POST" enctype="multipart/form-data" action="{{ route('import.excel.post') }}">
   		{{ csrf_field() }}
         	<div class="box-body">        
           	<div class="form-group">

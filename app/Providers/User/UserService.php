@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Providers;
+namespace App\Providers\User;
 
 use Illuminate\Support\ServiceProvider;
-
 use App\WareHouse;
+use App\Product\Product;
+use App\Product\Unit;
 
 class UserService extends ServiceProvider
 {
@@ -28,10 +29,16 @@ class UserService extends ServiceProvider
         //
     }
 
-    public static function getData(){
-        $location = WareHouse::all();
+    public static function viewImport()
+    {   
+        $dataWareHouse  = WareHouse::all();
+        $dataProduct    = Product::all();
+        $dataUnit       = Unit::all();
         $data = [
-            'location' => $location,
+            'dataWareHouse' => $dataWareHouse,
+            'dataProduct'   => $dataProduct,
+            'action'    => 'Import',
         ];
+        return $data;
     }
 }
