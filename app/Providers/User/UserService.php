@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use App\WareHouse;
 use App\Product\Product;
 use App\Product\Unit;
+use Illuminate\Pagination\Paginator;
 
 class UserService extends ServiceProvider
 {
@@ -32,13 +33,20 @@ class UserService extends ServiceProvider
     public static function viewImport()
     {   
         $dataWareHouse  = WareHouse::all();
-        $dataProduct    = Product::all();
-        $dataUnit       = Unit::all();
+        $dataProduct    = Product::with('unit')->get();
+        $dataProduct2   = Product::paginate(1);        
         $data = [
             'dataWareHouse' => $dataWareHouse,
             'dataProduct'   => $dataProduct,
-            'action'    => 'Import',
+            'action'        => 'Import',            
+            'dataProduct2'  => $dataProduct2
         ];
+        return $data;
+    }
+
+    public static function getdata($id_product)
+    {
+        $data = Product::where('id',$id_product)->with('unit')->first();
         return $data;
     }
 }

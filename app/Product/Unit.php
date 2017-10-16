@@ -16,4 +16,8 @@ class Unit extends Model
     protected $hidden = [
         'remember_token'
     ];
+
+    public function product(){
+    	return $this->hasOne('App\Product\Product');
+    }
 }

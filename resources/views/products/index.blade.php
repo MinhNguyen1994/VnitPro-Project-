@@ -48,26 +48,13 @@
           </tr>
           </thead>
           <tbody>
-          @foreach($data['dataProduct'] as $value)
+          @foreach($data as $value)            
           <tr>
             <td>{{ $value->name_product }}</td>            
             <td>{{ $value->code_product }}</td>
-            <td>
-              @foreach($data['dataUnit'] as $v)
-                @if($v->id  == $value->id_unit)
-                  <option value="{{ $v->id}}">{{ $v->name }}</option>
-                @endif
-              @endforeach
-            </td>                      
+            <td>{{ $value->unit->name }}</td>                      
             <td>{{ $value->description }}</td>
-            <td>
-                @foreach($data['dataGroup'] as $v)
-                  @if($value['id_product_group'] == $v['id'])
-                    {{ $v['name_product_group']}}
-                    @break                    
-                  @endif
-                @endforeach
-            </td>            
+            <td>{{ $value->product_group->name_product_group}}</td>            
             <td>{{ $value->created_at }}</td>
             <td>{{ $value->updated_at }}</td>
             <td>

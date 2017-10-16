@@ -19,8 +19,8 @@ class CreateProductsTable extends Migration
             $table->string('name_product',255);
             $table->string('code_product',50);            
             $table->text('description');
-            $table->integer('id_unit')->unsigned();            
-            $table->integer('id_product_group')->unsigned();
+            $table->integer('unit_id')->unsigned();            
+            $table->integer('product_group_id')->unsigned();
             $table->rememberToken();
             $table->timestamps();
         });                   

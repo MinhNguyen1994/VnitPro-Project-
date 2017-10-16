@@ -113,7 +113,7 @@
                     <div class="col-xs-5 col-md-3">
                         <select class="form-control select2" name="productGroup">                    
                             @foreach($data['dataGroup'] as $d)
-                                @if($d->id == $data['dataProduct']['id_product_group'])
+                                @if($d->id == $data['dataProduct']['product_group_id'])
                                     <option value="{{ $d->id }}" selected>{{ $d->name_product_group }}</option>
                                 @else
                                     <option value="{{ $d->id }}">{{ $d->name_product_group }}</option>

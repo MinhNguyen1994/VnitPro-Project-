@@ -17,8 +17,8 @@ class CreateBillsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('code');
-            $table->integer('id_user')->unsigned();            
-            $table->integer('id_warehouse')->unsigned();
+            $table->integer('user_id')->unsigned();            
+            $table->integer('warehouse_id')->unsigned();
             $table->integer('action')->unsigned();
             $table->timestamps();
         });

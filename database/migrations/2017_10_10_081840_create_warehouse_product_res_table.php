@@ -16,8 +16,8 @@ class CreateWarehouseProductResTable extends Migration
         //
         Schema::create('warehouse_product_res', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_product')->unsigned();
-            $table->integer('id_warehouse')->unsigned();            
+            $table->integer('product_id')->unsigned();
+            $table->integer('warehouse_id')->unsigned();            
             $table->integer('quanlity')->unsigned();             
             $table->rememberToken();
             $table->timestamps();

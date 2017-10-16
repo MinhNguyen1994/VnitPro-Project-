@@ -20,8 +20,8 @@ class ProductController extends Controller
     // VIEW PRODUCTS
     public function index()
     {
-    	$data = ProductService::index();    	
-    	return view('products/index',['data' => $data]);
+    	$data = ProductService::index();        
+        return view('products/index',['data' => $data]);
     }
     // END 
 

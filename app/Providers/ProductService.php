@@ -32,15 +32,9 @@ class ProductService extends ServiceProvider
 
     public static function index()
     {
-        $dataProduct = Product::all();
-        $dataGroup = ProductGroup::all();
-        $dataUnit = Unit::all();
-        $data = [
-            'dataProduct'   => $dataProduct,
-            'dataGroup'     => $dataGroup,
-            'dataUnit'      => $dataUnit
-        ];       
-        return $data; 
+        $data = Product::with('unit','product_group')->get();             
+        return $data;       
+        
     }
 
     public static function createGet()
@@ -54,7 +48,7 @@ class ProductService extends ServiceProvider
             'name_product'      => '',
             'description'       => '',
             'code_product'      => '',            
-            'id_product_group'  => '',
+            'product_group_id'  => '',
         ];
         $data = [             
             'dataProduct'   =>  $dataProduct,
@@ -73,8 +67,8 @@ class ProductService extends ServiceProvider
         $Product->name_product      = $data['name'];               
         $Product->code_product      = $data['code'];
         $Product->description       = $data['description'];
-        $Product->id_product_group  = $data['productGroup'];
-        $Product->id_unit           = $data['unit'];
+        $Product->product_group_id  = $data['productGroup'];
+        $Product->unit_id           = $data['unit'];
         $Product->created_at        = $time;           
         $Product->save();
         Session::flash('success','Successfull Created');   
@@ -107,7 +101,7 @@ class ProductService extends ServiceProvider
             'name_product'      => $getProduct['name_product'],
             'description'       => $getProduct['description'],
             'code_product'      => $getProduct['code_product'],
-            'id_product_group'  => $getProduct['id_product_group'],            
+            'product_group_id'  => $getProduct['product_group_id'],            
         ];
         $data = [           
             'dataProduct'   =>  $dataProduct,
@@ -125,7 +119,7 @@ class ProductService extends ServiceProvider
         $Product->name_product      = $data['name'];        
         $Product->code_product      = $data['code'];
         $Product->description       = $data['description'];
-        $Product->id_product_group  = $data['productGroup'];
+        $Product->product_group_id  = $data['productGroup'];
         $Product->updated_at        = $time;           
         $Product->save();
         Session::flash('success','Successfull Edited');
