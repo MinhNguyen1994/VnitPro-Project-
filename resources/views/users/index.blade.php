@@ -11,6 +11,7 @@
 @section('css')
 <!-- Select2 -->
 <link rel="stylesheet" href="{{ asset('bower_components/select2/dist/css/select2.min.css') }}">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
 @section('content')
@@ -19,8 +20,8 @@
 			<h3 class="box-title">Action: Inport and Export</h3>
 		</div>
 		<div class="box box-body">
-			<form role="form" method="POST">
-				{{ csrf_field() }}
+			<form role="form" method="POST" id="formData" action="{{ route('user.import.product.post') }}">
+			{{ csrf_field() }}				
 				<div class="row">
 					<div class="form-group col-xs-7 col-md-6">
 						<label>Location</label>
@@ -99,7 +100,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<button type="submit" class="btn btn-success" name="submit" id="ImportWH">Import to WareHouse</button>
+					<input type="submit" class="btn btn-success" name="submit" id="ImportWH" value="Import to WareHouse">
 				</div>
 			</form>			
 		</div>
@@ -108,12 +109,15 @@
 
 @section('javascript')
 <script type="text/javascript">
-$(document).ready(function(){
-	var i= 0;
-	$('#add').on('click',function(){
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+$(document).ready(function(){	
+	$('#add').on('click',function(){		
 		var quanlity = $('#quanlity').val();
-		var product = $('#product').val();	
-		i++;
+		var product = $('#product').val();		
 		if(quanlity > 0){
 			$('#errorQuanlity').empty();
 			$.ajax({
@@ -122,7 +126,7 @@ $(document).ready(function(){
 			dataType: 'json',
 			data: { 'product': product },
 			success : function(data){			
-				$('#tableProduct').append('<tr id="remove"><td>'+data.id+'</td><td>'+data.name_product+'</td><td>'+quanlity+'</td><td>'+data.unit.name+'</td><td><span class="fa fa-trash-o" style="color:red;cursor: pointer;" onclick="deleteRow(this)"></span></td>');				
+				$('#tableProduct').append('<tr id="remove"><td>'+data.id+'</td><td>'+data.name_product+'</td><td>'+quanlity+'</td><td>'+data.unit.name+'</td><td><span class="fa fa-trash-o" style="color:red;cursor: pointer;" onclick="deleteRow(this)"></span></td>');		
 			}			
 		});			
 		}else{
@@ -130,21 +134,33 @@ $(document).ready(function(){
 			$('#errorQuanlity').append('<strong>Must be greater than 0</strong>');
 		}		
 	});
-	$('#ImportWH').on('click',function(){
+	$('#formData').on('submit',function(e){
+		e.preventDefault();
 		var table = $('#dataProduct tbody');
+		var dataArr = [];
+		var dataObj = {};
 		table.find('tr').each(function (i, el) {
 			var $tds = $(this).find('td');
             id_product = $tds.eq(0).text();
             quanlity = $tds.eq(2).text();
-            $.ajax({
-            	url: '{{ route('user.import.product.post')}}',
-            	type: 'POST',
-            	data:{ 'id_product':id_product,'quanlity':quanlity},
-            	success: function(){
-            		alert('ok');
-            	}
-            });          
-		});		
+            dataObj = ({id_product:id_product,quanlity:quanlity});           
+            dataArr.push(dataObj);                                                 	                              
+		});
+
+		$.ajax({
+			url: '/importPost',
+			type: 'POST',
+			data: $('form').serialize() {'dataArr':dataArr},
+			success: function(){
+				alert('ok');							
+			},
+			error: function(xhr, textStatus, error){
+		      	console.log(xhr.statusText);
+		     	console.log(textStatus);
+		      	console.log(error);
+		  	}	
+		});
+					  							
 	});	
 });
 function deleteRow(e){	

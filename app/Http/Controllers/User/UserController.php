@@ -27,16 +27,17 @@ class UserController extends Controller
     }
 
     public function postImport(Request $request)
-    {
+    {          
         print_r($request->all());
+                
     }
-
     public function actionExport()
     {
     	return view('users.index');
     }
 
-    public function getProduct(Request $request){            
+    public function getProduct(Request $request){
+                 
         $data = UserService::getdata($request->product);        
         return Response::json($data);
     }
