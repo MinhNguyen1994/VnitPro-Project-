@@ -134,22 +134,27 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header"><strong>MENU</strong></li>
-        <li>
+        <li class="treeview">
           <a href="">
             <i class="fa fa-cloud-download"></i> Import and Export
-              <span class="pull-right-container">
-                  <span class="label label-primary pull-right">Action</span>
-              </span>
+            <span class="pull-right-container">
+                <span class="label label-primary pull-right">Action</span>
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
           </a>
+          <ul class="treeview-menu">
+            <li><a href="{{ route('user.import.product') }}"><i class="fa fa-circle-o"></i> Import </a></li>
+            <li><a href="{{ route('user.export.product') }}"><i class="fa fa-circle-o"></i> Export </a></li>            
+          </ul>
         </li>
         <li>
           <a href="">
             <i class="fa fa-cloud-upload"></i> History
-              <span class="pull-right-container">
-                  <span class="label label-success pull-right">View</span>
-              </span>
+            <span class="pull-right-container">
+                <span class="label label-success pull-right">View</span>                
+            </span>              
           </a>
-        </li>             
+        </li>                   
       </ul>
     </section>
     <!-- /.sidebar -->

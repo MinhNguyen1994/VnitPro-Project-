@@ -78,7 +78,7 @@ class LocationService extends ServiceProvider
         $dataCity = City::getName($data['city']);
         $dataDistrict = District::getName($data['district']);
         $dataWard =Ward::getName($data['ward']);     
-        $address = $data['address']." - ".$dataWard['name_ward']." - ".$dataDistrict['name_district']." - ".$dataCity['name_city'];       
+        $address = $data['address']." / ".$dataWard['name_ward']." / ".$dataDistrict['name_district']." / ".$dataCity['name_city'];       
         $warehouse = new WareHouse();
         $warehouse->name_warehouse = $data['name'];
         $warehouse->address = $address;
@@ -95,17 +95,14 @@ class LocationService extends ServiceProvider
 
     public static function listEditget($id){        
         $city = City::all();
-        $WareHouse = WareHouse::where('id',$id)->first();
-           
-        $addressArray = explode(' - ', $WareHouse->address);        
+        $WareHouse = WareHouse::where('id',$id)->first();                      
+        $addressArray = explode(' / ', $WareHouse->address);                      
         $val_city = $addressArray[3];
         $val_district = $addressArray[2];
-        $val_ward = $addressArray[1];       
-
-        $district_codeCity = District::select('code_city')->where('name_district',$val_district)->get()->toArray();          
-        $district_info = District::select('name_district','code_district')->where('code_city',$district_codeCity)->get();
-
-        $ward_codeDistrict = Ward::select('code_district')->where('name_ward',$val_ward)->get()->toArray();
+        $val_ward = $addressArray[1];         
+        $district_codeCity = District::select('code_city')->where('name_district',$val_district)->get()->toArray();                             
+        $district_info = District::select('name_district','code_district')->where('code_city',$district_codeCity)->get();        
+        $ward_codeDistrict = Ward::select('code_district')->where('name_ward',$val_ward)->get()->toArray();        
         $ward_info = Ward::select('name_ward','code_ward')->where('code_district',$ward_codeDistrict)->get();        
 
         $data = [
@@ -131,7 +128,7 @@ class LocationService extends ServiceProvider
         $dataCity = City::getName($data['city']);
         $dataDistrict = District::getName($data['district']);
         $dataWard =Ward::getName($data['ward']);     
-        $address = $data['address']." - ".$dataWard['name_ward']." - ".$dataDistrict['name_district']." - ".$dataCity['name_city'];
+        $address = $data['address']." / ".$dataWard['name_ward']." / ".$dataDistrict['name_district']." / ".$dataCity['name_city'];
         $warehouse = WareHouse::find($id);
         $warehouse->name_warehouse = $data['name'];
         $warehouse->address = $address;

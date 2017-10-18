@@ -6,8 +6,8 @@
     <small>Import</small>
 </h1>
 <ol class="breadcrumb">
-    <li><a href="{{ url('home') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li><a href="{{ url('import') }}"><i class="fa fa-dashboard"></i> Import</a></li>    
+    <li><a href="{{ route('admin.index') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a href="{{ route('import.excel') }}"><i class="fa fa-dashboard"></i> Import</a></li>    
     
 </ol>            
 </section>  
@@ -28,7 +28,7 @@
         <h3 class="box-title">Choose File Import</h3>
   </div> 
   <div class="box-body">
-  	<form role="form" method="POST" enctype="multipart/form-data" >
+  	<form role="form" method="POST" enctype="multipart/form-data" action="{{ route('import.excel.post') }}">
   		{{ csrf_field() }}
         	<div class="box-body">        
           	<div class="form-group">
@@ -126,7 +126,7 @@
   $('#city').change(function(){              
     var code_city = $('#city').val();    
     $.ajax({
-      url: '/ajax-district',
+      url: '{{ route('ajax.get.city')}}',
       type: 'GET',
       data: {'code_city': code_city},
       dataType:'json',
@@ -143,7 +143,7 @@
   $('#district').change(function(){
     var code_district = $('#district').val();
     $.ajax({
-      url: '/ajax-ward',
+      url: '{{ route('ajax.get.district')}}',
       type: 'GET',
       data: {'code_district': code_district},
       dataType: 'json',

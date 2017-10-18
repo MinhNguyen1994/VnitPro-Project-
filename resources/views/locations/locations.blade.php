@@ -6,7 +6,7 @@
     <small>View</small>
 </h1>
 <ol class="breadcrumb">
-    <li><a href="{{ url('home') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a href="{{ route('admin.index') }}"><i class="fa fa-dashboard"></i> Home</a></li>
     <li><i class="fa fa-dashboard"></i> Locations</li>    
       
 </ol>            
@@ -27,7 +27,7 @@
       </div>
       <!-- /.box-header -->
       <div class="box-body">
-        <a href="{{ url('location/create') }}"><button class="btn btn-primary">Create New Location</button></a>
+        <a href="{{ route('location.create') }}"><button class="btn btn-primary">Create New Location</button></a>
         <label>
           @if(Session::has('success'))
             <p style="color: red;font-weight: bold">{{ Session::get('success') }}</p>
@@ -55,8 +55,8 @@
             <td>{{ $value->created_at }}</td>
             <td>{{ $value->updated_at }}</td>
             <td>
-                <a href="{{ url('location/edit') }}/{{ $value->id }}">Edit </a> | 
-                <a href="{{ url('location/delete') }}/{{$value->id}}"> Delete</a>
+                <a href="{{ route('location.edit',['id' => $value->id]) }}">Edit </a> | 
+                <a href="{{ route('location.delete',['id' => $value->id]) }}"> Delete</a>
             </td>
           </tr>
           @endforeach

@@ -300,13 +300,15 @@ class ComposerStaticInit60ef7b68f2355d800d6142170c805c9a
     );
 
     public static $classMap = array (
+        'App\\Admin' => __DIR__ . '/../..' . '/app/Admin.php',
         'App\\City' => __DIR__ . '/../..' . '/app/City.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\District' => __DIR__ . '/../..' . '/app/District.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\History\\BillDetails' => __DIR__ . '/../..' . '/app/History/BillDetails.php',
         'App\\History\\HistoryBills' => __DIR__ . '/../..' . '/app/History/HistoryBills.php',
-        'App\\Http\\Controllers\\AdminController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdminController.php',
+        'App\\Http\\Controllers\\Admin\\AdminController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/AdminController.php',
+        'App\\Http\\Controllers\\Admin\\AdminLoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/AdminLoginController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
         'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',
@@ -319,14 +321,14 @@ class ComposerStaticInit60ef7b68f2355d800d6142170c805c9a
         'App\\Http\\Controllers\\LocationController' => __DIR__ . '/../..' . '/app/Http/Controllers/LocationController.php',
         'App\\Http\\Controllers\\Product\\ProductController' => __DIR__ . '/../..' . '/app/Http/Controllers/Product/ProductController.php',
         'App\\Http\\Controllers\\Product\\QuanlityController' => __DIR__ . '/../..' . '/app/Http/Controllers/Product/QuanlityController.php',
-        'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
+        'App\\Http\\Controllers\\User\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/User/UserController.php',
         'App\\Http\\Controllers\\product\\ProductGroupController' => __DIR__ . '/../..' . '/app/Http/Controllers/Product/ProductGroupController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
-        'App\\Http\\Middleware\\AdminMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/AdminMiddleware.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
         'App\\Http\\Middleware\\RedirectIfAuthenticated' => __DIR__ . '/../..' . '/app/Http/Middleware/RedirectIfAuthenticated.php',
         'App\\Http\\Middleware\\TrimStrings' => __DIR__ . '/../..' . '/app/Http/Middleware/TrimStrings.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Http\\Requests\\AdminLoginRequest' => __DIR__ . '/../..' . '/app/Http/Requests/AdminLoginRequest.php',
         'App\\Http\\Requests\\LocationFormRequest' => __DIR__ . '/../..' . '/app/Http/Requests/LocationFormRequest.php',
 <<<<<<< HEAD
 =======
@@ -359,6 +361,7 @@ class ComposerStaticInit60ef7b68f2355d800d6142170c805c9a
         'Carbon\\Exceptions\\InvalidDateException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/InvalidDateException.php',
         'CreateAdminsTable' => __DIR__ . '/../..' . '/database/migrations/2017_10_11_085517_create_admins_table.php',
         'CreateBillDetailsTable' => __DIR__ . '/../..' . '/database/migrations/2017_10_10_034842_create_bill_details_table.php',
+        'CreateBillsTable' => __DIR__ . '/../..' . '/database/migrations/2017_10_12_092549_create_bills_table.php',
         'CreateCitiesTable' => __DIR__ . '/../..' . '/database/migrations/2017_09_27_022827_create_cities_table.php',
         'CreateDistrictsTable' => __DIR__ . '/../..' . '/database/migrations/2017_09_27_023535_create_districts_table.php',
         'CreateHistoryBillsTable' => __DIR__ . '/../..' . '/database/migrations/2017_10_10_020618_create_history_bills_table.php',

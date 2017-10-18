@@ -6,8 +6,8 @@
     <small>{{ $data['titleSmall']}}</small>
 </h1>
 <ol class="breadcrumb">
-    <li><a href="{{ url('home') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li><a href="{{ url('location') }}"><i class="fa fa-dashboard"></i> Locations</a></li>    
+    <li><a href="{{ route('admin.index') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a href="{{ route('location') }}"><i class="fa fa-dashboard"></i> Locations</a></li>    
     <li><i class="fa fa-dashboard"></i> {{ $data['titleMini'] }}</li>    
 </ol>            
 </section>  
@@ -163,7 +163,7 @@
 	$('#city').change(function(){        		
 		var code_city = $('#city').val();
 		$.ajax({
-			url: '/ajax-district',
+			url: '{{ route('ajax.get.city')}}',
 			type: 'GET',
 			data: {'code_city': code_city},
 			dataType:'json',
@@ -180,7 +180,7 @@
 	$('#district').change(function(){
 		var code_district = $('#district').val();
 		$.ajax({
-			url: '/ajax-ward',
+			url: '{{ route('ajax.get.district')}}',
 			type: 'GET',
 			data: {'code_district': code_district},
 			dataType: 'json',

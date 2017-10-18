@@ -63,11 +63,11 @@ class ExcelController extends Controller
                     $wardObj->insert($insert);
                 }
                 Session::flash('status','Successfull import ');
-                return redirect('import');  			
+                return redirect()->route('import.excel');  			
     		}
     	} else{
             Session::flash('status','Error !! ');    		
-    		return redirect('import');
+    		return redirect()->route('import.excel');
     	}
     	
     }
