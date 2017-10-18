@@ -27,9 +27,12 @@ class UserController extends Controller
     }
 
     public function postImport(Request $request)
-    {          
-        print_r($request->all());
-                
+    {  
+        $data = UserService::postImport($request->all());
+        echo "<pre>";
+        print_r($data);
+        echo "</pre>";
+
     }
     public function actionExport()
     {

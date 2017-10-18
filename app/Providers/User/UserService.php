@@ -49,4 +49,15 @@ class UserService extends ServiceProvider
         $data = Product::where('id',$id_product)->with('unit')->first();
         return $data;
     }
+
+    public static function postImport($data){               
+        foreach ($data['dataArr'] as $value) {            
+            $dataProduct = Product::where('id',$value['id_product'])->get();
+            $dataArr = [ 
+                'dataProduct'=> $dataProduct,
+                'quanlity'=> $value['quanlity'] 
+            ];            
+        }
+        return $dataArr;
+    }
 }

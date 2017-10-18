@@ -106,7 +106,6 @@
 		</div>
 	</div>
 @endsection
-
 @section('javascript')
 <script type="text/javascript">
 $.ajaxSetup({
@@ -134,8 +133,7 @@ $(document).ready(function(){
 			$('#errorQuanlity').append('<strong>Must be greater than 0</strong>');
 		}		
 	});
-	$('#formData').on('submit',function(e){
-		e.preventDefault();
+	$('#formData').on('submit',function(e){			
 		var table = $('#dataProduct tbody');
 		var dataArr = [];
 		var dataObj = {};
@@ -146,13 +144,13 @@ $(document).ready(function(){
             dataObj = ({id_product:id_product,quanlity:quanlity});           
             dataArr.push(dataObj);                                                 	                              
 		});
-
+		e.preventDefault();	
 		$.ajax({
-			url: '/importPost',
+			url: '{{ route('user.import.product.post') }}',
 			type: 'POST',
-			data: $('form').serialize() {'dataArr':dataArr},
-			success: function(){
-				alert('ok');							
+			data:{'dataArr':dataArr},
+			success: function(data){
+				console.log(data)							
 			},
 			error: function(xhr, textStatus, error){
 		      	console.log(xhr.statusText);

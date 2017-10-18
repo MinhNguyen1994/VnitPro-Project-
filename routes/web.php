@@ -13,7 +13,7 @@
 Auth::routes();
 // -----------------------------------------USER-----------------------------------------\\
 
-Route::get('/' ,'User\UserController@actionImport')->name('user.index');
+Route::get('/' ,'User\UserController@index')->name('user.index');
 Route::get('/home' ,'User\UserController@index')->name('user.index');
 
 Route::get('/import','User\UserController@actionImport')->name('user.import.product');
@@ -24,9 +24,6 @@ Route::get('/export','User\UserController@actionExport')->name('user.export.prod
 Route::get('/logout', 'Auth\LoginController@userLogout')->name('logout');
 
 Route::get('/getProduct','User\UserController@getProduct')->name('get.product');
-
-
-
 
 
 
