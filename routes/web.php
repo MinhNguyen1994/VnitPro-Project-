@@ -17,9 +17,11 @@ Route::get('/' ,'User\UserController@index')->name('user.index');
 Route::get('/home' ,'User\UserController@index')->name('user.index');
 
 Route::get('/import','User\UserController@actionImport')->name('user.import.product');
-Route::post('/importPost','User\UserController@postImport')->name('user.import.product.post');
+Route::post('/import','User\UserController@postImport')->name('user.import.product.post');
 
 Route::get('/export','User\UserController@actionExport')->name('user.export.product');
+
+Route::get('history','User\UserController@history')->name('user.history');
   
 Route::get('/logout', 'Auth\LoginController@userLogout')->name('logout');
 

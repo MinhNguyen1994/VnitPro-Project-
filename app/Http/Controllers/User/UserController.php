@@ -20,6 +20,11 @@ class UserController extends Controller
     	echo "ok";
     }
 
+    public function history(){
+        $data = UserService::getHistory();        
+        return view('users.history',['data'=> $data]);
+    }
+
     public function actionImport()
     {	
     	$data = UserService::viewImport(); 
@@ -29,10 +34,7 @@ class UserController extends Controller
     public function postImport(Request $request)
     {  
         $data = UserService::postImport($request->all());
-        echo "<pre>";
-        print_r($data);
-        echo "</pre>";
-
+        return $data;        
     }
     public function actionExport()
     {

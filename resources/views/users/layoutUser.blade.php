@@ -148,7 +148,7 @@
           </ul>
         </li>
         <li>
-          <a href="">
+          <a href="{{ route('user.history') }}">
             <i class="fa fa-cloud-upload"></i> History
             <span class="pull-right-container">
                 <span class="label label-success pull-right">View</span>                

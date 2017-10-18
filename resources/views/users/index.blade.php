@@ -25,13 +25,14 @@
 				<div class="row">
 					<div class="form-group col-xs-7 col-md-6">
 						<label>Location</label>
-						<select class="form-control select2" style="width: 70%;" name="location">
-							@if($data['action'] == 'Import')
-								@foreach($data['dataWareHouse'] as $value)
-								<option value="{{ $value->id }}">{{ $value->name_warehouse }} ( {{ $value->address }} )</option>
-								@endforeach
-							@endif
+						@if($data['action'] == 'Import')
+						<select class="form-control select2" style="width: 70%;" name="location">							
+							@foreach($data['dataWareHouse'] as $value)
+							<option value="{{ $value->id }}">{{ $value->name_warehouse }} ( {{ $value->address }} )</option>
+							@endforeach							
 						</select>
+						<input type="hidden" name="action" value="0">
+						@endif
 					</div>
 
 					<div class="form-group col-md-6 col-xs-5">
@@ -100,7 +101,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<input type="submit" class="btn btn-success" name="submit" id="ImportWH" value="Import to WareHouse">
+					<input type="submit" class="btn btn-success" name="submit" id="ImportWH" value="Import to WareHouse">					
 				</div>
 			</form>			
 		</div>
@@ -113,8 +114,15 @@ $.ajaxSetup({
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
+function objectifyForm(formArray) {
+  	var returnArray = {};
+  	for (var i = 0; i < formArray.length; i++){
+    	returnArray[formArray[i]['name']] = formArray[i]['value'];
+  	}
+  	return returnArray;
+}	
 $(document).ready(function(){	
-	$('#add').on('click',function(){		
+	$('#add').on('click',function(){					
 		var quanlity = $('#quanlity').val();
 		var product = $('#product').val();		
 		if(quanlity > 0){
@@ -124,8 +132,11 @@ $(document).ready(function(){
 			type: 'GET',
 			dataType: 'json',
 			data: { 'product': product },
-			success : function(data){			
-				$('#tableProduct').append('<tr id="remove"><td>'+data.id+'</td><td>'+data.name_product+'</td><td>'+quanlity+'</td><td>'+data.unit.name+'</td><td><span class="fa fa-trash-o" style="color:red;cursor: pointer;" onclick="deleteRow(this)"></span></td>');		
+			success : function(data){						
+				$('#tableProduct').append('<tr id="'+data.id+'"><td>'+data.id+'</td><td>'+data.name_product+'</td><td>'+quanlity+'</td><td>'+data.unit.name+'</td><td><span class="fa fa-trash-o" style="color:red;cursor: pointer;" onclick="deleteRow(this)"></span></td>');
+				/*$('#tableProduct tr').each(function(i){
+					alert($(this).attr('id'));
+				});*/	
 			}			
 		});			
 		}else{
@@ -133,7 +144,10 @@ $(document).ready(function(){
 			$('#errorQuanlity').append('<strong>Must be greater than 0</strong>');
 		}		
 	});
-	$('#formData').on('submit',function(e){			
+	$('#formData').on('submit',function(e){
+		e.preventDefault();
+		var form = $('#formData').serializeArray();
+		var detail = objectifyForm(form);		
 		var table = $('#dataProduct tbody');
 		var dataArr = [];
 		var dataObj = {};
@@ -144,13 +158,13 @@ $(document).ready(function(){
             dataObj = ({id_product:id_product,quanlity:quanlity});           
             dataArr.push(dataObj);                                                 	                              
 		});
-		e.preventDefault();	
+
 		$.ajax({
 			url: '{{ route('user.import.product.post') }}',
 			type: 'POST',
-			data:{'dataArr':dataArr},
-			success: function(data){
-				console.log(data)							
+			data:{'detail':detail,'dataArr':dataArr},
+			success: function(data){				
+				window.location.replace('{{ route('user.history')}}');						
 			},
 			error: function(xhr, textStatus, error){
 		      	console.log(xhr.statusText);
