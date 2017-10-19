@@ -16,8 +16,4 @@ class BillDetail extends Model
         'remember_token',
     ];
 
-    public function bill()
-    {
-    	return $this->belongsTo('App\History\Bill');
-    }    
 }

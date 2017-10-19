@@ -76,7 +76,7 @@ class UserService extends ServiceProvider
     }
 
     public static function getHistory(){
-        $data = Bill::with('bill_detail')->get();
+        $data = Bill::orderBy('id','desc')->with('warehouse','product')->get();        
         return $data;     
     }
 }

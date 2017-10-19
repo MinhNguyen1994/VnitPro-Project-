@@ -19,5 +19,9 @@ class WareHouse extends Model
     public static function getDataById($id){
     	 self::where('id',$id)->get();
 
+    }
+    public function bill()
+    {
+        return $this->hasMany('App\History\Bill');
     }    
 }
