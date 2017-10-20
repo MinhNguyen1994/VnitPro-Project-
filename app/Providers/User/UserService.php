@@ -80,7 +80,7 @@ class UserService extends ServiceProvider
                 $whRes->save();
             }
             else{
-                $quanlity_id = WareHouseProductRes::select('quanlity','id')->where('product_id',$value['id_product'])->where('warehouse_id',$data['detail']['location'])->get();
+                $quanlity_id = WareHouseProductRes::select('quanlity','id')->where('product_id',$value['id_product'])->where('warehouse_id',$data['detail']['location'])->first();               
                 $quanlity_change = $quanlity_id->quanlity + $value['quanlity'];
                 $whRes = WareHouseProductRes::find($quanlity_id->id);
                 $whRes->quanlity = $quanlity_change;

@@ -158,7 +158,7 @@ $(document).ready(function(){
 			type: 'POST',
 			data:{'detail':detail,'dataArr':dataArr},
 			success: function(data){				
-				window.location.replace('{{ route('user.history')}}');						
+				console.log($data);					
 			},
 			error: function(xhr, textStatus, error){
 		      	console.log(xhr.statusText);
