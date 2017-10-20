@@ -15,11 +15,7 @@ class Bill extends Model
     protected $hidden = [
         'remember_token','updated_at'
     ];
-
-    public function bill_detail()
-    {
-    	return $this->hasMany('App\History\BillDetail');
-    }
+   
     public function warehouse()
     {
     	return  $this->belongsTo('App\WareHouse');

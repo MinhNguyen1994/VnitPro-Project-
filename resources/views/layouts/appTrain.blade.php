@@ -28,8 +28,8 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                    <a class="navbar-brand" href="@if($position == 'Admin') {{ route('admin.index') }} @else {{ route('user.index') }} @endif ">
+                        WareHouse
                     </a>
                 </div>
 

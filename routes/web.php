@@ -13,7 +13,7 @@
 Auth::routes();
 // -----------------------------------------USER-----------------------------------------\\
 
-Route::get('/' ,'User\UserController@index')->name('user.index');
+Route::get('/' ,'User\UserController@history')->name('user.index');
 Route::get('/home' ,'User\UserController@index')->name('user.index');
 
 Route::get('/import','User\UserController@actionImport')->name('user.import.product');

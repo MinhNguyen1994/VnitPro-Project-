@@ -17,7 +17,7 @@
 @section('content')
 	<div class="box box-success">
 		<div class="box-header">
-			<h3 class="box-title">Action: Inport and Export</h3>
+			<h3 class="box-title">Action: Import</h3>
 		</div>
 		<div class="box box-body">
 			<form role="form" method="POST" id="formData" action="{{ route('user.import.product.post') }}">
@@ -25,14 +25,13 @@
 				<div class="row">
 					<div class="form-group col-xs-7 col-md-6">
 						<label>Location</label>
-						@if($data['action'] == 'Import')
+						
 						<select class="form-control select2" style="width: 70%;" name="location">							
 							@foreach($data['dataWareHouse'] as $value)
 							<option value="{{ $value->id }}">{{ $value->name_warehouse }} ( {{ $value->address }} )</option>
 							@endforeach							
 						</select>
-						<input type="hidden" name="action" value="0">
-						@endif
+						<input type="hidden" name="action" value="0">						
 					</div>
 
 					<div class="form-group col-md-6 col-xs-5">
@@ -57,15 +56,13 @@
 						<label>Product</label>
 						<div class="row">
 							<div class="col-xs-6 col-md-6">
-								<select class="form-control select2" name="product" id="product">							
-									@if($data['action'] == 'Import')							
-										@foreach($data['dataProduct'] as $value)
-											<option value="{{ $value->id }}">									
-												{{ $value->name_product }} ( đơn vị: {{ $value->unit->name }} )									
-											</option>
-										@endforeach
-									@endif
-								</select>
+								<select class="form-control select2" name="product" id="product">												
+									@foreach($data['dataProduct'] as $value)
+										<option value="{{ $value->id }}">									
+											{{ $value->name_product }} ( đơn vị: {{ $value->unit->name }} )									
+										</option>
+									@endforeach
+								<select>
 							</div>
 							<div class="col-xs-3 col-md-3">
 								<input type="number" name="quanlity" class="form-control" placeholder="Quanlity" id="quanlity">
@@ -133,10 +130,7 @@ $(document).ready(function(){
 			dataType: 'json',
 			data: { 'product': product },
 			success : function(data){						
-				$('#tableProduct').append('<tr id="'+data.id+'"><td>'+data.id+'</td><td>'+data.name_product+'</td><td>'+quanlity+'</td><td>'+data.unit.name+'</td><td><span class="fa fa-trash-o" style="color:red;cursor: pointer;" onclick="deleteRow(this)"></span></td>');
-				/*$('#tableProduct tr').each(function(i){
-					alert($(this).attr('id'));
-				});*/	
+				$('#tableProduct').append('<tr id="'+data.id+'"><td>'+data.id+'</td><td>'+data.name_product+'</td><td>'+quanlity+'</td><td>'+data.unit.name+'</td><td><span class="fa fa-trash-o" style="color:red;cursor: pointer;" onclick="deleteRow(this)"></span></td>');	
 			}			
 		});			
 		}else{

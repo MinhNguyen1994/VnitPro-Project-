@@ -28,7 +28,7 @@ class UserController extends Controller
     public function actionImport()
     {	
     	$data = UserService::viewImport(); 
-    	return view('users.index',['data' =>$data]);
+    	return view('users.import',['data' =>$data]);
     }
 
     public function postImport(Request $request)
@@ -38,7 +38,8 @@ class UserController extends Controller
     }
     public function actionExport()
     {
-    	return view('users.index');
+        $data = UserService::viewExport();
+    	return view('users.export',['data' =>$data]);
     }
 
     public function getProduct(Request $request){

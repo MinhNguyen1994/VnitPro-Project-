@@ -22,6 +22,6 @@ class WareHouse extends Model
     }
     public function bill()
     {
-        return $this->hasMany('App\History\Bill');
+        return $this->belongsTo('App\History\Bill','warehouse_id');
     }    
 }
