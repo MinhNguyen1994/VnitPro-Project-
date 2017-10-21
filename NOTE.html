@@ -1,3 +1,5 @@
+                                                            <------  2017 ------>
+                                                            
 25/9: file vendor/laravel/framework/src/Illuminate\Foundation\Auth\AuthenticatesUsers.php change in line 20 (login => loginAdmin)
 
 26/9: file vendor/laravel/framework/src/Illuminate\Foundation\Auth\RegisterUsers.php change in line 20 (auth.register = registerAuth)
@@ -6,6 +8,28 @@
 
 .....
 Reset Id tabel to 1: ALTER TABLE tablename AUTO_INCREMENT = 1
+
+Update product in warehouse(import)
+    $check = WareHouseProductRes::where('product_id', $value['id_product'])->where('warehouse_id',$data['detail']['location'])->count();
+    if($check == 0){
+        $whRes = new WareHouseProductRes();                
+        $whRes->product_id = $value['id_product'];
+        $whRes->warehouse_id = $data['detail']['location'];
+        $whRes->quanlity = $value['quanlity'];
+        $whRes->created_at = $time;
+        $whRes->save();
+    }
+    else{
+        $quanlity_id = WareHouseProductRes::select('quanlity','id')->where('product_id',$value['id_product'])->where('warehouse_id',$data['detail']['location'])->first();               
+        $quanlity_change = $quanlity_id->quanlity + $value['quanlity'];
+        $whRes = WareHouseProductRes::find($quanlity_id->id);
+        $whRes->quanlity = $quanlity_change;
+        $whRes->save();
+    }
+
+21/10:  file vendor/laravel/framework/src/Illuminate\Foundation\Auth\AuthenticatesUsers.php change in line 20 (default)
+
+        file vendor/laravel/framework/src/Illuminate\Foundation\Auth\RegisterUsers.php change in line 20 (default)
 
 
 

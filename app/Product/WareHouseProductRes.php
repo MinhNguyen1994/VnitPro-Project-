@@ -21,4 +21,9 @@ class WareHouseProductRes extends Model
     {
     	return $this->belongsTo('App\warehouse','warehouse_id');
     }
+
+    public function product()
+    {
+        return $this->hasManyThrough('App\Product\Unit','App\Product\Product','unit_id','product_id');
+    }
 }

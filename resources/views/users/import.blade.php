@@ -98,7 +98,11 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<input type="submit" class="btn btn-success" name="submit" id="ImportWH" value="Import to WareHouse">					
+					<input type="submit" class="btn btn-success" name="submit" id="ImportWH" value="Import to WareHouse">
+					<div id="btnLoading" style="display: none">
+						<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+						<span class="sr-only">Loading...</span>
+					</div>										
 				</div>
 			</form>			
 		</div>
@@ -118,7 +122,7 @@ function objectifyForm(formArray) {
   	}
   	return returnArray;
 }	
-$(document).ready(function(){	
+$(document).ready(function(){		
 	$('#add').on('click',function(){					
 		var quanlity = $('#quanlity').val();
 		var product = $('#product').val();		
@@ -139,7 +143,9 @@ $(document).ready(function(){
 		}		
 	});
 	$('#formData').on('submit',function(e){
-		e.preventDefault();
+		e.preventDefault();		
+		$('#ImportWH').hide();
+		$('#btnLoading').show();		
 		var form = $('#formData').serializeArray();
 		var detail = objectifyForm(form);		
 		var table = $('#dataProduct tbody');
@@ -157,8 +163,8 @@ $(document).ready(function(){
 			url: '{{ route('user.import.product.post') }}',
 			type: 'POST',
 			data:{'detail':detail,'dataArr':dataArr},
-			success: function(data){				
-				console.log($data);					
+			success: function(){				
+				window.location.assign('{{ route('user.history') }}');					
 			},
 			error: function(xhr, textStatus, error){
 		      	console.log(xhr.statusText);

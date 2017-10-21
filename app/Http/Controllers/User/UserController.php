@@ -42,9 +42,13 @@ class UserController extends Controller
     	return view('users.export',['data' =>$data]);
     }
 
-    public function getProduct(Request $request){
-                 
+    public function getProduct(Request $request){                 
         $data = UserService::getdata($request->product);        
+        return Response::json($data);
+    }
+
+    public function getProductRes(Request $request){
+        $data = UserService::getDataRes($request->all());
         return Response::json($data);
     }
 

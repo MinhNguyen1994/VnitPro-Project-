@@ -27,6 +27,8 @@ Route::get('/logout', 'Auth\LoginController@userLogout')->name('logout');
 
 Route::get('/getProduct','User\UserController@getProduct')->name('get.product');
 
+Route::get('getProductRes','User\UserController@getProductRes')->name('get.product.res');
+
 
 
 // -----------------------------------------END USER-----------------------------------------\\

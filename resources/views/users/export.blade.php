@@ -1,4 +1,3 @@
-
 @extends('users.layoutUser')
 
 @section('contend-header')
@@ -26,7 +25,8 @@
 				<div class="row">
 					<div class="form-group col-xs-7 col-md-6">
 						<label>Location</label>						
-						<select class="form-control select2" style="width: 70%;" name="location">							
+						<select class="form-control select2" style="width: 70%;" name="location" id="location">	
+								<option value="0" disabled selected> -  Pick One Location  - </option>						
 							@foreach($data['warehouse'] as $value)
 								<option value="{{ $value->id }}">{{ $value->name_warehouse }} ( {{ $value->address }} )</option>
 							@endforeach							
@@ -114,7 +114,21 @@ function objectifyForm(formArray) {
   	}
   	return returnArray;
 }	
-$(document).ready(function(){	
+$(document).ready(function(){
+	$('#location').on('change',function(){
+		var id_location = $('#location').val();		
+		$.ajax({
+			url: '{{route('get.product.res')}}',
+			dataType:'json',
+			type:'GET',
+			data:{'id':id_location },
+			success: function(data){
+				console.log(data);
+			},error:function(){
+				alert('bleeee');
+			}
+		});
+	});	
 	$('#add').on('click',function(){					
 		var quanlity = $('#quanlity').val();
 		var product = $('#product').val();		

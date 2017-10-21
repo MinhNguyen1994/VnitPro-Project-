@@ -50,6 +50,12 @@ class UserService extends ServiceProvider
         return $data;
     }
 
+    public static function getDataRes($location){        
+        //$data = WareHouseProductRes::where('warehouse_id',$location['id'])->with('product')->get();
+        $data = WareHouseProductRes::with('product')->get();
+        return $data;
+    }
+
     public static function postImport($data){        
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $time = date('Y-m-d H:i:s');        
@@ -69,32 +75,25 @@ class UserService extends ServiceProvider
             $detailBill->quanlity_change = $value['quanlity'];
             $detailBill->bill_id = $historyBill->id;
             $detailBill->created_at = $time;
-            $detailBill->save();           
-            $check = WareHouseProductRes::where('product_id', $value['id_product'])->where('warehouse_id',$data['detail']['location'])->count();
-            if($check == 0){
-                $whRes = new WareHouseProductRes();                
-                $whRes->product_id = $value['id_product'];
-                $whRes->warehouse_id = $data['detail']['location'];
-                $whRes->quanlity = $value['quanlity'];
-                $whRes->created_at = $time;
-                $whRes->save();
+            $detailBill->save();
+            $check = WareHouseProductRes::where('product_id', $value['id_product'])->where('warehouse_id',$data['detail']['location'])->first();
+            if($check == null){                                
+                $quanlity_change = $value['quanlity'];                
+            }else{                
+                $quanlity_change = $check->quanlity + $value['quanlity'];
             }
-            else{
-                $quanlity_id = WareHouseProductRes::select('quanlity','id')->where('product_id',$value['id_product'])->where('warehouse_id',$data['detail']['location'])->first();               
-                $quanlity_change = $quanlity_id->quanlity + $value['quanlity'];
-                $whRes = WareHouseProductRes::find($quanlity_id->id);
-                $whRes->quanlity = $quanlity_change;
-                $whRes->save();
-            }
-            
-           
+            WareHouseProductRes::updateOrCreate([
+                'product_id' => $value['id_product'],
+                'warehouse_id'  => $data['detail']['location']
+            ],[
+                'quanlity' => $quanlity_change,
+                'updated_at' => $time 
+            ]);          
         }
     }
 
     public static function viewExport(){
-        $warehouse = WareHouse::with('bill')->get();
-        echo "<pre>";
-        print_r($warehouse);die;
+        $warehouse = WareHouse::with('bill')->get();        
         $dataBill = Bill::with('product','warehouse')->get();
         return $data =[
             'warehouse' => $warehouse,
