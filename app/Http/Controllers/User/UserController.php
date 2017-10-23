@@ -42,13 +42,40 @@ class UserController extends Controller
     	return view('users.export',['data' =>$data]);
     }
 
-    public function getProduct(Request $request){                 
+    public function getProduct(Request $request)
+    {                 
         $data = UserService::getdata($request->product);        
         return Response::json($data);
     }
 
-    public function getProductRes(Request $request){
-        $data = UserService::getDataRes($request->all());
+    public function getProductExport(Request $request)
+    {
+        $data = UserService::getDataExport($request);        
+        return Response::json($data);
+    }
+
+    public function getProductRes(Request $request)
+    {
+        $data = UserService::getDataRes($request->all())
+        ;
+        return Response::json($data);
+    }
+
+    public function getQuanlity(Request $request)
+    {
+        $data = UserService::getQuanlity($request);
+        return Response::json($data);
+    }
+
+    public function listWh()
+    {
+        $data = UserService::getListWh();
+        return view('users.listWh',['data' => $data]);
+    }
+
+    public function getAjaxProduct(Request $request)
+    {
+        $data = UserService::getAjaxProduct($request);
         return Response::json($data);
     }
 

@@ -50,9 +50,21 @@ class UserService extends ServiceProvider
         return $data;
     }
 
-    public static function getDataRes($location){        
-        //$data = WareHouseProductRes::where('warehouse_id',$location['id'])->with('product')->get();
-        $data = WareHouseProductRes::with('product')->get();
+    public static function getDataExport($request)
+    {
+        $data = WareHouseProductRes::join('products','warehouse_product_res.product_id','products.id')->join('product_units','products.unit_id','product_units.id')->select('products.name_product','product_units.name','product_id','quanlity')->where('product_id',$request->product_id)->where('warehouse_id',$request->location_id)->first();
+        return $data;
+    }
+
+    public static function getDataRes($location)
+    {        
+        $data = WareHouseProductRes::join('products','warehouse_product_res.product_id','products.id')->join('product_units','products.unit_id','product_units.id')->select('products.name_product','product_units.name','product_id')->where('warehouse_id',$location['id'])->get();
+        return $data;
+    }
+    
+    public static function getQuanlity($request)
+    {
+        $data = WareHouseProductRes::select('quanlity')->where('product_id',$request->product_id)->where('warehouse_id',$request->location_id)->first();
         return $data;
     }
 
@@ -79,8 +91,12 @@ class UserService extends ServiceProvider
             $check = WareHouseProductRes::where('product_id', $value['id_product'])->where('warehouse_id',$data['detail']['location'])->first();
             if($check == null){                                
                 $quanlity_change = $value['quanlity'];                
-            }else{                
-                $quanlity_change = $check->quanlity + $value['quanlity'];
+            }else{ 
+                if($data['detail']['action'] == 0){
+                    $quanlity_change = $check->quanlity + $value['quanlity'];
+                } else{
+                    $quanlity_change = $check->quanlity - $value['quanlity'];
+                }              
             }
             WareHouseProductRes::updateOrCreate([
                 'product_id' => $value['id_product'],
@@ -92,7 +108,8 @@ class UserService extends ServiceProvider
         }
     }
 
-    public static function viewExport(){
+    public static function viewExport()
+    {
         $warehouse = WareHouse::with('bill')->get();        
         $dataBill = Bill::with('product','warehouse')->get();
         return $data =[
@@ -101,8 +118,23 @@ class UserService extends ServiceProvider
         ];
     }
 
-    public static function getHistory(){
+    public static function getHistory()
+    {
         $data = Bill::orderBy('id','desc')->with('warehouse','product')->get();        
         return $data;     
+    }
+
+    public static function getListWh()
+    {
+        $dataWh = WareHouse::get();
+        return $data = [
+            'warehouse' => $dataWh,
+        ];
+    }
+
+    public static function getAjaxProduct($request)
+    {
+        $data = WareHouseProductRes::join('products','warehouse_product_res.product_id','products.id')->join('product_units','products.unit_id','product_units.id')->select('products.name_product','product_units.name','quanlity','warehouse_product_res.created_at','warehouse_product_res.updated_at')->where('warehouse_id',$request->id)->get();
+        return $data;
     }
 }

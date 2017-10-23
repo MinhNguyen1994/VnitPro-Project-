@@ -5,7 +5,6 @@
     User
     <small>History</small>
 </h1>           
-</section>  
 @endsection
 
 @section('css')
@@ -117,6 +116,55 @@
 			<div class="importWH box box-body">
 				<div class="box-title">
 					<h4><strong>Export</strong></h4>
+					@foreach($data as $key => $value)
+					@if($value->action == 1)								
+						<div class="col-md-4 col-xs-12 col-sm-6 history">
+							<div class="historyTitle btn btn-primary" >
+								<div class="title">{{ $key + 1 }}. {{ $value->name }} ( {{ $value->created_at }} )</div>
+								<div class="icon"><i class="fa fa-angle-double-left"></i></div>
+							</div>
+							<div class="historyContent btn btn-info" style="text-align: left;">
+								<div>
+									<label class="labelHistoryContent">Code Bill : </label> {{ $value->code }}							
+								</div>
+								<div>
+									<label class="labelHistoryContent">Location : </label> {{ $value->warehouse->name_warehouse }}
+								</div> 
+								<div>
+									<label class="labelHistoryContent">Employee : </label> {{ $value->user->name }}
+								</div>
+								<div>
+									<label class="labelHistoryContent">Action :</label> 							
+										@if($value->action == 1)
+											<strong style="color: orange">Export to Out</strong>
+										@endif															
+								</div>
+								<div>
+									<label class="labelHistoryContent">Detail Products :</label>
+									<table class="table table-bordered">
+										<thead>
+											<tr>
+												<th>Name</th>
+												<th>Code</th>
+												<th>Quanlity</th>										
+											</tr>
+										</thead>
+										<tbody>
+											@foreach($value->product as $val)																			
+												<tr>
+													<td>{{ $val->name_product }}</td>
+													<td>{{ $val->code_product }}</td>
+													<td>{{ $val->pivot->quanlity_change }}</td>											
+												</tr>
+											@endforeach
+										</tbody>
+										
+									</table>
+								</div>
+							</div>					
+						</div>
+					@endif		
+				@endforeach
 				</div>
 			</div>			
 			

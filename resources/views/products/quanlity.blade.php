@@ -10,7 +10,6 @@
     <li><a href="{{ url('product') }}"><i class="fa fa-dashboard"></i> Product</a></li>       
     <li><i class="fa fa-dashboard"></i>{{ $data['dataQuanlity']['titleMini'] }}</li>    
 </ol>            
-</section>  
 @endsection
 
 @section('css')

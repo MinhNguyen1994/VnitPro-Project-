@@ -148,8 +148,16 @@
           </ul>
         </li>
         <li>
+          <a href="{{ route('user.view.listWH') }}">
+            <i class="fa fa-list "></i> View Products
+            <span class="pull-right-container">
+                <span class="label label-warning pull-right">List</span>                
+            </span>              
+          </a>
+        </li>
+        <li>
           <a href="{{ route('user.history') }}">
-            <i class="fa fa-cloud-upload"></i> History
+            <i class="fa fa-history"></i> History
             <span class="pull-right-container">
                 <span class="label label-success pull-right">View</span>                
             </span>              

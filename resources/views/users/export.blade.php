@@ -5,7 +5,6 @@
     User
     <small>Action</small>
 </h1>           
-</section>  
 @endsection
 
 @section('css')
@@ -31,7 +30,7 @@
 								<option value="{{ $value->id }}">{{ $value->name_warehouse }} ( {{ $value->address }} )</option>
 							@endforeach							
 						</select>
-						<input type="hidden" name="action" value="0">						
+						<input type="hidden" name="action" value="1">						
 					</div>
 
 					<div class="form-group col-md-6 col-xs-5">
@@ -57,18 +56,15 @@
 						<div class="row">
 							<div class="col-xs-6 col-md-6">
 								<select class="form-control select2" name="product" id="product">							
-																
+									<option value="0">Must Choose WareHouse</option>							
 								</select>
 							</div>
-							<div class="col-xs-3 col-md-3">
-								<input type="number" name="quanlity" class="form-control" placeholder="Quanlity" id="quanlity">
-								<div class="" id="errorQuanlity" style="color: red"></div>
-							</div>
-							<div class="col-xs-3 col-md-3">
-								<span class="btn btn-info add" id="add">Add to Bill</span>
+							<div class="col-xs-3 col-md-3" id="quanlityDiv"></div>
+							<div class="col-xs-3 col-md-3">								
+								<span class="btn btn-info add" id="add" disabled>Add to Bill</span>
 							</div>
 						</div>										
-					</div>
+					</div>					
 				</div>
 				<div class="form-group">
 					<div class="box">
@@ -94,7 +90,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<input type="submit" class="btn btn-success" name="submit" id="ImportWH" value="Import to WareHouse">					
+					<input type="submit" class="btn btn-success" name="submit" value="Export to Out">					
 				</div>
 			</form>			
 		</div>
@@ -123,30 +119,75 @@ $(document).ready(function(){
 			type:'GET',
 			data:{'id':id_location },
 			success: function(data){
-				console.log(data);
+				console.log(data);				
+				$('#product').empty();				
+				$('#product').append('<option value="0" disabled selected>Choose A Product</option>');				
+				$.each(data, function(create,dataObj){
+			        $('#product').append('<option value="'+dataObj.product_id+'">'+dataObj.name_product+'( '+dataObj.name+' )</option>');
+			    });				
 			},error:function(){
 				alert('bleeee');
-			}
+			}			
 		});
+	});
+	$('#product').on('change',function(){		
+		var product_id = $(this).val();
+		var location_id = $('#location').val();	
+		$.ajax({
+			url: '{{route('get.product.quanlity')}}',
+			type: 'GET',
+			data: {'product_id':product_id,'location_id':location_id},
+			dataType:'json',
+			success: function(data){
+				console.log(data);
+				$('#quanlityDiv').empty();
+				$('#quanlityDiv').append('<input type="number" class="form-control" value="'+data.quanlity+'" min="1" max="'+data.quanlity+'" id="quanlity"><div id="error_quanlity"></div>');
+			}, error: function(){
+				alert('Error data');
+			}			
+		});
+		$("#add").removeAttr('disabled');
 	});	
-	$('#add').on('click',function(){					
-		var quanlity = $('#quanlity').val();
-		var product = $('#product').val();		
-		if(quanlity > 0){
-			$('#errorQuanlity').empty();
-			$.ajax({
-			url: '{{ route('get.product') }}',
+	$('#add').on('click',function(){
+		var arr = [];
+		var quanlity = $('#quanlity').val();			
+		var product_id = $('#product').val();
+		var location_id = $('#location').val();			
+		$.ajax({
+			url: '{{ route('get.product.export') }}',
 			type: 'GET',
 			dataType: 'json',
-			data: { 'product': product },
-			success : function(data){						
-				$('#tableProduct').append('<tr id="'+data.id+'"><td>'+data.id+'</td><td>'+data.name_product+'</td><td>'+quanlity+'</td><td>'+data.unit.name+'</td><td><span class="fa fa-trash-o" style="color:red;cursor: pointer;" onclick="deleteRow(this)"></span></td>');	
+			data: { 'product_id': product_id,'location_id':location_id },
+			success : function(data){								
+				$('#dataProduct tbody tr').each(function(){					
+					var product_id = $(this).find('td:eq(0)').text();					
+					if(product_id == data.product_id){
+						arr.push(1);
+						return;																
+					}
+				});								
+				if(arr.length == 0){
+					$('#tableProduct').append('<tr id="'+data.product_id+'"><td>'+product_id+'</td><td>'+data.name_product+'</td><td>'+quanlity+'</td><td>'+data.name+'</td><td><span class="fa fa-trash-o" style="color:red;cursor: pointer;" onclick="deleteRow(this)"></span></td>');
+				}else{
+					$('#dataProduct tbody tr').each(function(){					
+						var product_id = $(this).find('td:eq(0)').text();
+						var product_quanlity = $(this).find('td:eq(2)').text();
+						var sum = 0; 					
+						if(product_id == data.product_id){
+							sum = parseInt(product_quanlity) + parseInt(quanlity);
+							if(sum > data.quanlity){
+								$('#error_quanlity').append('<strong style="color:red">Must be lower than '+data.quanlity+' </strong>')
+							} else{
+								$(this).find('td:eq(2)').text(sum);	
+							}
+							return;															
+						}						
+					});
+				}		
 			}			
-		});			
-		}else{
-			$('#errorQuanlity').empty();
-			$('#errorQuanlity').append('<strong>Must be greater than 0</strong>');
-		}		
+		});
+
+				
 	});
 	$('#formData').on('submit',function(e){
 		e.preventDefault();

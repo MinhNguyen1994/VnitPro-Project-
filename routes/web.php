@@ -21,14 +21,20 @@ Route::post('/import','User\UserController@postImport')->name('user.import.produ
 
 Route::get('/export','User\UserController@actionExport')->name('user.export.product');
 
+Route::get('/view','User\UserController@listWH')->name('user.view.listWH');
+Route::get('/ajax-getProduct','User\UserController@getAjaxProduct')->name('user.ajax.get.product');
+
 Route::get('history','User\UserController@history')->name('user.history');
   
 Route::get('/logout', 'Auth\LoginController@userLogout')->name('logout');
 
 Route::get('/getProduct','User\UserController@getProduct')->name('get.product');
 
-Route::get('getProductRes','User\UserController@getProductRes')->name('get.product.res');
+Route::get('/getProductRes','User\UserController@getProductRes')->name('get.product.res');
 
+Route::get('/getQuanlity','User\UserController@getQuanlity')->name('get.product.quanlity');
+
+Route::get('/getProductExport','User\UserController@getProductExport')->name('get.product.export');
 
 
 // -----------------------------------------END USER-----------------------------------------\\

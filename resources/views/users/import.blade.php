@@ -5,7 +5,6 @@
     User
     <small>Action</small>
 </h1>           
-</section>  
 @endsection
 
 @section('css')
@@ -65,8 +64,7 @@
 								<select>
 							</div>
 							<div class="col-xs-3 col-md-3">
-								<input type="number" name="quanlity" class="form-control" placeholder="Quanlity" id="quanlity">
-								<div class="" id="errorQuanlity" style="color: red"></div>
+								<input type="number" name="quanlity" class="form-control" placeholder="Quanlity" id="quanlity" min="1">			
 							</div>
 							<div class="col-xs-3 col-md-3">
 								<span class="btn btn-info add" id="add">Add to Bill</span>
@@ -123,10 +121,10 @@ function objectifyForm(formArray) {
   	return returnArray;
 }	
 $(document).ready(function(){		
-	$('#add').on('click',function(){					
-		var quanlity = $('#quanlity').val();
+	$('#add').on('click',function(){
+		var arr = [];
+		var quanlity = $('#quanlity').val();					
 		var product = $('#product').val();		
-		if(quanlity > 0){
 			$('#errorQuanlity').empty();
 			$.ajax({
 			url: '{{ route('get.product') }}',
@@ -134,13 +132,28 @@ $(document).ready(function(){
 			dataType: 'json',
 			data: { 'product': product },
 			success : function(data){						
-				$('#tableProduct').append('<tr id="'+data.id+'"><td>'+data.id+'</td><td>'+data.name_product+'</td><td>'+quanlity+'</td><td>'+data.unit.name+'</td><td><span class="fa fa-trash-o" style="color:red;cursor: pointer;" onclick="deleteRow(this)"></span></td>');	
+				$('#dataProduct tbody tr').each(function(){					
+					var product_id = $(this).find('td:eq(0)').text();					
+					if(product_id == data.id){
+						arr.push(1);
+						return;																
+					}
+				});				
+				if(arr.length == 0){
+					$('#tableProduct').append('<tr id="'+data.id+'"><td>'+data.id+'</td><td>'+data.name_product+'</td><td>'+quanlity+'</td><td>'+data.unit.name+'</td><td><span class="fa fa-trash-o" style="color:red;cursor: pointer;" onclick="deleteRow(this)"></span></td>');
+				}else{
+					$('#dataProduct tbody tr').each(function(){					
+						var product_id = $(this).find('td:eq(0)').text();
+						var product_quanlity = $(this).find('td:eq(2)').text();
+						var sum = 0; 					
+						if(product_id == data.id){
+							sum = parseInt(product_quanlity) + parseInt(quanlity);
+							$(this).find('td:eq(2)').text(sum);									
+						}						
+					});
+				}	
 			}			
 		});			
-		}else{
-			$('#errorQuanlity').empty();
-			$('#errorQuanlity').append('<strong>Must be greater than 0</strong>');
-		}		
 	});
 	$('#formData').on('submit',function(e){
 		e.preventDefault();		

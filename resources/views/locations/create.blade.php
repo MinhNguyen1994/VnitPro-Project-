@@ -10,7 +10,6 @@
     <li><a href="{{ route('location') }}"><i class="fa fa-dashboard"></i> Locations</a></li>    
     <li><i class="fa fa-dashboard"></i> {{ $data['titleMini'] }}</li>    
 </ol>            
-</section>  
 @endsection
 
 @section('css')
