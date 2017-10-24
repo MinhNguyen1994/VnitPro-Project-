@@ -49,6 +49,7 @@ class ProductService extends ServiceProvider
             'description'       => '',
             'code_product'      => '',            
             'product_group_id'  => '',
+            'unit_id'           => '',
         ];
         $data = [             
             'dataProduct'   =>  $dataProduct,

@@ -10,7 +10,7 @@ class WareHouseProductRes extends Model
     protected $table = "warehouse_product_res";
 
     protected $fillable =[
-    	'warehouse_id','product_id','quanlity',
+    	'warehouse_id','product_id','quanlity','location_product'
     ];
 
     protected $hidden = [

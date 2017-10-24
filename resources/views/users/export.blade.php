@@ -61,7 +61,7 @@
 							</div>
 							<div class="col-xs-3 col-md-3" id="quanlityDiv"></div>
 							<div class="col-xs-3 col-md-3">								
-								<span class="btn btn-info add" id="add" disabled>Add to Bill</span>
+								<span class="btn btn-info add" id="add" style="display: none">Add to Bill</span>
 							</div>
 						</div>										
 					</div>					
@@ -90,7 +90,11 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<input type="submit" class="btn btn-success" name="submit" value="Export to Out">					
+					<input type="submit" class="btn btn-success" name="submit" value="Export to Out" id="ExportTO">
+					<div id="btnLoading" style="display: none">
+						<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+						<span class="sr-only">Loading...</span>
+					</div>					
 				</div>
 			</form>			
 		</div>
@@ -112,14 +116,16 @@ function objectifyForm(formArray) {
 }	
 $(document).ready(function(){
 	$('#location').on('change',function(){
-		var id_location = $('#location').val();		
+		var id_location = $('#location').val();
+		$('#tableProduct').empty();
+		$("#add").css('display','none');
+		$('#quanlityDiv').empty();		
 		$.ajax({
 			url: '{{route('get.product.res')}}',
 			dataType:'json',
 			type:'GET',
 			data:{'id':id_location },
 			success: function(data){
-				console.log(data);				
 				$('#product').empty();				
 				$('#product').append('<option value="0" disabled selected>Choose A Product</option>');				
 				$.each(data, function(create,dataObj){
@@ -139,20 +145,20 @@ $(document).ready(function(){
 			data: {'product_id':product_id,'location_id':location_id},
 			dataType:'json',
 			success: function(data){
-				console.log(data);
 				$('#quanlityDiv').empty();
-				$('#quanlityDiv').append('<input type="number" class="form-control" value="'+data.quanlity+'" min="1" max="'+data.quanlity+'" id="quanlity"><div id="error_quanlity"></div>');
+				$('#quanlityDiv').append('<input type="number" class="form-control" value="'+data.quanlity+'" min="1" max="'+data.quanlity+'" id="quanlity"><div><strong id="error-quanlity" style="color: red"></strong></div>');
 			}, error: function(){
 				alert('Error data');
 			}			
 		});
-		$("#add").removeAttr('disabled');
+		$("#add").css('display','block');
 	});	
 	$('#add').on('click',function(){
 		var arr = [];
 		var quanlity = $('#quanlity').val();			
 		var product_id = $('#product').val();
-		var location_id = $('#location').val();			
+		var location_id = $('#location').val();
+		$('#errorQuanlity').empty();			
 		$.ajax({
 			url: '{{ route('get.product.export') }}',
 			type: 'GET',
@@ -167,16 +173,21 @@ $(document).ready(function(){
 					}
 				});								
 				if(arr.length == 0){
-					$('#tableProduct').append('<tr id="'+data.product_id+'"><td>'+product_id+'</td><td>'+data.name_product+'</td><td>'+quanlity+'</td><td>'+data.name+'</td><td><span class="fa fa-trash-o" style="color:red;cursor: pointer;" onclick="deleteRow(this)"></span></td>');
-				}else{
+					if(quanlity > data.quanlity || quanlity <= 0){						
+						$('#error-quanlity').append('Must be between 1(min) and ' +data.quanlity+'(max)');
+					}else{						
+						$('#tableProduct').append('<tr id="'+data.product_id+'"><td>'+product_id+'</td><td>'+data.name_product+'</td><td>'+quanlity+'</td><td>'+data.name+'</td><td><span class="fa fa-trash-o" style="color:red;cursor: pointer;" onclick="deleteRow(this)"></span></td>');
+					}
+					
+				}else{					
 					$('#dataProduct tbody tr').each(function(){					
 						var product_id = $(this).find('td:eq(0)').text();
 						var product_quanlity = $(this).find('td:eq(2)').text();
 						var sum = 0; 					
-						if(product_id == data.product_id){
+						if(product_id == data.product_id){							
 							sum = parseInt(product_quanlity) + parseInt(quanlity);
-							if(sum > data.quanlity){
-								$('#error_quanlity').append('<strong style="color:red">Must be lower than '+data.quanlity+' </strong>')
+							if(sum > data.quanlity || sum < 1){
+								$('#error-quanlity').append('Must be between 1(min) and ' +data.quanlity+'(max)');
 							} else{
 								$(this).find('td:eq(2)').text(sum);	
 							}
@@ -191,6 +202,8 @@ $(document).ready(function(){
 	});
 	$('#formData').on('submit',function(e){
 		e.preventDefault();
+		$('#ExportTO').hide();
+		$('#btnLoading').show();
 		var form = $('#formData').serializeArray();
 		var detail = objectifyForm(form);		
 		var table = $('#dataProduct tbody');

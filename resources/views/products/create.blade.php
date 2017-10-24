@@ -50,7 +50,7 @@
                             <label class="control-label" for="inputError" style="color:red">
                                 @if($errors->has('name'))
                                     <i class="fa fa-times-circle-o"></i>
-                                    {{ $errors->first('name') }}
+                                    {{ $errors->('name') }}
                                 @endif
                             </label>
                         </div>      
@@ -68,7 +68,7 @@
                                         @if($d->id == $data['dataProduct']['unit_id'])
                                             <option value="{{ $d->id }}" selected>{{ $d->name }}</option>
                                         @else
-                                            <option value="{{ $d->id }}">{{ $d->name }}></option>
+                                            <option value="{{ $d->id }}">{{ $d->name }}</option>
                                         @endif
                                     @endforeach                    
                                 </select>

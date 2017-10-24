@@ -36,6 +36,11 @@ Route::get('/getQuanlity','User\UserController@getQuanlity')->name('get.product.
 
 Route::get('/getProductExport','User\UserController@getProductExport')->name('get.product.export');
 
+Route::get('/getLocation','User\UserController@getLocation')->name('get.ajax.location');
+
+Route::get('/editLocation','User\UserController@editLocation')->name('edit.ajax.location');
+
+
 
 // -----------------------------------------END USER-----------------------------------------\\
 

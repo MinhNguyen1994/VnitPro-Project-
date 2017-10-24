@@ -19,7 +19,7 @@
 			<h3 class="box-title">Action: Import</h3>
 		</div>
 		<div class="box box-body">
-			<form role="form" method="POST" id="formData" action="{{ route('user.import.product.post') }}">
+			<form role="form" method="POST" id="formData" action="{{ route('user.import.product.post') }}" >
 			{{ csrf_field() }}				
 				<div class="row">
 					<div class="form-group col-xs-7 col-md-6">
@@ -42,12 +42,12 @@
 				<div class="row">
 					<div class="form-group col-xs-12 col-md-6">
 						<label>Name</label>
-						<input type="text" name="name" class="form-control" style="width: 70%" placeholder="Enter Bill's Name">
+						<input type="text" name="name" class="form-control" style="width: 70%" placeholder="Enter Bill's Name" id="name_bill">
+						
 					</div>
 					<div class="form-group col-md-6 col-xs-12">
 						<label>Code</label>
-						<input type="text" name="code" class="form-control" style="width: 70%" placeholder="Ender Code">
-
+						<input type="text" name="code" class="form-control" style="width: 70%" placeholder="Ender Code" id="code_bill">						
 					</div>
 				</div>
 				<div class="row">
@@ -64,12 +64,13 @@
 								<select>
 							</div>
 							<div class="col-xs-3 col-md-3">
-								<input type="number" name="quanlity" class="form-control" placeholder="Quanlity" id="quanlity" min="1">			
+								<input type="number" name="quanlity" class="form-control" placeholder="Quanlity" id="quanlity" min="1">
+								<div><strong id="error-quanlity" style="color: red"></strong></div>
 							</div>
 							<div class="col-xs-3 col-md-3">
 								<span class="btn btn-info add" id="add">Add to Bill</span>
 							</div>
-						</div>										
+						</div>																
 					</div>
 				</div>
 				<div class="form-group">
@@ -77,8 +78,8 @@
 						<div class="box-header">
 							<h3 class="box-title">
 								Detail Product
-							</h3>
-						</div>
+							</h3>							
+						</div>						
 						<div class="box-body">
 							<table class="table table-bordered" id="dataProduct">
 								<thead>
@@ -96,6 +97,7 @@
 					</div>
 				</div>
 				<div class="form-group">
+					<div id="error_sumbit" style="display: none;margin: 10px;color: red"><strong>Please fill all the fields and pick product first<strong></div>
 					<input type="submit" class="btn btn-success" name="submit" id="ImportWH" value="Import to WareHouse">
 					<div id="btnLoading" style="display: none">
 						<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
@@ -122,11 +124,12 @@ function objectifyForm(formArray) {
 }	
 $(document).ready(function(){		
 	$('#add').on('click',function(){
+		$('#error-quanlity').empty()
 		var arr = [];
 		var quanlity = $('#quanlity').val();					
 		var product = $('#product').val();		
-			$('#errorQuanlity').empty();
-			$.ajax({
+		$('#errorQuanlity').empty();
+		$.ajax({
 			url: '{{ route('get.product') }}',
 			type: 'GET',
 			dataType: 'json',
@@ -138,9 +141,13 @@ $(document).ready(function(){
 						arr.push(1);
 						return;																
 					}
-				});				
+				});								
 				if(arr.length == 0){
-					$('#tableProduct').append('<tr id="'+data.id+'"><td>'+data.id+'</td><td>'+data.name_product+'</td><td>'+quanlity+'</td><td>'+data.unit.name+'</td><td><span class="fa fa-trash-o" style="color:red;cursor: pointer;" onclick="deleteRow(this)"></span></td>');
+					if(quanlity <= 0){
+						$('#error-quanlity').append('Must be greater than 1(min)');
+					}else{
+						$('#tableProduct').append('<tr id="'+data.id+'"><td>'+data.id+'</td><td>'+data.name_product+'</td><td>'+quanlity+'</td><td>'+data.unit.name+'</td><td><span class="fa fa-trash-o" style="color:red;cursor: pointer;" onclick="deleteRow(this)"></span></td>');
+					}					
 				}else{
 					$('#dataProduct tbody tr').each(function(){					
 						var product_id = $(this).find('td:eq(0)').text();
@@ -148,15 +155,20 @@ $(document).ready(function(){
 						var sum = 0; 					
 						if(product_id == data.id){
 							sum = parseInt(product_quanlity) + parseInt(quanlity);
-							$(this).find('td:eq(2)').text(sum);									
+							if(sum <= 0){
+								$('#error-quanlity').append('Quanlity(all) must be greater than 1(min)');
+							}else{								
+								$(this).find('td:eq(2)').text(sum);
+							}
+																
 						}						
 					});
 				}	
 			}			
 		});			
-	});
+	});		
 	$('#formData').on('submit',function(e){
-		e.preventDefault();		
+		e.preventDefault();
 		$('#ImportWH').hide();
 		$('#btnLoading').show();		
 		var form = $('#formData').serializeArray();
@@ -164,6 +176,9 @@ $(document).ready(function(){
 		var table = $('#dataProduct tbody');
 		var dataArr = [];
 		var dataObj = {};
+		var name  = $('#name_bill').val();
+		var code  = $('#code_bill').val();
+		
 		table.find('tr').each(function (i, el) {
 			var $tds = $(this).find('td');
             id_product = $tds.eq(0).text();
@@ -171,20 +186,25 @@ $(document).ready(function(){
             dataObj = ({id_product:id_product,quanlity:quanlity});           
             dataArr.push(dataObj);                                                 	                              
 		});
-
-		$.ajax({
-			url: '{{ route('user.import.product.post') }}',
-			type: 'POST',
-			data:{'detail':detail,'dataArr':dataArr},
-			success: function(){				
-				window.location.assign('{{ route('user.history') }}');					
-			},
-			error: function(xhr, textStatus, error){
-		      	console.log(xhr.statusText);
-		     	console.log(textStatus);
-		      	console.log(error);
-		  	}	
-		});
+		if(dataArr == '' || name == '' || code == '' ){
+			$('#error_sumbit').show();
+			$('#ImportWH').show();
+			$('#btnLoading').hide();			
+			return false;
+		}else{
+			$.ajax({
+				url: '{{ route('user.import.product.post') }}',
+				type: 'POST',
+				data:{'detail':detail,'dataArr':dataArr},
+				success: function(){				
+					window.location.assign('{{ route('user.history') }}');					
+				},
+				error: function(data){		      
+			      	$('#ImportWH').show();
+					$('#btnLoading').hide();
+				}
+			});		
+		}		
 					  							
 	});	
 });

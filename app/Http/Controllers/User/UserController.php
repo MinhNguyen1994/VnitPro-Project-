@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\User\UserService;
 use Response;
 
+
 class UserController extends Controller
 {
     //
@@ -34,7 +35,7 @@ class UserController extends Controller
     public function postImport(Request $request)
     {  
         $data = UserService::postImport($request->all());
-        return $data;        
+        return Response::json($data);        
     }
     public function actionExport()
     {
@@ -77,6 +78,18 @@ class UserController extends Controller
     {
         $data = UserService::getAjaxProduct($request);
         return Response::json($data);
+    }
+
+    public function getLocation(Request $request)
+    {
+        $data = UserService::getLocation($request);
+        return Response::json($data);
+    }
+
+    public function editLocation(Request $request)
+    {
+        $data = UserService::editLocation($request);
+        return $data;
     }
 
 }

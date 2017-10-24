@@ -134,7 +134,25 @@ class UserService extends ServiceProvider
 
     public static function getAjaxProduct($request)
     {
-        $data = WareHouseProductRes::join('products','warehouse_product_res.product_id','products.id')->join('product_units','products.unit_id','product_units.id')->select('products.name_product','product_units.name','quanlity','warehouse_product_res.created_at','warehouse_product_res.updated_at')->where('warehouse_id',$request->id)->get();
+        $data = WareHouseProductRes::join('products','warehouse_product_res.product_id','products.id')->join('product_units','products.unit_id','product_units.id')->select('products.name_product','product_units.name','quanlity','warehouse_product_res.created_at','warehouse_product_res.updated_at','product_id')->where('warehouse_id',$request->id)->get();
+        return $data;
+    }
+
+    public static function getLocation($request)
+    {
+        $data = WareHouseProductRes::select('location_product','product_id')->where('product_id',$request->product_id)->where('warehouse_id',$request->warehouse_id)->first();
+        return $data;
+    }
+
+    public static function editLocation($request)
+    {
+        $data = WareHouseProductRes::updateOrCreate(
+            [
+                'product_id' => $request->product_id,
+                'warehouse_id'  => $request->warehouse_id
+            ],[
+                'location_product' => $request->location
+        ]);
         return $data;
     }
 }
