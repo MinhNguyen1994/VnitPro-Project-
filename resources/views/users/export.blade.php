@@ -44,7 +44,7 @@
 						<label>Name</label>
 						<input type="text" name="name" class="form-control" style="width: 70%" placeholder="Enter Bill's Name">
 					</div>
-					<div class="form-group col-md-6 col-xs-12">
+					<div class="form-group col-md-5 col-xs-12">
 						<label>Code</label>
 						<input type="text" name="code" class="form-control" style="width: 70%" placeholder="Ender Code">
 
@@ -63,7 +63,13 @@
 							<div class="col-xs-3 col-md-3">								
 								<span class="btn btn-info add" id="add" style="display: none">Add to Bill</span>
 							</div>
-						</div>										
+						</div>														
+					</div>
+					<div class="form-group col-xs-12 col-md-6" id="whereExport" style="display: none">
+						<label>Export To:</label>
+						<select class="form-control select2" name="locationExport" style="width: 80%" id="locationExport">
+
+						</select>
 					</div>					
 				</div>
 				<div class="form-group">
@@ -90,7 +96,11 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<input type="submit" class="btn btn-success" name="submit" value="Export to Out" id="ExportTO">
+					<label>Description</label>
+					<textarea name="description" placeholder="Say Something..." class="form-control" style="width: 70%" rows="4"></textarea>
+				</div>
+				<div class="form-group">
+					<input type="submit" class="btn btn-success" name="submit" value=" Export To " id="ExportTO">
 					<div id="btnLoading" style="display: none">
 						<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
 						<span class="sr-only">Loading...</span>
@@ -125,12 +135,18 @@ $(document).ready(function(){
 			dataType:'json',
 			type:'GET',
 			data:{'id':id_location },
-			success: function(data){
+			success: function(data){				
 				$('#product').empty();				
 				$('#product').append('<option value="0" disabled selected>Choose A Product</option>');				
-				$.each(data, function(create,dataObj){
+				$.each(data.dataRes, function(create,dataObj){
 			        $('#product').append('<option value="'+dataObj.product_id+'">'+dataObj.name_product+'( '+dataObj.name+' )</option>');
-			    });				
+			    });
+			    $('#locationExport').empty();
+			    $('#locationExport').append('<option value="0">Export To Out</option>' );
+			    $.each(data.dataLocation,function(index,dataObj){			    	
+			    	$('#locationExport').append('<option value="'+dataObj.id+'">'+dataObj.name_warehouse+'( '+dataObj.address+' )</option>' );
+			    });
+			    $('#whereExport').css('display','block');				
 			},error:function(){
 				alert('bleeee');
 			}			
@@ -158,7 +174,7 @@ $(document).ready(function(){
 		var quanlity = $('#quanlity').val();			
 		var product_id = $('#product').val();
 		var location_id = $('#location').val();
-		$('#errorQuanlity').empty();			
+		$('#error-quanlity').empty();			
 		$.ajax({
 			url: '{{ route('get.product.export') }}',
 			type: 'GET',
@@ -218,7 +234,7 @@ $(document).ready(function(){
 		});
 
 		$.ajax({
-			url: '{{ route('user.import.product.post') }}',
+			url: '{{ route('user.export.product.post') }}',
 			type: 'POST',
 			data:{'detail':detail,'dataArr':dataArr},
 			success: function(data){				

@@ -20,6 +20,7 @@ Route::get('/import','User\UserController@actionImport')->name('user.import.prod
 Route::post('/import','User\UserController@postImport')->name('user.import.product.post');
 
 Route::get('/export','User\UserController@actionExport')->name('user.export.product');
+Route::post('/export','User\UserController@postExport')->name('user.export.product.post');
 
 Route::get('/view','User\UserController@listWH')->name('user.view.listWH');
 Route::get('/ajax-getProduct','User\UserController@getAjaxProduct')->name('user.ajax.get.product');

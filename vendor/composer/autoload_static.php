@@ -300,6 +300,7 @@ class ComposerStaticInit60ef7b68f2355d800d6142170c805c9a
     );
 
     public static $classMap = array (
+        'AddActionFromToBillsTable' => __DIR__ . '/../..' . '/database/migrations/2017_10_28_035922_add_actionFrom_to_bills_table.php',
         'AddLocationToWhresTable' => __DIR__ . '/../..' . '/database/migrations/2017_10_24_030537_add_location_to_whres_table.php',
         'App\\Admin' => __DIR__ . '/../..' . '/app/Admin.php',
         'App\\City' => __DIR__ . '/../..' . '/app/City.php',

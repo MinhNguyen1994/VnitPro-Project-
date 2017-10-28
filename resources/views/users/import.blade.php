@@ -97,8 +97,12 @@
 					</div>
 				</div>
 				<div class="form-group">
+					<label>Description</label>
+					<textarea name="description" placeholder="Say Something..." class="form-control" style="width: 70%" rows="4"></textarea>
+				</div>
+				<div class="form-group">
 					<div id="error_sumbit" style="display: none;margin: 10px;color: red"><strong>Please fill all the fields and pick product first<strong></div>
-					<input type="submit" class="btn btn-success" name="submit" id="ImportWH" value="Import to WareHouse">
+					<input type="submit" class="btn btn-success" name="submit" id="ImportWH" value=" Import To">
 					<div id="btnLoading" style="display: none">
 						<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
 						<span class="sr-only">Loading...</span>

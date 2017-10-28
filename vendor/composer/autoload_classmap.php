@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddActionFromToBillsTable' => $baseDir . '/database/migrations/2017_10_28_035922_add_actionFrom_to_bills_table.php',
     'AddLocationToWhresTable' => $baseDir . '/database/migrations/2017_10_24_030537_add_location_to_whres_table.php',
     'App\\Admin' => $baseDir . '/app/Admin.php',
     'App\\City' => $baseDir . '/app/City.php',

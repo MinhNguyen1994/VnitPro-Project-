@@ -56,10 +56,14 @@ class UserService extends ServiceProvider
         return $data;
     }
 
-    public static function getDataRes($location)
+    public static function getDataRes($request)
     {        
-        $data = WareHouseProductRes::join('products','warehouse_product_res.product_id','products.id')->join('product_units','products.unit_id','product_units.id')->select('products.name_product','product_units.name','product_id')->where('warehouse_id',$location['id'])->get();
-        return $data;
+        $dataRes = WareHouseProductRes::join('products','warehouse_product_res.product_id','products.id')->join('product_units','products.unit_id','product_units.id')->select('products.name_product','product_units.name','product_id')->where('warehouse_id',$request->id)->get();
+        $dataLocation = WareHouse::where('id','!=',$request->id)->get();
+        return $data = [
+            'dataRes' => $dataRes,
+            'dataLocation' => $dataLocation
+        ];
     }
     
     public static function getQuanlity($request)
@@ -78,6 +82,7 @@ class UserService extends ServiceProvider
         $historyBill->action = $data['detail']['action'];
         $historyBill->user_id = $data['detail']['employee'];
         $historyBill->name = $data['detail']['name'];
+        $historyBill->description = $data['detail']['description'];
         $historyBill->created_at = $time;
         $historyBill->save();
 
@@ -92,11 +97,7 @@ class UserService extends ServiceProvider
             if($check == null){                                
                 $quanlity_change = $value['quanlity'];                
             }else{ 
-                if($data['detail']['action'] == 0){
-                    $quanlity_change = $check->quanlity + $value['quanlity'];
-                } else{
-                    $quanlity_change = $check->quanlity - $value['quanlity'];
-                }              
+                $quanlity_change = $check->quanlity + $value['quanlity'];                           
             }
             WareHouseProductRes::updateOrCreate([
                 'product_id' => $value['id_product'],
@@ -110,12 +111,28 @@ class UserService extends ServiceProvider
 
     public static function viewExport()
     {
-        $warehouse = WareHouse::with('bill')->get();        
+        $warehouse = WareHouse::with('bill')->get();              
         $dataBill = Bill::with('product','warehouse')->get();
         return $data =[
             'warehouse' => $warehouse,
-            'dataBill'  => $dataBill
+            'dataBill'  => $dataBill,            
         ];
+    }
+
+    public static function postExport($data)
+    {
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $time = date('Y-m-d H:i:s');        
+        $historyBill = new Bill();
+        $historyBill->name = $data['detail']['name'];
+        $historyBill->code = $data['detail']['code'];
+        $historyBill->warehouse_id = $data['detail']['location'];
+        $historyBill->action = $data['detail']['action'];
+        $historyBill->user_id = $data['detail']['employee'];
+        $historyBill->name = $data['detail']['name'];
+        $historyBill->created_at = $time;
+        $historyBill->save();
+        
     }
 
     public static function getHistory()

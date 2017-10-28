@@ -42,6 +42,11 @@ class UserController extends Controller
         $data = UserService::viewExport();
     	return view('users.export',['data' =>$data]);
     }
+    public function postExport(Request $request)
+    {  
+        $data = UserService::postExport($request->all());
+        return Response::json($data);        
+    }
 
     public function getProduct(Request $request)
     {                 
@@ -57,8 +62,7 @@ class UserController extends Controller
 
     public function getProductRes(Request $request)
     {
-        $data = UserService::getDataRes($request->all())
-        ;
+        $data = UserService::getDataRes($request);       
         return Response::json($data);
     }
 
