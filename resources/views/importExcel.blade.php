@@ -7,10 +7,8 @@
 </h1>
 <ol class="breadcrumb">
     <li><a href="{{ route('admin.index') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li><a href="{{ route('import.excel') }}"><i class="fa fa-dashboard"></i> Import</a></li>    
-    
+    <li><a href="{{ route('import.excel') }}"><i class="fa fa-dashboard"></i> Import</a></li>      
 </ol>            
-</section>  
 @endsection
 
 @section('css')
@@ -132,7 +130,7 @@
       dataType:'json',
       success: function(district){                                                               
         $('#district').empty();
-            $('#district').append('<option value="0" selected disabled>Choose a District</option>');
+        $('#district').append('<option value="0" selected disabled>Choose a District</option>');
         $.each(district, function(create,districtObj){
           $('#district').append('<option value="'+districtObj.code_district+'">'+districtObj.name_district+'</option>');
         });       

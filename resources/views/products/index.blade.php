@@ -1,3 +1,4 @@
+
 @extends('layouts.layoutAdmin')
 
 @section('contend-header')
@@ -9,7 +10,6 @@
     <li><a href="{{ route('admin.index') }}"><i class="fa fa-dashboard"></i> Home</a></li>
     <li><i class="fa fa-dashboard"></i> Product</li>      
 </ol>            
-</section>  
 @endsection
 
 @section('css')
@@ -48,13 +48,14 @@
           </tr>
           </thead>
           <tbody>
-          @foreach($data as $value)            
+          @foreach($data as $value)
+          
           <tr>
             <td>{{ $value->name_product }}</td>            
             <td>{{ $value->code_product }}</td>
             <td>{{ $value->unit->name }}</td>                      
             <td>{{ $value->description }}</td>
-            <td>{{ $value->product_group->name_product_group}}</td>            
+            <td>{{ $value->product_group->name_product_group }}</td>            
             <td>{{ $value->created_at }}</td>
             <td>{{ $value->updated_at }}</td>
             <td>

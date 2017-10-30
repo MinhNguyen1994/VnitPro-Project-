@@ -10,7 +10,6 @@
     <li><i class="fa fa-dashboard"></i> Locations</li>    
       
 </ol>            
-</section>  
 @endsection
 
 @section('css')

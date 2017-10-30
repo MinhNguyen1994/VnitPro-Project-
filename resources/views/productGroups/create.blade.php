@@ -10,8 +10,7 @@
     <li><a href="{{ route('product') }}"><i class="fa fa-dashboard"></i> Product</a></li>    
     <li><a href="{{ route('product.group') }}"><i class="fa fa-dashboard"></i> Product Group</a></li>    
     <li><i class="fa fa-dashboard"></i> {{ $data['titleMini'] }}</li>    
-</ol>            
-</section>  
+</ol>      
 @endsection
 
 @section('css')

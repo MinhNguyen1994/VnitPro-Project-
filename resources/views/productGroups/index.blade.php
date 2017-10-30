@@ -10,7 +10,6 @@
     <li><a href="{{ route('product') }}"><i class="fa fa-dashboard"></i> Product</a></li>   
     <li><i class="fa fa-dashboard"></i> Product Group</li>   
 </ol>            
-</section>  
 @endsection
 
 @section('css')

@@ -10,7 +10,6 @@
     <li><a href="{{ route('product') }}"><i class="fa fa-dashboard"></i> Product</a></li>       
     <li><i class="fa fa-dashboard"></i>{{ $data['dataProduct']['titleMini'] }}</li>    
 </ol>            
-</section>  
 @endsection
 
 @section('css')
@@ -51,7 +50,7 @@
                             <label class="control-label" for="inputError" style="color:red">
                                 @if($errors->has('name'))
                                     <i class="fa fa-times-circle-o"></i>
-                                    {{ $errors->first('name') }}
+                                    {{ $errors->('name') }}
                                 @endif
                             </label>
                         </div>      
@@ -66,7 +65,11 @@
                             <div class="col-md-5 col-xs-8">                                
                                 <select class="form-control select2" name="unit">                    
                                     @foreach($data['dataUnit'] as $d)
-                                        <option value="{{ $d->id }}">{{ $d->name }}</option>
+                                        @if($d->id == $data['dataProduct']['unit_id'])
+                                            <option value="{{ $d->id }}" selected>{{ $d->name }}</option>
+                                        @else
+                                            <option value="{{ $d->id }}">{{ $d->name }}</option>
+                                        @endif
                                     @endforeach                    
                                 </select>
                             </div>                                                       

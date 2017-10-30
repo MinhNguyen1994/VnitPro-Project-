@@ -49,6 +49,7 @@ class ProductService extends ServiceProvider
             'description'       => '',
             'code_product'      => '',            
             'product_group_id'  => '',
+            'unit_id'           => '',
         ];
         $data = [             
             'dataProduct'   =>  $dataProduct,
@@ -93,7 +94,8 @@ class ProductService extends ServiceProvider
     {
         
         $dataGroup = ProductGroup::all();
-        $getProduct = Product::where('id',$id)->first()->toArray();                
+        $dataUnit = Unit::all();
+        $getProduct = Product::where('id',$id)->first()->toArray();                     
         $dataProduct = [
             'titleSmall'        => 'Edit',
             'titlePage'         => 'Edit The Product: ' .$getProduct['name_product'],
@@ -102,10 +104,12 @@ class ProductService extends ServiceProvider
             'description'       => $getProduct['description'],
             'code_product'      => $getProduct['code_product'],
             'product_group_id'  => $getProduct['product_group_id'],            
+            'unit_id'           => $getProduct['unit_id'],            
         ];
         $data = [           
             'dataProduct'   =>  $dataProduct,
-            'dataGroup'     =>  $dataGroup
+            'dataGroup'     =>  $dataGroup,
+            'dataUnit'      =>  $dataUnit
         ];        
         return $data;    
     }

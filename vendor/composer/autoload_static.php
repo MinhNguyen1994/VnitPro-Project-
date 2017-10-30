@@ -300,13 +300,15 @@ class ComposerStaticInit60ef7b68f2355d800d6142170c805c9a
     );
 
     public static $classMap = array (
+        'AddActionFromToBillsTable' => __DIR__ . '/../..' . '/database/migrations/2017_10_28_035922_add_actionFrom_to_bills_table.php',
+        'AddLocationToWhresTable' => __DIR__ . '/../..' . '/database/migrations/2017_10_24_030537_add_location_to_whres_table.php',
         'App\\Admin' => __DIR__ . '/../..' . '/app/Admin.php',
         'App\\City' => __DIR__ . '/../..' . '/app/City.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\District' => __DIR__ . '/../..' . '/app/District.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
-        'App\\History\\BillDetails' => __DIR__ . '/../..' . '/app/History/BillDetails.php',
-        'App\\History\\HistoryBills' => __DIR__ . '/../..' . '/app/History/HistoryBills.php',
+        'App\\History\\Bill' => __DIR__ . '/../..' . '/app/History/Bill.php',
+        'App\\History\\BillDetail' => __DIR__ . '/../..' . '/app/History/BillDetail.php',
         'App\\Http\\Controllers\\Admin\\AdminController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/AdminController.php',
         'App\\Http\\Controllers\\Admin\\AdminLoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/AdminLoginController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
@@ -334,7 +336,6 @@ class ComposerStaticInit60ef7b68f2355d800d6142170c805c9a
 =======
         'App\\Http\\Requests\\ProductGroupRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ProductGroupRequest.php',
         'App\\Http\\Requests\\ProductRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ProductRequest.php',
-        'App\\PositionUser' => __DIR__ . '/../..' . '/app/PositionUser.php',
         'App\\Product\\Product' => __DIR__ . '/../..' . '/app/Product/Product.php',
         'App\\Product\\ProductGroup' => __DIR__ . '/../..' . '/app/Product/ProductGroup.php',
         'App\\Product\\Unit' => __DIR__ . '/../..' . '/app/Product/Unit.php',
@@ -352,7 +353,7 @@ class ComposerStaticInit60ef7b68f2355d800d6142170c805c9a
         'App\\Providers\\QuanlityService' => __DIR__ . '/../..' . '/app/Providers/QuanlityService.php',
 >>>>>>> Inwork
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
-        'App\\Providers\\UserService' => __DIR__ . '/../..' . '/app/Providers/UserService.php',
+        'App\\Providers\\User\\UserService' => __DIR__ . '/../..' . '/app/Providers/User/UserService.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'App\\Ward' => __DIR__ . '/../..' . '/app/Ward.php',
         'App\\WareHouse' => __DIR__ . '/../..' . '/app/WareHouse.php',
@@ -364,12 +365,7 @@ class ComposerStaticInit60ef7b68f2355d800d6142170c805c9a
         'CreateBillsTable' => __DIR__ . '/../..' . '/database/migrations/2017_10_12_092549_create_bills_table.php',
         'CreateCitiesTable' => __DIR__ . '/../..' . '/database/migrations/2017_09_27_022827_create_cities_table.php',
         'CreateDistrictsTable' => __DIR__ . '/../..' . '/database/migrations/2017_09_27_023535_create_districts_table.php',
-        'CreateHistoryBillsTable' => __DIR__ . '/../..' . '/database/migrations/2017_10_10_020618_create_history_bills_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
-        'CreatePermissionTables' => __DIR__ . '/../..' . '/database/migrations/2017_10_11_045503_create_permission_tables.php',
-        'CreatePositionUsersTable' => __DIR__ . '/../..' . '/database/migrations/2017_10_11_083955_create_position_users_table.php',
-        'CreatePositionsTable' => __DIR__ . '/../..' . '/database/migrations/2017_09_27_035500_create_positions_table.php',
-        'CreatePostsTable' => __DIR__ . '/../..' . '/database/migrations/2017_10_11_071519_create_posts_table.php',
         'CreateProductGroupsTable' => __DIR__ . '/../..' . '/database/migrations/2017_09_27_061713_create_product_groups_table.php',
         'CreateProductUnitsTable' => __DIR__ . '/../..' . '/database/migrations/2017_10_07_013241_create_product_units_table.php',
         'CreateProductsTable' => __DIR__ . '/../..' . '/database/migrations/2017_09_27_062212_create_products_table.php',

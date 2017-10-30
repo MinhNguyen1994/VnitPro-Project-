@@ -109,7 +109,7 @@ return [
         ],
         'name' =>[
             'required'      => 'You must to choose a name.'
-        ]
+        ],         
     ],
 
     /*

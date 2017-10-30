@@ -13,17 +13,33 @@
 Auth::routes();
 // -----------------------------------------USER-----------------------------------------\\
 
-Route::get('/' ,'User\UserController@index')->name('user.index');
+Route::get('/' ,'User\UserController@history')->name('user.index');
 Route::get('/home' ,'User\UserController@index')->name('user.index');
 
 Route::get('/import','User\UserController@actionImport')->name('user.import.product');
-Route::post('/importPost','User\UserController@postImport')->name('user.import.product.post');
+Route::post('/import','User\UserController@postImport')->name('user.import.product.post');
 
 Route::get('/export','User\UserController@actionExport')->name('user.export.product');
+Route::post('/export','User\UserController@postExport')->name('user.export.product.post');
+
+Route::get('/view','User\UserController@listWH')->name('user.view.listWH');
+Route::get('/ajax-getProduct','User\UserController@getAjaxProduct')->name('user.ajax.get.product');
+
+Route::get('history','User\UserController@history')->name('user.history');
   
 Route::get('/logout', 'Auth\LoginController@userLogout')->name('logout');
 
 Route::get('/getProduct','User\UserController@getProduct')->name('get.product');
+
+Route::get('/getProductRes','User\UserController@getProductRes')->name('get.product.res');
+
+Route::get('/getQuanlity','User\UserController@getQuanlity')->name('get.product.quanlity');
+
+Route::get('/getProductExport','User\UserController@getProductExport')->name('get.product.export');
+
+Route::get('/getLocation','User\UserController@getLocation')->name('get.ajax.location');
+
+Route::post('/editLocation','User\UserController@editLocation')->name('edit.ajax.location');
 
 
 

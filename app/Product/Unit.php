@@ -17,7 +17,13 @@ class Unit extends Model
         'remember_token'
     ];
 
-    public function product(){
+    public function product()
+    {
     	return $this->hasOne('App\Product\Product');
+    }
+
+    public function whrs()
+    {
+        return $this->hasManyThrough('App\Product\WareHouseProductRes','App\Product\Product');
     }
 }

@@ -10,7 +10,7 @@
     <li><a href="{{ url('history') }}"><i class="fa fa-dashboard"></i> History</a></li>       
     <li><i class="fa fa-dashboard">Bills</i></li>    
 </ol>            
-</section>  
+ 
 @endsection
 
 @section('css')

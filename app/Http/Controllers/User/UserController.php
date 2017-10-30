@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\User\UserService;
 use Response;
 
+
 class UserController extends Controller
 {
     //
@@ -20,29 +21,79 @@ class UserController extends Controller
     	echo "ok";
     }
 
+    public function history(){
+        $data = UserService::getHistory();        
+        return view('users.history',['data'=> $data]);
+    }
+
     public function actionImport()
     {	
     	$data = UserService::viewImport(); 
-    	return view('users.index',['data' =>$data]);
+    	return view('users.import',['data' =>$data]);
     }
 
     public function postImport(Request $request)
     {  
         $data = UserService::postImport($request->all());
-        echo "<pre>";
-        print_r($data);
-        echo "</pre>";
-
+        return Response::json($data);        
     }
     public function actionExport()
     {
-    	return view('users.index');
+        $data = UserService::viewExport();
+    	return view('users.export',['data' =>$data]);
+    }
+    public function postExport(Request $request)
+    {  
+        $data = UserService::postExport($request->all());
+        return Response::json($data);        
     }
 
-    public function getProduct(Request $request){
-                 
+    public function getProduct(Request $request)
+    {                 
         $data = UserService::getdata($request->product);        
         return Response::json($data);
+    }
+
+    public function getProductExport(Request $request)
+    {
+        $data = UserService::getDataExport($request);        
+        return Response::json($data);
+    }
+
+    public function getProductRes(Request $request)
+    {
+        $data = UserService::getDataRes($request);       
+        return Response::json($data);
+    }
+
+    public function getQuanlity(Request $request)
+    {
+        $data = UserService::getQuanlity($request);
+        return Response::json($data);
+    }
+
+    public function listWh()
+    {
+        $data = UserService::getListWh();
+        return view('users.listWh',['data' => $data]);
+    }
+
+    public function getAjaxProduct(Request $request)
+    {
+        $data = UserService::getAjaxProduct($request);
+        return Response::json($data);
+    }
+
+    public function getLocation(Request $request)
+    {
+        $data = UserService::getLocation($request);
+        return Response::json($data);
+    }
+
+    public function editLocation(Request $request)
+    {
+        $data = UserService::editLocation($request);
+        return $data;
     }
 
 }
