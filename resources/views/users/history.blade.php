@@ -82,9 +82,17 @@
 								</div>
 								<div>
 									<label class="labelHistoryContent">Action :</label> 							
-										@if($value->action == 0)
-											<strong style="color: orange">Import to warehouse</strong>
-										@endif															
+									@if($value->action == 0)
+										<strong style="color: orange">Import to warehouse</strong>
+									@endif															
+								</div>
+								<div>
+									<label class="labelHistoryContent">Description :</label>
+									@if($value->description == null)
+										<i>None</i>
+									@else
+										{{ $value->description }}
+									@endif									
 								</div>
 								<div>
 									<label class="labelHistoryContent">Detail Products :</label>
@@ -138,6 +146,14 @@
 										@if($value->action == 1)
 											<strong style="color: orange">Export to Out</strong>
 										@endif															
+								</div>
+								<div>
+									<label class="labelHistoryContent">Description :</label>
+									@if($value->description == null)
+										<i>None</i>
+									@else
+										{{ $value->description }}
+									@endif									
 								</div>
 								<div>
 									<label class="labelHistoryContent">Detail Products :</label>

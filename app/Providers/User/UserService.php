@@ -75,22 +75,21 @@ class UserService extends ServiceProvider
     public static function postImport($data){        
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $time = date('Y-m-d H:i:s');        
-        $historyBill = new Bill();
-        $historyBill->name = $data['detail']['name'];
-        $historyBill->code = $data['detail']['code'];
-        $historyBill->warehouse_id = $data['detail']['location'];
-        $historyBill->action = $data['detail']['action'];
-        $historyBill->user_id = $data['detail']['employee'];
-        $historyBill->name = $data['detail']['name'];
-        $historyBill->description = $data['detail']['description'];
-        $historyBill->created_at = $time;
-        $historyBill->save();
+        $BillImport = new Bill();
+        $BillImport->name = $data['detail']['name'];
+        $BillImport->code = $data['detail']['code'];
+        $BillImport->warehouse_id = $data['detail']['location'];
+        $BillImport->action = $data['detail']['action'];
+        $BillImport->user_id = $data['detail']['employee'];
+        $BillImport->description = $data['detail']['description'];
+        $BillImport->created_at = $time;
+        $BillImport->save();
 
         foreach($data['dataArr'] as $value){            
             $detailBill = new BillDetail();
             $detailBill->product_id = $value['id_product'];
             $detailBill->quanlity_change = $value['quanlity'];
-            $detailBill->bill_id = $historyBill->id;
+            $detailBill->bill_id = $BillImport->id;
             $detailBill->created_at = $time;
             $detailBill->save();
             $check = WareHouseProductRes::where('product_id', $value['id_product'])->where('warehouse_id',$data['detail']['location'])->first();
@@ -123,16 +122,70 @@ class UserService extends ServiceProvider
     {
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $time = date('Y-m-d H:i:s');        
-        $historyBill = new Bill();
-        $historyBill->name = $data['detail']['name'];
-        $historyBill->code = $data['detail']['code'];
-        $historyBill->warehouse_id = $data['detail']['location'];
-        $historyBill->action = $data['detail']['action'];
-        $historyBill->user_id = $data['detail']['employee'];
-        $historyBill->name = $data['detail']['name'];
-        $historyBill->created_at = $time;
-        $historyBill->save();
-        
+        $BillExport = new Bill();
+        $BillExport->name = $data['detail']['name'];
+        $BillExport->code = $data['detail']['code'];
+        $BillExport->warehouse_id = $data['detail']['location'];
+        $BillExport->action = $data['detail']['action'];
+        $BillExport->user_id = $data['detail']['employee'];
+        $BillExport->description = $data['detail']['description'];
+        $BillExport->created_at = $time;
+        $BillExport->save();
+
+        if($data['detail']['locationExport'] != 0 ){
+            $BillImport = new Bill();
+            $BillImport->name = 'IP From Bill ' .$data['detail']['code'];
+            $BillImport->code = 'IPF|' .$data['detail']['code'];
+            $BillImport->warehouse_id = $data['detail']['locationExport'];
+            $BillImport->action = 0;
+            $BillImport->user_id = $data['detail']['employee'];
+            $BillImport->description = $data['detail']['description'];
+            $BillImport->actionFrom = $data['detail']['location'];
+            $BillImport->created_at = $time;
+            $BillImport->save();
+        }        
+        foreach($data['dataArr'] as $value){            
+            $detailBill = new BillDetail();
+            $detailBill->product_id = $value['id_product'];
+            $detailBill->quanlity_change = $value['quanlity'];
+            $detailBill->bill_id = $BillExport->id;
+            $detailBill->created_at = $time;
+            $detailBill->save();
+            $check = WareHouseProductRes::where('product_id', $value['id_product'])->where('warehouse_id',$data['detail']['location'])->first();
+            if($check == null){                                
+                $quanlity_change = $value['quanlity'];                
+            }else{ 
+                $quanlity_change = $check->quanlity - $value['quanlity'];                           
+            }
+            WareHouseProductRes::updateOrCreate([
+                'product_id' => $value['id_product'],
+                'warehouse_id'  => $data['detail']['location']
+            ],[
+                'quanlity' => $quanlity_change,
+                'updated_at' => $time 
+            ]);
+            if($data['detail']['locationExport'] != 0 ){
+                $detailBillImport = new BillDetail();
+                $detailBillImport->product_id = $value['id_product'];
+                $detailBillImport->quanlity_change = $value['quanlity'];
+                $detailBillImport->bill_id = $BillImport->id;
+                $detailBillImport->created_at = $time;
+                $detailBillImport->save();
+                $checkImport = WareHouseProductRes::where('product_id', $value['id_product'])->where('warehouse_id',$data['detail']['locationExport'])->first(); 
+                if($checkImport == null){                                
+                    $quanlity_import = $value['quanlity'];                
+                }else{ 
+                    $quanlity_import = $checkImport->quanlity + $value['quanlity'];                           
+                }
+                WareHouseProductRes::updateOrCreate([
+                    'product_id' => $value['id_product'],
+                    'warehouse_id'  => $data['detail']['locationExport']
+                ],[
+                    'quanlity' => $quanlity_import,
+                    'updated_at' => $time 
+                ]);
+            }          
+        }                
     }
 
     public static function getHistory()

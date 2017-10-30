@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="{{ asset('bower_components/select2/dist/css/select2.min.css') }}">
 <!-- DataTables -->
 <link rel="stylesheet" href="{{ asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <style type="text/css">
     #popupForm{
         position: fixed;        
@@ -107,6 +108,11 @@
 
 @section('javascript')
 <script type="text/javascript">
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
 $(document).ready(function(){
 	var warehouse_id = $('#warehouse').val();
 	$.ajax({
@@ -193,7 +199,7 @@ function saveLocation(e){
 	var location = $('#contentlocation').val()	
 	$.ajax({
 		url:'{{ route('edit.ajax.location') }}',
-		type:'GET',
+		type:'POST',
 		dataType: 'json',
 		data:{'warehouse_id': warehouse_id,'product_id': product_id,'location': location},
 		success:function(data){			
